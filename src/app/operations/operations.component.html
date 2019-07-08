@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="reglist">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <!-- <th>Object ID</th> -->
+          <th>User Name</th>
+          <th>Email</th>
+
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of getUsers | async; ">
+          
+          <td>{{ user.userName }}</td>
+          <td>{{ user.email }}</td>
+
+          <td>
+            <button type="button" class="btn btn-primary" (click)="onEdit(user.id)">Edit</button></td>
+          <td>
+            <button type="button" class="btn btn-danger" (click)="onDelete(user.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-right">
+      <button type="submit" class="btn btn-primary" (click)="onNew()">New User</button>
+    </div>
+  </div>
+  <div *ngIf="showNew">
+ 
+    <form>
+      <div class="form-group row">
+        <label for="User-Name" class="col-2 col-form-label">User Name</label>
+        <div class="col-10">
+          <input class="form-control" type="text" [(ngModel)]="username" name="userName">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="User-email" class="col-2 col-form-label">Email</label>
+        <div class="col-10">
+          <input class="form-control" type="text" [(ngModel)]="emailID" name="email">
+        </div>
+      </div>
+      <button (click)="addUser(username,emailID)">AddUser</button>
+
+    </form>
+  </div>
+  <div >
+    <br>
+  </div>
+  <div *ngIf="editUser">
+    <form>
+      <div class="form-group row">
+        <label for="User-Name" class="col-2 col-form-label">User Name</label>
+        <div class="col-10">
+          <input class="form-control" type="text" [(ngModel)]="username" name="userName">
+        </div>
+      </div>
+      <button (click)="updateUserByName(username)">UpdateUser</button>
+
+    </form>
+  </div>
+
+
+</div>
