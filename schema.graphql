@@ -1,0 +1,24 @@
+
+
+  type User
+   {
+       id:ID!
+       userName:String
+       email:String
+   }
+
+   type Query
+   {
+       getUsers:[User]
+       getUser(id:String!):User
+       
+   }
+   type Mutation
+   {
+       addUser(userName:String!,email:String!):User
+       deleteUserByUserName(userName:String!):User
+       deleteUserById(id:ID!):User
+       deleteUserByEmail(email:String!):User
+       updateUser(id:ID!,userName:String!):User
+
+   }
