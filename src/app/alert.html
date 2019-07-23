@@ -1,0 +1,35 @@
+<!-- <div class="alert">
+
+  <div *ngFor="let alert of alerts">
+
+
+    <ngb-alert class="div" [dismissible]="false" style="text-align: left;" [type]="alert.type">
+      {{ alert.message }}
+    </ngb-alert>
+
+  </div>
+</div> -->
+<div class="alert">
+
+  <div *ngFor="let alert of alerts">
+    <div class="alert-success" *ngIf="alert.type == 'success'">
+      <strong>Well done! </strong>
+      {{alert.message}}
+    </div>
+    <div class="alert-info" *ngIf="alert.type == 'info'">
+      <strong>Heads up! </strong>
+      {{alert.message}}
+    </div>
+    <div class="alert-warning" *ngIf="alert.type == 'warning'">
+      <strong>Warning! </strong>
+      {{alert.message}}
+    </div>
+
+    <div class="alert-danger" *ngIf="alert.type == 'danger'">
+      <strong>Oh snap!</strong>
+      {{alert.message}}
+    </div>
+
+
+  </div>
+</div>
