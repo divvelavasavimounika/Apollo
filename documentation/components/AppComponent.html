@@ -1,0 +1,477 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>loader-example documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">loader-example documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>AppComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/app.component.ts</code>
+</p>
+
+
+
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-root</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./app.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./app.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#loaders">loaders</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/app.component.ts:9</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="loaders"></a>
+                        <span class="name">
+                            <b>
+                            loaders</b>
+                            <a href="#loaders"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>Loaders</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/app.component.ts:14</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { Loaders } from &#x27;../app/loader.model&#x27;;
+
+@Component({
+  selector: &#x27;app-root&#x27;,
+  templateUrl: &#x27;./app.component.html&#x27;,
+  styleUrls: [&#x27;./app.component.css&#x27;]
+})
+export class AppComponent {
+  constructor() { 
+    console.log(this.loaders)
+  }
+
+  loaders&#x3D;Loaders;
+  
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;list&quot; *ngFor&#x3D;&quot;let a of loaders&quot;&gt;
+  &lt;div class&#x3D;&quot;small&quot; *ngIf&#x3D;&quot;a.size &#x3D;&#x3D; &#x27;small&#x27;&quot;&gt;
+    &lt;div class&#x3D;&quot;loader-main&quot; *ngIf&#x3D;&quot;a.size &#x3D;&#x3D; &#x27;small&#x27;&quot;&gt;
+      &lt;div class&#x3D;&quot;size&quot;&gt; {{a.size}}&lt;/div&gt;
+      &lt;div class&#x3D;&quot;loader&quot; *ngIf&#x3D;&quot;a.size &#x3D;&#x3D; &#x27;small&#x27;&quot;&gt;&lt;/div&gt;
+      &lt;div class&#x3D;&quot;loader-message&quot; *ngIf&#x3D;&quot;a.size &#x3D;&#x3D; &#x27;small&#x27;&quot;&gt; Please wait..&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;medium&quot; *ngIf&#x3D;&quot;a.size &#x3D;&#x3D; &#x27;medium&#x27;&quot;&gt;
+    &lt;div class&#x3D;&quot;loader-main&quot; *ngIf&#x3D;&quot;a.size &#x3D;&#x3D; &#x27;medium&#x27;&quot;&gt;
+      &lt;div class&#x3D;&quot;size&quot;&gt; {{a.size}}&lt;/div&gt;
+      &lt;div class&#x3D;&quot;loader&quot; *ngIf&#x3D;&quot;a.size &#x3D;&#x3D; &#x27;medium&#x27;&quot;&gt;&lt;/div&gt;
+      &lt;div class&#x3D;&quot;loader-message&quot; *ngIf&#x3D;&quot;a.size &#x3D;&#x3D; &#x27;medium&#x27;&quot;&gt; Please wait..&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;large&quot; *ngIf&#x3D;&quot;a.size &#x3D;&#x3D; &#x27;large&#x27;&quot;&gt;
+    &lt;div class&#x3D;&quot;loader-main&quot; *ngIf&#x3D;&quot;a.size &#x3D;&#x3D; &#x27;large&#x27;&quot;&gt;
+      &lt;div class&#x3D;&quot;size&quot;&gt; {{a.size}}&lt;/div&gt;
+      &lt;div class&#x3D;&quot;loader&quot; *ngIf&#x3D;&quot;a.size &#x3D;&#x3D; &#x27;large&#x27;&quot;&gt;&lt;/div&gt;
+      &lt;div class&#x3D;&quot;loader-message&quot; *ngIf&#x3D;&quot;a.size &#x3D;&#x3D; &#x27;large&#x27;&quot;&gt; Please wait..&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+
+
+
+&lt;router-outlet&gt;&lt;/router-outlet&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./app.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">/* small */
+.list
+{ 
+  display: inline-block;
+  margin-top: 30px;
+  margin-left: 80px;
+}
+
+
+.small .size
+{
+    position: absolute;
+    text-align: center;
+      color: #3d44ab;
+   
+}
+
+.small .loader-main{
+    
+    height:150px;
+  }								
+                                  
+ .small .loader {
+    border: 2px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 3px solid #3498db;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    float:left;
+    margin-top: 20px;
+  }
+  
+  .small .loader-message {
+      position: absolute;
+      margin-top: 14px;
+      padding: 13px;
+      width: 12px;
+    
+      text-align: center;
+      color: #3d44ab;
+  }
+
+/* Medium */
+.medium .size
+{
+    position: absolute;
+    text-align: center;
+      color: #3d44ab;
+   
+}
+
+
+.medium .loader-main{
+    
+    height:150px;
+  }								
+                                  
+ .medium .loader {
+    border: 2px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 3px solid #3498db;
+    width: 80px;
+    height: 80px;
+    animation: spin 2s linear infinite;
+    float:left;
+    margin-top: 20px;
+  }
+  
+  .medium .loader-message {
+      position: absolute;
+      margin-top: 34px;
+      padding: 13px;
+      width: 60px;
+     
+      text-align: center;
+      color: #3d44ab;
+  }
+
+
+
+  /* Large */
+  
+  .large .size
+{
+    position: absolute;
+    text-align: center;
+      color: #3d44ab;
+   
+}
+
+.large .loader-main{
+    
+    height:150px;
+  }								
+                                  
+ .large .loader {
+    border: 2px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 3px solid #3498db;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    float:left;
+    margin-top: 20px;
+  }
+  
+  .large .loader-message {
+      position: absolute;
+      margin-top: 54px;
+      padding: 13px;
+      width: 118px;
+      float:left;
+      text-align: center;
+      color: #3d44ab;
+  }
+  
+ 
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="list" *ngFor="let a of loaders">  <div class="small" *ngIf="a.size == \'small\'">    <div class="loader-main" *ngIf="a.size == \'small\'">      <div class="size"> {{a.size}}</div>      <div class="loader" *ngIf="a.size == \'small\'"></div>      <div class="loader-message" *ngIf="a.size == \'small\'"> Please wait..</div>    </div>  </div>  <div class="medium" *ngIf="a.size == \'medium\'">    <div class="loader-main" *ngIf="a.size == \'medium\'">      <div class="size"> {{a.size}}</div>      <div class="loader" *ngIf="a.size == \'medium\'"></div>      <div class="loader-message" *ngIf="a.size == \'medium\'"> Please wait..</div>    </div>  </div>  <div class="large" *ngIf="a.size == \'large\'">    <div class="loader-main" *ngIf="a.size == \'large\'">      <div class="size"> {{a.size}}</div>      <div class="loader" *ngIf="a.size == \'large\'"></div>      <div class="loader-message" *ngIf="a.size == \'large\'"> Please wait..</div>    </div>  </div></div><router-outlet></router-outlet></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'AppComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AppComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
