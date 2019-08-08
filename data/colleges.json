@@ -1,15 +1,15 @@
 [
     {
        "id": "col-101",
-       "name": "VVIT",
-       "location": "Andhra Pradesh",
+       "name.key": "VVIT",
+       "location.key": "Andhra Pradesh",
        "rating":5.0
     },
     
     {
        "id": "col-102",
-       "name": "KITS",
-       "location": "Telegana",
+       "name.key": "KITS",
+       "location.key": "Telegana",
        "rating":4.5
     }
  ]

@@ -1,22 +1,4 @@
 type Query {
-   
-   students:[Student]
-    studentById(id:ID!):Student 
+  jsonData(name:String!,user_language_pref:String!):String
 }
 
-
-type College {
-   id:ID!
-   name:String
-   location:String
-   rating:Float
-}
-
-
-type Student {
-   id:ID!
-   firstName:String
-   lastName:String
-   fullName:String
-   college:College
-}
