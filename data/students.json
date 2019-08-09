@@ -1,7 +1,7 @@
 [
    {
       "id": "S1001",
-      "firstname": "student1.firstname.key",
+      "firstName": "student1.firstname.key",
       "lastName": "student1.lastName.key",
       "email": "divvela.mounika@gmail.com"
    },
