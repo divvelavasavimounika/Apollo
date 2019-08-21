@@ -1,0 +1,6 @@
+   type Query
+   {
+      validateUser(UserId:String!,Credentials:String!):String 
+   }
+
+   
