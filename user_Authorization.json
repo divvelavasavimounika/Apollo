@@ -1,0 +1,12 @@
+[
+    {
+        "UserId": "chandana@virtusa.com",
+        "authorisationData" :"home|content-customer-experience|news|about|innovation|business-consulting|application-support-management"
+    },
+    {
+        "UserId":"mounika@virtusa.com",
+        "authorisationData":"content-customer-experience|news|about|innovation|business-consulting"
+
+    }
+   
+]

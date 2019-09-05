@@ -1,0 +1,76 @@
+[{
+    "menuItems": [
+       {
+            "type": "single",
+            "link": {
+                "id": "home",
+                "href": "#Home",
+                "onClick": "handleOnClick",
+                "label": "Home",
+                "type": "headernavlink navactive"
+            }
+        }, 
+        {
+            "type": "multiple",
+            "dropdown": {
+                "dropdownName": "Services",
+                "dropdownvalues": [
+                    {
+                        "href": "https: //www.virtusa.com/service/content-customer-experience/",
+                        "label": "Content Customer Experience",
+                        "id": "content-customer-experience",
+                        "type": "navdropdown-links"
+                    },
+                    {
+                        "href": "https: //www.virtusa.com/innovation/",
+                        "label": "Innovation",
+                        "id": "innovation",
+                        "type": "navdropdown-links"
+                    },
+                    {
+                        "href": "https: //www.virtusa.com/service/business-consulting/",
+                        "label": "Business-consulting",
+                        "id": "business-consulting",
+                        "type": "navdropdown-links"
+                    },
+                    {
+                        "href": "https: //www.virtusa.com/service/application-support-management/",
+                        "label": "Application Support Management",
+                        "id": "application-support-management",
+                        "type": "navdropdown-links"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "single",
+            "link": {
+                "id": "news",
+                "onClick": "handleOnClick",
+                "href": "#news",
+                "label": "News",
+                "type": "headernavlink"
+            }
+        },
+        {
+            "type": "single",
+            "link": {
+                "id": "contact",
+                "onClick": "handleOnClick",
+                "href": "#contact",
+                "label": "Contact",
+                "type": "headernavlink"
+            }
+        },
+        {
+            "type": "single",
+            "link": {
+                "id": "about",
+                "onClick": "handleOnClick",
+                "href": "#about",
+                "label": "About",
+                "type": "headernavlink"
+            }
+        }
+    ]
+}]

@@ -1,32 +1,116 @@
 var db = require('./db.js');
-const queryModule = require('./modules/queries')
-var response=""; 
+var fs = require('fs');
+const queryModule = require('./modules/queryModule')
+var validateResponse = "";
+var authorizeResponse = "";
+var value;
+var data;
+var menuItems;
+var result = { menuitems: [] };
+var value = "";
+
 const Query = {
 
     validateUser: async (_, args) => {
-        // console.log("User Id:", args.UserId, "Password:", args.Credentials);
         const id = args.UserId;
-        let passwordById = await queryModule.findById(id);
-        console.log("Id", passwordById);
+        let passwordById = await queryModule.validateUserById(id);
         if (passwordById == null) {
-            console.log("id doesn't exists");
-            response="Not a Valid user";
+            validateResponse = "Not a Valid user";
 
         }
         else {
-            console.log("password here", passwordById.Credentials)
+
             if (args.Credentials == passwordById.Credentials) {
-                console.log(id, "is a valid user");
-                response="Is is a valid user";
+
+                validateResponse = "Is  a valid user";
             }
             else {
-                console.log(id, "is not a valid user");
-                response="Please enter correct passowrd";
+                validateResponse = "Please enter a correct passowrd";
             }
         }
 
+        return validateResponse;
+    },
+    authorizeUser: async (_, args) => {
+        if (validateResponse === "Is  a valid user") {
+            var id = args.UserId;
+            value = args.JsonName;
+     
+            let authoriseById = await queryModule.authorizeUserById(id);
+            authoriseById.forEach(element => {
+                data = element.data;
+            });
+            data = JSON.stringify(data)
+            var res = data.split("|").toString();
+            var rs = res.split(",").toString();
+            var r = rs.replace(/[[\]]/g, '');
+            r = r.replace(/["]+/g, '');
+            var array = r.split(",");
+            fs.readFile(`${value}` + '.json', { encoding: 'utf-8' }, function (err, res) {
+                if (err)
+                    console.log("Error", err)
+                else {
+                    var jsondata = JSON.parse(res);
+                }
+                jsondata.map(element => {
+                    menuItems = element.menuItems;
+                })
+                for (var i = 0; i < array.length; i++) {
+                    menuItems.map(element => {
+                        if (element.type == "single") {
+                            if (array[i] == element.link.id) {
+                                result.menuitems.push({ type: element.type });
+                                result.menuitems.push({
+                                    link:
+                                    {
+                                        id: element.link.id,
+                                        href: element.link.href,
+                                        onClick: element.link.onClick,
+                                        label: element.link.label,
+                                        type: element.link.type
+                                    }
 
-        return response;
+                                });
+
+                            }
+                        }
+                        else if (element.type == "multiple") {
+                            var dropdownValues = element.dropdown.dropdownvalues;
+                            dropdownValues.map(e => {
+                                if (array[i] == e.id) {
+                                    result.menuitems.push({ type: element.type });
+                                    result.menuitems.push({
+                                        href: e.href,
+                                        label: e.label,
+                                        id: e.id,
+                                        type: e.type
+
+                                    });
+
+                                }
+
+                            });
+
+                        }
+
+                    });
+
+                }
+              
+                authorizeResponse = JSON.stringify(result.menuitems);
+           
+
+            });
+
+
+        }
+
+        else {
+            authorizeResponse = "Please Validate User First"
+        }
+  
+        return authorizeResponse;
+     
     }
 
 

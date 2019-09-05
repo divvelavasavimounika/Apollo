@@ -1,6 +1,7 @@
    type Query
    {
       validateUser(UserId:String!,Credentials:String!):String 
+      authorizeUser(UserId:String!,JsonName:String!):String
    }
 
    
