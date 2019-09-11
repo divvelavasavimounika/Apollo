@@ -6,7 +6,7 @@
                 "id": "home",
                 "href": "#Home",
                 "onClick": "handleOnClick",
-                "label": "Home",
+                "label": "Home.label.key",
                 "type": "headernavlink navactive"
             }
         }, 
@@ -17,26 +17,26 @@
                 "dropdownvalues": [
                     {
                         "href": "https: //www.virtusa.com/service/content-customer-experience/",
-                        "label": "Content Customer Experience",
+                        "label": "Content-Customer-Experience.label.key",
                         "id": "content-customer-experience",
                         "type": "navdropdown-links"
                     },
                     {
                         "href": "https: //www.virtusa.com/innovation/",
-                        "label": "Innovation",
+                        "label": "innovation.label.key",
                         "id": "innovation",
                         "type": "navdropdown-links"
                     },
                     {
                         "href": "https: //www.virtusa.com/service/business-consulting/",
-                        "label": "Business-consulting",
+                        "label": "business-consulting.label.key",
                         "id": "business-consulting",
                         "type": "navdropdown-links"
                     },
                     {
                         "href": "https: //www.virtusa.com/service/application-support-management/",
-                        "label": "Application Support Management",
-                        "id": "application-support-management",
+                        "label": "application-support-management.label.key",
+                        "id": "application-support-management ",
                         "type": "navdropdown-links"
                     }
                 ]
@@ -48,7 +48,7 @@
                 "id": "news",
                 "onClick": "handleOnClick",
                 "href": "#news",
-                "label": "News",
+                "label": "news.label.key",
                 "type": "headernavlink"
             }
         },
@@ -58,7 +58,7 @@
                 "id": "contact",
                 "onClick": "handleOnClick",
                 "href": "#contact",
-                "label": "Contact",
+                "label": "contact.label.key",
                 "type": "headernavlink"
             }
         },
@@ -68,7 +68,7 @@
                 "id": "about",
                 "onClick": "handleOnClick",
                 "href": "#about",
-                "label": "About",
+                "label": "about.label.key",
                 "type": "headernavlink"
             }
         }

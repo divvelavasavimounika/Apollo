@@ -12,7 +12,7 @@ const validateUserById = async id => {
 const authorizeUserById = async id => {
     try {
         // console.log("id val", id)
-        const data = await db.getCollection('user_Authorization').aggregate([{ $match: { 'UserId': id } }, { $group: { '_id': null, 'data': { $push: '$authorisationData' } } }]).toArray();
+        const data = await db.getCollection('userAuthorization').aggregate([{ $match: { 'UserId': id } }, { $group: { '_id': null, 'data': { $push: '$authorisationData' } } }]).toArray();
         //console.log("Data",data);
         return data;
 

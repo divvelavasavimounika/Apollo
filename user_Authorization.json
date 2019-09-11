@@ -1,7 +1,7 @@
 [
     {
         "UserId": "chandana@virtusa.com",
-        "authorisationData" :"home|content-customer-experience|news|about|innovation|business-consulting|application-support-management"
+        "authorisationData" :"home|news|contact|about"
     },
     {
         "UserId":"mounika@virtusa.com",
@@ -10,3 +10,4 @@
     }
    
 ]
+
