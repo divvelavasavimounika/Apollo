@@ -1,0 +1,5 @@
+type Query
+{
+    genericResolver(input:String!):String
+    
+}
