@@ -7,8 +7,7 @@ const app = express();
 const config = require('./config/database')
 var result = { menuitems: [] };
 var map = new Map();
-
-var input, Queries, inputs, get_Values, get_keys, endpoint, outputs, customerInfo;
+var input, Queries, inputs, get_Values, get_keys, endpoint, outputs, customerInfo, link;
 const Query =
 {
 
@@ -36,13 +35,6 @@ const Query =
             values.push(elem);
         }
 
-
-        for (var i = 0; i < keys.length; i++) {
-            keys[i] = keys[i].trim()
-        }
-
-
-
         var jsondata = JSON.parse(data);
         jsondata.map(element => {
             Queries = element.Queries;
@@ -51,6 +43,8 @@ const Query =
         for (var i = 0; i < values.length; i++) {
             Queries.map(element => {
                 if (element.queryName == values[i]) {
+                    console.log("element", element.queryName, link);
+                    link = element.queryName;
                     details = element.details;
                     details.forEach(element => {
                         inputs = element.InputFieldList;
@@ -68,8 +62,6 @@ const Query =
 
         values = values.splice("1");
 
-
-
         outputs = JSON.stringify(outputs);
         outputs = outputs.split(",").toString();
         outputs = outputs.replace(/["]+/g, '');
@@ -86,9 +78,8 @@ const Query =
 
                 }
             });
-
             try {
-                customerInfo = await queryModule.endpoint(inputs, values);
+                customerInfo = await queryModule.getCustomerDetails(inputs, values);
 
                 if (customerInfo == null) {
 
@@ -118,25 +109,23 @@ const Query =
             catch (e) {
                 console.log(e);
             }
+
         }
         else {
             db.connect(config.database, function (err) {
                 if (err) {
                     process.exit(1)
                 } else {
-                    // console.log("Connected to Port");
+                    console.log("Connected to Port");
 
                 }
             });
-
-            endpoint = endpoint.split(":")
-            endpoint = endpoint.splice("2")
+            endpoint = endpoint.split(":");
+            endpoint = endpoint.splice("2");
             endpoint = endpoint[0];
-
             app.listen(endpoint);
 
-            app.get("/customer/getCustomerSites", async (req, res) => {
-
+            app.get('/' + link, async (req, res) => {
                 var Sites;
                 var keys, keyValues;
                 var outputKeys = new Array();
@@ -156,7 +145,6 @@ const Query =
                         });
                         for (let index = 0; index < Sites.length; index++) {
                             const element = Sites[index];
-                            console.log("Element", element);
                             keys = Object.keys(element);
                             keyValues = Object.values(element);
                             outputKeys.push(keys);
@@ -189,8 +177,6 @@ const Query =
                             }
 
                         }
-
-
                     }
                     res.send(result.menuitems);
                     result.menuitems = JSON.stringify(result.menuitems);
@@ -207,8 +193,141 @@ const Query =
         return result.menuitems;
 
     }
+},
+    Mutation = {
+
+        genericMutation: async (_, args) => {
+
+            console.log("arguments are", args);
+            var keys = new Array();
+            var values = new Array();
+            input = args.input;
+            input = JSON.stringify(input);
+            input = input.replace(/["]+/g, '');
+            input = input.split(",");
+
+            for (var i = 0; i < input.length; i++) {
+                var array = input[i].toString();
+                array = array.split(":");
+                map.set(array[0], array[1]);
+
+            }
+
+            get_keys = map.keys();
+            get_Values = map.values();
+            for (var elem of get_keys) {
+                keys.push(elem);
+            }
+
+            for (var elem of get_Values) {
+                values.push(elem);
+            }
+
+            var jsondata = JSON.parse(data);
+            jsondata.map(element => {
+                Queries = element.Queries;
+
+            });
+
+            for (var i = 0; i < values.length; i++) {
+                values[i] = values[i].trim();
+
+                Queries.map(element => {
+
+                    if (element.queryName == values[i]) {
 
 
-}
+                        link = element.queryName;
+                        details = element.details;
 
-module.exports = { Query }
+                        details.forEach(element => {
+                            inputs = element.InputFieldList;
+                            endpoint = element.endpoint;
+                            outputs = element.OutputFieldList;
+
+                        });
+
+                    }
+                    else
+                    {
+                        return "Please enter fields"
+                    }
+
+                });
+            }
+
+            inputs = JSON.stringify(inputs);
+            inputs = inputs.split(",").toString();
+            inputs = inputs.replace(/["]+/g, '');
+            inputs = inputs.split(",");
+
+            values = values.splice("1");
+
+            outputs = JSON.stringify(outputs);
+            outputs = outputs.split(",").toString();
+            outputs = outputs.replace(/["]+/g, '');
+            outputs = outputs.split(",");
+
+            db.connect(endpoint, function (err) {
+                if (err) {
+                    process.exit(1)
+                } else {
+                    console.log("Connected to Port");
+
+                }
+            });
+            if (link == "AddUser") {
+
+                try {
+                    console.log("In try block")
+                    customerInfo = await queryModule.postCustomerDetails(inputs, values);
+                    console.log("status", customerInfo);
+
+                }
+                catch (e) {
+                    throw e;
+                }
+
+                return customerInfo;
+            }
+            else if (link == "DeleteUser") {
+                try {
+                    customerInfo = await queryModule.deleteCustomer(inputs, values);
+                    if (customerInfo == null) {
+                        return "No data found";
+                    } else {
+                        return "Deleted successfully";
+                    }
+
+                }
+                catch (e) {
+                    throw e;
+                }
+            }
+
+            else {
+                try {
+                    customerInfo = await queryModule.updateCustomer(inputs, values);
+                    if (customerInfo == null) {
+                        return "No data found";
+                    } else {
+                        return "Updated successfully";
+                    }
+                }
+                catch (e) {
+                    throw e;
+                }
+
+
+            }
+
+        }
+
+
+    }
+
+
+
+
+
+module.exports = { Query, Mutation }

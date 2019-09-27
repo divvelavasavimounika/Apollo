@@ -43,29 +43,5 @@
                     "rating":"4.9"
             }
     ]
-},
-{
-   
-    "CustomerName" : "Arun",
-    "Location" : "KPHB",
-    "District":"SangaReddy",
-    "State":"Telagana",
-    "Sites" : [
-            {
-                    "SiteName" : "Palace",
-                    "SiteLocation" : "Hyderabad",
-                    "SiteArea" : "240",
-                    "Price":"85278",
-                    "rating":"5"
-
-            },
-            {
-                    "SiteName" : "Icon",
-                    "SiteLocation" : "Vizag",
-                    "SiteArea" : "540",
-                    "Price":"85278",
-                    "rating":"4.8"
-            }
-    ]
 }
 ]

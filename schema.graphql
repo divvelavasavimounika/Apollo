@@ -3,3 +3,8 @@ type Query
     genericResolver(input:String!):String
     
 }
+
+type Mutation
+ {
+     genericMutation(input:String!):String
+ }
