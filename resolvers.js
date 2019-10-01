@@ -1,6 +1,10 @@
 var fs = require('fs');
-var data = fs.readFileSync('QueryMap.json', 'utf8');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+var querydata = fs.readFileSync('QueryMap.json', 'utf8');
+var mutationdata = fs.readFileSync('MutationMAp.json', 'utf-8');
 const queryModule = require('./modules/queryModule');
+const mutationModule = require('./modules/mutationModule');
 const db = require('./db');
 const express = require('express');
 const app = express();
@@ -35,7 +39,7 @@ const Query =
             values.push(elem);
         }
 
-        var jsondata = JSON.parse(data);
+        var jsondata = JSON.parse(querydata);
         jsondata.map(element => {
             Queries = element.Queries;
 
@@ -196,9 +200,12 @@ const Query =
 },
     Mutation = {
 
+
         genericMutation: async (_, args) => {
 
+
             console.log("arguments are", args);
+            var mutationType = args.mutationType;
             var keys = new Array();
             var values = new Array();
             input = args.input;
@@ -223,111 +230,171 @@ const Query =
                 values.push(elem);
             }
 
-            var jsondata = JSON.parse(data);
+            var jsondata = JSON.parse(mutationdata);
             jsondata.map(element => {
                 Queries = element.Queries;
 
             });
+            Queries.map(element => {
+                if (element.queryName == mutationType) {
+                    link = element.queryName;
+                    details = element.details;
+                    details.forEach(element => {
+                        inputs = element.InputFieldList;
+                        endpoint = element.endpoint;
+                        outputs = element.OutputFieldList;
 
-            for (var i = 0; i < values.length; i++) {
-                values[i] = values[i].trim();
 
-                Queries.map(element => {
+                    });
+                }
+                else {
+                    return "Please enter fields"
+                }
 
-                    if (element.queryName == values[i]) {
-
-
-                        link = element.queryName;
-                        details = element.details;
-
-                        details.forEach(element => {
-                            inputs = element.InputFieldList;
-                            endpoint = element.endpoint;
-                            outputs = element.OutputFieldList;
-
-                        });
-
-                    }
-                    else
-                    {
-                        return "Please enter fields"
-                    }
-
-                });
-            }
-
+            });
             inputs = JSON.stringify(inputs);
             inputs = inputs.split(",").toString();
             inputs = inputs.replace(/["]+/g, '');
             inputs = inputs.split(",");
 
-            values = values.splice("1");
-
             outputs = JSON.stringify(outputs);
             outputs = outputs.split(",").toString();
             outputs = outputs.replace(/["]+/g, '');
             outputs = outputs.split(",");
-
-            db.connect(endpoint, function (err) {
-                if (err) {
-                    process.exit(1)
-                } else {
-                    console.log("Connected to Port");
-
-                }
-            });
-            if (link == "AddUser") {
-
-                try {
-                    console.log("In try block")
-                    customerInfo = await queryModule.postCustomerDetails(inputs, values);
-                    console.log("status", customerInfo);
-
-                }
-                catch (e) {
-                    throw e;
-                }
-
-                return customerInfo;
-            }
-            else if (link == "DeleteUser") {
-                try {
-                    customerInfo = await queryModule.deleteCustomer(inputs, values);
-                    if (customerInfo == null) {
-                        return "No data found";
+            if (endpoint == "mongodb://localhost:27017/genericResolver") {
+                db.connect(endpoint, function (err) {
+                    if (err) {
+                        process.exit(1)
                     } else {
-                        return "Deleted successfully";
+                        console.log("Connected to Port");
+
                     }
+                });
 
+                if (mutationType == "Add") {
+
+                    try {
+                        console.log("In try block")
+                        customerInfo = await mutationModule.post(inputs, values);
+                        if (customerInfo == null) {
+                            return "No data found";
+                        } else {
+                            return "Inserted  successfully";
+                        }
+
+                    }
+                    catch (e) {
+                        throw e;
+                    }
                 }
-                catch (e) {
-                    throw e;
+                else if (mutationType == "Delete") {
+                    try {
+                        customerInfo = await mutationModule.remove(inputs, values);
+                        if (customerInfo == null) {
+
+                            return "No data found";
+                        } else {
+                            return "Deleted successfully";
+                        }
+
+                    }
+                    catch (e) {
+                        throw e;
+                    }
                 }
+
+                else {
+
+                    try {
+                        customerInfo = await mutationModule.update(inputs, values);
+                        if (customerInfo == null) {
+                            return "No data found";
+                        } else {
+                            return "Updated successfully";
+                        }
+                    }
+                    catch (e) {
+                        throw e;
+                    }
+                }
+
             }
-
             else {
-                try {
-                    customerInfo = await queryModule.updateCustomer(inputs, values);
-                    if (customerInfo == null) {
-                        return "No data found";
+                db.connect(config.database, function (err) {
+                    if (err) {
+                        process.exit(1)
                     } else {
-                        return "Updated successfully";
-                    }
-                }
-                catch (e) {
-                    throw e;
-                }
+                        console.log("Connected to Port");
 
+                    }
+                });
+                endpoint = endpoint.split(":");
+                endpoint = endpoint.splice("2");
+                endpoint = endpoint[0];
+                console.log("endpoint", endpoint);
+                app.use(bodyParser.json());
+                app.listen(endpoint);
+                console.log("mutation", mutationType);
+                var data;
+                app.post('/' + mutationType, async (req, res) => {
+                    try {
+
+                        customerInfo = await mutationModule.post(inputs, values);
+                        if (customerInfo == null) {
+                            res.send("No data found");
+                            data = "No data found";
+                        } else {
+                            res.send("Inserted  successfully");
+                            data = "Inserted  successfully";
+                        }
+
+                    }
+                    catch (e) {
+                        throw e;
+                    }
+                });
+
+                app.put('/' + mutationType, async (req, res) => {
+                    try {
+                        customerInfo = await mutationModule.update(inputs, values);
+                        if (customerInfo == null) {
+                            res.send("No data found");
+                            data = "No data found";
+                        } else {
+                            res.send("Updated successfully");
+                            data = "Updated successfully"
+                        }
+                    }
+                    catch (e) {
+                        throw e;
+                    }
+
+                });
+
+                app.delete('/' + mutationType, async (req, res) => {
+                    try {
+                        customerInfo = await mutationModule.remove(inputs, values);
+                        if (customerInfo == null) {
+                            res.send("No data found");
+                            data = "No data found";
+                        } else {
+                            res.send("Deleted successfully");
+                            data = "Deleted successfully"
+                        }
+
+                    }
+                    catch (e) {
+                        throw e;
+                    }
+                });
 
             }
+            return data;
 
         }
 
 
+
     }
-
-
-
-
 
 module.exports = { Query, Mutation }
