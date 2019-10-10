@@ -1,8 +1,8 @@
 [
     {
-        "Queries": [
+        "Mutations": [
             {
-                "queryName": "Add",
+                "mutationType": "Add",
                 "details": [
                     {
                         "InputFieldList": "CustomerName,Location,District,State",
@@ -12,7 +12,7 @@
                 ]
             },
             {
-                "queryName": "Delete",
+                "mutationType": "Delete",
                 "details": [
                     {
                         "InputFieldList": "CustomerName",
@@ -22,7 +22,7 @@
                 ]
             },
             {
-                "queryName": "Update",
+                "mutationType": "Update",
                 "details": [
                     {
                         "InputFieldList": "CustomerName,Location,District,State",
@@ -32,17 +32,17 @@
                 ]
             },
             {
-                "queryName": "Add",
+                "mutationType": "AddCustomer",
                 "details": [
                     {
                         "InputFieldList": "CustomerName,Location,District,State",
                         "OutputFieldList": {},
-                        "endpoint": "http://localhost:9090"
+                        "endpoint": "http://localhost:9678"
                     }
                 ]
             },
             {
-                "queryName": "Delete",
+                "mutationType": "DeleteCustomer",
                 "details": [
                     {
                         "InputFieldList": "CustomerName",
@@ -50,8 +50,9 @@
                         "endpoint": "http://localhost:9001"
                     }
                 ]
-            },{
-                "queryName": "Update",
+            },
+            {
+                "mutationType": "UpdateCustomer",
                 "details": [
                     {
                         "InputFieldList": "CustomerName,Location,District,State",
@@ -60,7 +61,6 @@
                     }
                 ]
             }
-
         ]
     }
 ]

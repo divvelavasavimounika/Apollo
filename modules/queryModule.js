@@ -7,8 +7,7 @@ const getCustomerDetails = async (inputs, values) => {
             query = { [inputs[i]]: values[i] };
             data = await db.getCollection('Customer').findOne(query);
         }
-        console.log("Data", data);
-        return data;
+        return data; 
 
     } catch (e) {
         throw e

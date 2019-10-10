@@ -11,7 +11,7 @@ const app = express();
 const config = require('./config/database')
 var result = { menuitems: [] };
 var map = new Map();
-var input, Queries, inputs, get_Values, get_keys, endpoint, outputs, customerInfo, link;
+var input, Queries, inputs, get_Values, get_keys, endpoint, outputs, customerInfo, link, Mutations;
 const Query =
 {
 
@@ -108,7 +108,7 @@ const Query =
                     console.log("Result", result.menuitems);
                     result.menuitems = JSON.stringify(result.menuitems);
                 }
-
+                return result.menuitems;
             }
             catch (e) {
                 console.log(e);
@@ -232,12 +232,13 @@ const Query =
 
             var jsondata = JSON.parse(mutationdata);
             jsondata.map(element => {
-                Queries = element.Queries;
+                Mutations = element.Mutations;
 
             });
-            Queries.map(element => {
-                if (element.queryName == mutationType) {
-                    link = element.queryName;
+
+            Mutations.map(element => {
+                if (element.mutationType == mutationType) {
+                    link = element.mutationType;
                     details = element.details;
                     details.forEach(element => {
                         inputs = element.InputFieldList;
@@ -247,10 +248,6 @@ const Query =
 
                     });
                 }
-                else {
-                    return "Please enter fields"
-                }
-
             });
             inputs = JSON.stringify(inputs);
             inputs = inputs.split(",").toString();
@@ -274,12 +271,11 @@ const Query =
                 if (mutationType == "Add") {
 
                     try {
-                        console.log("In try block")
                         customerInfo = await mutationModule.post(inputs, values);
                         if (customerInfo == null) {
                             return "No data found";
                         } else {
-                            return "Inserted  successfully";
+                            return JSON.stringify(customerInfo);
                         }
 
                     }
@@ -291,7 +287,6 @@ const Query =
                     try {
                         customerInfo = await mutationModule.remove(inputs, values);
                         if (customerInfo == null) {
-
                             return "No data found";
                         } else {
                             return "Deleted successfully";
@@ -303,14 +298,14 @@ const Query =
                     }
                 }
 
-                else {
+                else if (mutationType == "Update") {
 
                     try {
                         customerInfo = await mutationModule.update(inputs, values);
                         if (customerInfo == null) {
                             return "No data found";
                         } else {
-                            return "Updated successfully";
+                            return JSON.stringify(customerInfo);;
                         }
                     }
                     catch (e) {
@@ -320,6 +315,7 @@ const Query =
 
             }
             else {
+
                 db.connect(config.database, function (err) {
                     if (err) {
                         process.exit(1)
@@ -334,18 +330,15 @@ const Query =
                 console.log("endpoint", endpoint);
                 app.use(bodyParser.json());
                 app.listen(endpoint);
-                console.log("mutation", mutationType);
-                var data;
                 app.post('/' + mutationType, async (req, res) => {
                     try {
-
+                        console.log("Into post method");
                         customerInfo = await mutationModule.post(inputs, values);
                         if (customerInfo == null) {
-                            res.send("No data found");
-                            data = "No data found";
+                            res.json("No data found");
+                            data = "No data Found";
                         } else {
-                            res.send("Inserted  successfully");
-                            data = "Inserted  successfully";
+                            return res.json(customerInfo);
                         }
 
                     }
@@ -358,11 +351,11 @@ const Query =
                     try {
                         customerInfo = await mutationModule.update(inputs, values);
                         if (customerInfo == null) {
-                            res.send("No data found");
-                            data = "No data found";
+                            res.json("No data found");
+                            data = "No data Found";
+
                         } else {
-                            res.send("Updated successfully");
-                            data = "Updated successfully"
+                            return res.json(customerInfo);
                         }
                     }
                     catch (e) {
@@ -375,11 +368,9 @@ const Query =
                     try {
                         customerInfo = await mutationModule.remove(inputs, values);
                         if (customerInfo == null) {
-                            res.send("No data found");
-                            data = "No data found";
+                            return res.json("No data found");
                         } else {
-                            res.send("Deleted successfully");
-                            data = "Deleted successfully"
+                            return res.json("Deleted successfully");
                         }
 
                     }
@@ -389,8 +380,6 @@ const Query =
                 });
 
             }
-            return data;
-
         }
 
 
