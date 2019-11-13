@@ -3,17 +3,23 @@ const cors = require('cors');
 const { ApolloServer } = require('apollo-server-express');
 const express = require('express');
 const app = express();
-const config = require('./config/database')
-const fs = require('fs')
+const config = require('./config/database');
+const fs = require('fs');
+const GenericAPI = require('./datasource');
+const fetch = require('node-fetch');
 const typeDefs = fs.readFileSync('./schema.graphql', { encoding: 'utf-8' })
 const resolvers = require('./resolvers')
 const db = require('./db');
-const { makeExecutableSchema } = require('graphql-tools')
-const schema = makeExecutableSchema({ typeDefs, resolvers })
-const port = process.env.PORT || 8000;
+const port = 8000;
 app.use(cors(), bodyParser.json());
-
-const server = new ApolloServer({ schema });
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    dataSources: () => ({
+        GenericAPI: new GenericAPI()
+    })
+});
 
 
 server.applyMiddleware({ app });

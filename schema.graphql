@@ -1,5 +1,9 @@
 type Query
 {
-    genericResolver(input:String!):String
-    
+    genericResolver(input:String!):String   
 }
+
+type Mutation
+ {
+     genericMutation(input:String!,mutationType:String!):String
+ }

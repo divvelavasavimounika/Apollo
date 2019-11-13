@@ -1,0 +1,58 @@
+https://github.com/divvelavasavimounika/Apollo.git
+
+for rest api
+----------------
+{
+   "inputString": "queryName:getData,ID:7"
+}
+{
+  "myname_Variable":"ID:5",
+  "op_type": "DeleteInAPI"
+}
+
+
+{
+  "myname_Variable":"first_name:Mounika,last_name:Divvela,avatar:jkasdhkad,email:dvmounika1996@gmail.com",
+  "op_type": "AddInAPI"
+}
+
+{
+  "myname_Variable":"id:9,first_name:Mounika,last_name:Divvela,avatar:jkasdhkad,email:dvmounika1996@gmail.com",
+  "op_type": "UpdateToAPI"
+}
+--------------------------
+for mongodb
+
+{
+   "inputString":"collectionName:Customer,queryName:getCustomerDetails,CustomerName:Chandana Priya,Location:Miyapur"
+}
+{
+  "myname_Variable":"collectionName:Customer,CustomerName:yashika,Location:waranagal,District:sangareddy,State:telegana",
+  "op_type": "AddInDB"
+}
+
+
+{
+  "myname_Variable":"collectionName:Customer,CustomerName:Chandana",
+  "op_type": "DeleteInDB"
+}
+
+
+{
+  "myname_Variable":"collectionName:Customer,CustomerName:yashika,Location:Ameenpur,District:RangaReddy,State:Andhra Pradesh",
+  "op_type": "UpdateToDB"
+}
+
+----------------------------------
+Queries
+
+query myquery($myname_Variable:String!)
+{
+  genericResolver(input:$myname_Variable)
+}------------------------------------
+Mutations:
+
+mutation myMutation($myname_Variable:String!,$op_type:String!)
+{
+  genericMutation(input:$myname_Variable,mutationType:$op_type)
+}

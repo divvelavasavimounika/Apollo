@@ -2,22 +2,12 @@
     {
         "Queries": [
             {
-                "queryName": "getCustomerSites",
+                "queryName": "getData",
                 "details": [
                     {
-                        "InputFieldList": "CustomerName",
-                        "OutputFieldList": "SiteName,SiteLocation,SiteArea",
-                        "endpoint": "https://localhost:9000"
-                    }
-                ]
-            },
-            {
-                "queryName": "getSiteDetails",
-                "details": [
-                    {
-                        "InputFieldList": "SiteName",
-                        "OutputFieldList": "SiteArea",
-                        "endpoint": "mongodb://localhost:27017/genericResolver"
+                        "InputFieldList": "ID",
+                        "OutputFieldList": "email",
+                        "endpoint": "https://reqres.in/api/users"
                     }
                 ]
             },
@@ -26,7 +16,7 @@
                 "details": [
                     {
                         "InputFieldList": "CustomerName,Location",
-                        "OutputFieldList": "Location,State",
+                        "OutputFieldList": "",
                         "endpoint": "mongodb://localhost:27017/genericResolver"
                     }
                 ]
