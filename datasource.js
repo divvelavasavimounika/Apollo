@@ -3,11 +3,13 @@ const fetch = require("node-fetch");
 class GenericAPI extends RESTDataSource {
     constructor() {
         super();
-
+        //process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
     }
     async getData(endpoint, inputs, values) {
-        console.log("Inget Data", "Inputs", inputs, "Values", values);
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+        console.log("In get Data", "Inputs", inputs, "Values", values);
         const info = await this.get(`${endpoint}/${values[0]}`);
+        console.log("Info", info.data);
         return info.data;
 
     }

@@ -6,7 +6,6 @@ const app = express();
 const config = require('./config/database');
 const fs = require('fs');
 const GenericAPI = require('./datasource');
-const fetch = require('node-fetch');
 const typeDefs = fs.readFileSync('./schema.graphql', { encoding: 'utf-8' })
 const resolvers = require('./resolvers')
 const db = require('./db');
@@ -20,7 +19,6 @@ const server = new ApolloServer({
         GenericAPI: new GenericAPI()
     })
 });
-
 
 server.applyMiddleware({ app });
 

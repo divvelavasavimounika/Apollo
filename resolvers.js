@@ -13,10 +13,7 @@ let map = new Map();
 let input, Queries, inputs, get_Values, get_keys, endpoint, outputs, info, link, Mutations, collectionName;
 let queryFlag = false;
 let mutationFlag = false;
-const method =
-{
-    type: null
-}
+const method = { type: null };
 const Add = "Add", Delete = "Delete", Update = "Update";
 const Query =
 {
@@ -86,11 +83,11 @@ const Query =
 
             if (endpoint.includes("mongodb")) {
                 console.log("Into Database");
-                db.connect(endpoint, function (err) {
+                await db.connect(endpoint, function (err) {
                     if (err) {
                         process.exit(1)
                     } else {
-                        console.log("Connected to Port");
+                        //console.log("Connected to Port");
                     }
                 });
                 collectionName = values.shift();
@@ -98,8 +95,9 @@ const Query =
                 try {
                     if (inputs != null) {
                         console.log("Into Inputs block");
+                        console.log("CollectionName", collectionName);
                         info = await queryModule.getDetails(collectionName, inputs, values);
-                        console.log(info);
+                        console.log("Data", info);
                         if (info == null) {
                             return "No data found";
                         } else {
@@ -121,6 +119,7 @@ const Query =
                                 result.menuitems = JSON.stringify(result.menuitems);
                             }
                             else {
+                                console.log("Info", info);
                                 return JSON.stringify(info);
                             }
 
@@ -160,27 +159,81 @@ const Query =
             else if (endpoint.includes("http") || endpoint.includes("https")) {
                 values = values.splice("1");
                 connection = endpoint;
+
                 endpoint = endpoint.split(":");
+                console.log("endpoint1", endpoint);
                 endpoint = endpoint.splice("2");
+                console.log("endpoint1", endpoint);
                 endpoint = endpoint[0];
+                console.log("endpoint1", connection);
                 app.listen(endpoint);
-                data = await dataSources.GenericAPI.getData(connection, inputs, values);
-                const outputKeys = Object.keys(data);
-                const outputValues = Object.values(data);
-                for (var i = 0; i < outputKeys.length && outputValues.length; i++) {
-                    outputKeys[i] = outputKeys[i].trim();
-                    for (var j = 0; j < outputs.length; j++) {
-                        if (outputKeys[i] == outputs[j]) {
-                            result.menuitems.push({
-                                [outputs[j]]: outputValues[i]
-                            });
+                try {
+                    if (inputs != null) {
+                        info = await dataSources.GenericAPI.getData(connection, inputs, values);
+                        if (info == null) {
+                            return "No data found";
+                        } else {
+                            if ((outputs.length > 0) && (outputs.includes('') == false)) {
+                                const outputKeys = Object.keys(info);
+                                const outputValues = Object.values(info);
+                                console.log("outputKeys", outputKeys, "outputValues", outputValues, "outputs", outputs)
+                                for (var i = 0; i < outputKeys.length && outputValues.length; i++) {
+                                    outputKeys[i] = outputKeys[i].trim();
+                                    for (var j = 0; j < outputs.length; j++) {
+                                        if (outputKeys[i] == outputs[j]) {
+                                            result.menuitems.push({
+                                                [outputs[j]]: outputValues[i]
+                                            });
+                                        }
+                                    }
+                                }
+                                console.log("Result", result.menuitems);
+                                result.menuitems = JSON.stringify(result.menuitems);
+                            }
+                            else {
+                                console.log("Info", info);
+                                return JSON.stringify(info);
+                            }
+
+                        }
+                    }
+                    else {
+                        info = await dataSources.GenericAPI.getData(connection, keys, values);
+                        console.log(info);
+                        if (info == null) {
+                            return "No data found";
+                        } else {
+                            if ((outputs.length > 0) && (outputs.includes('') == false)) {
+                                const outputKeys = Object.keys(info);
+                                const outputValues = Object.values(info);
+                                console.log("outputKeys", outputKeys, "outputValues", outputValues, "outputs", outputs)
+                                for (var i = 0; i < outputKeys.length && outputValues.length; i++) {
+                                    outputKeys[i] = outputKeys[i].trim();
+                                    for (var j = 0; j < outputs.length; j++) {
+                                        if (outputKeys[i] == outputs[j]) {
+                                            result.menuitems.push({
+                                                [outputs[j]]: outputValues[i]
+                                            });
+                                        }
+                                    }
+                                }
+                                console.log("Result", result.menuitems);
+                                result.menuitems = JSON.stringify(result.menuitems);
+                            }
+                            else {
+                                console.log("Info", info);
+                                return JSON.stringify(info);
+                            }
+
                         }
                     }
                 }
-                result.menuitems = JSON.stringify(result.menuitems);
+                catch (e) {
+                    console.log(e);
+                }
+                queryFlag = false;
+                return result.menuitems;
             }
-            queryFlag = false;
-            return result.menuitems;
         }
 
     }
@@ -286,7 +339,7 @@ const Query =
                                         return JSON.stringify(result.menuitems);
                                     }
                                     else {
-
+                                        console.log(info);
                                         return JSON.stringify(info);
                                     }
 
@@ -318,7 +371,7 @@ const Query =
                                         return JSON.stringify(result.menuitems);
                                     }
                                     else {
-
+                                        console.log(info);
                                         return JSON.stringify(info);
                                     }
 
@@ -438,7 +491,6 @@ const Query =
                     connection = endpoint;
                     endpoint = endpoint.split(":");
                     endpoint = endpoint.splice("2");
-                    console.log(endpoint);
                     endpoint = endpoint[0];
                     app.use(bodyParser.json());
                     app.listen(endpoint);
@@ -447,13 +499,13 @@ const Query =
                         try {
                             method.type = "POST";
                             if (inputs != null) {
-                                data = await dataSources.GenericAPI.invokeAPI(method.type, connection, inputs, values);
-                                console.log("Mutations Result:", data);
-                                if (data == null) {
+                                info = await dataSources.GenericAPI.invokeAPI(method.type, connection, inputs, values);
+                                console.log("Mutations Result:", info);
+                                if (info == null) {
                                     return "No data found";
                                 } else {
-                                    const outputKeys = Object.keys(data);
-                                    const outputValues = Object.values(data);
+                                    const outputKeys = Object.keys(info);
+                                    const outputValues = Object.values(info);
                                     console.log("outputKeys", outputKeys, "outputValues", outputValues, "outputs", outputs)
                                     if ((outputs.length > 0) && (outputs.includes('') == false)) {
                                         for (var i = 0; i < outputKeys.length && outputValues.length; i++) {
@@ -471,19 +523,19 @@ const Query =
                                         return JSON.stringify(result.menuitems);
                                     }
                                     else {
-
+                                        console.log(info)
                                         return JSON.stringify(info);
                                     }
 
                                 }
                             }
                             else {
-                                data = await dataSources.GenericAPI.invokeAPI(method.type, connection, keys, values);
-                                if (data == null) {
+                                info = await dataSources.GenericAPI.invokeAPI(method.type, connection, keys, values);
+                                if (info == null) {
                                     return "No data found";
                                 } else {
-                                    const outputKeys = Object.keys(data);
-                                    const outputValues = Object.values(data);
+                                    const outputKeys = Object.keys(info);
+                                    const outputValues = Object.values(info);
                                     console.log("outputKeys", outputKeys, "outputValues", outputValues, "outputs", outputs)
                                     if ((outputs.length > 0) && (outputs.includes('') == false)) {
                                         for (var i = 0; i < outputKeys.length && outputValues.length; i++) {
@@ -501,7 +553,7 @@ const Query =
                                         return JSON.stringify(result.menuitems);
                                     }
                                     else {
-
+                                        console.log(info);
                                         return JSON.stringify(info);
                                     }
 
@@ -574,8 +626,8 @@ const Query =
                                         return JSON.stringify(result.menuitems);
                                     }
                                     else {
-
-                                        return JSON.stringify(info);
+                                        console.log(data)
+                                        return JSON.stringify(data);
                                     }
 
                                 }
@@ -605,7 +657,7 @@ const Query =
                                         return JSON.stringify(result.menuitems);
                                     }
                                     else {
-
+                                        console.log(data);
                                         return JSON.stringify(info);
                                     }
 
