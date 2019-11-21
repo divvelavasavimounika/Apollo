@@ -25,7 +25,8 @@ const Query =
             fs.readFile('Resources/' + `${value}` + '_' + `${language}` + '.properties', { encoding: 'utf-8' }, function (err, res) {
                if (err)
                   console.log(err);
-               else {
+               else 
+               {
                   console.log("In file mode")
                   var keysArray = new Array;
                   var valuesArray = new Array;
@@ -104,6 +105,7 @@ const Query =
                   }
                 
                   jsonParsed = JSON.stringify(jsonMap);
+                  console.log(jsonParsed);
 
                }
 
