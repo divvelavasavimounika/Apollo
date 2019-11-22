@@ -1,10 +1,10 @@
 const { User } = require('./model');
 
 const Query = {
-    getUsers: async () => await User.find({}).exec(),
-    getUser: async (_, args) => {
+    getUsers:  () =>  User.find({}).exec(),
+    getUser:  (_, args) => {
         try {
-            let response = await User.findById(args.id);
+            let response =  User.findById(args.id);
             return response;
         }
         catch (e) {
@@ -12,64 +12,64 @@ const Query = {
         }
     }
 },
- Mutation =
-{
-    addUser: async (_, args) => {
-        try {
-            let response = await User.create(args);
-            return response;
-        }
-        catch (e) {
-            return e.message;
-        }
-    },
-    deleteUserById: async (_, args) => {
-        try {
-         
-            let response = await User.findByIdAndDelete(args.id);
-     
-            return response;
-        }
-        catch (e) {
-            return e.message;
-        }
-    },
-    deleteUserByUserName: async (_, args) => {
-        try {
-            let response = await User.deleteOne(args);
-            return response;
-        }
-        catch (e) {
-            return e.message;
-        }
-    },
-    deleteUserByEmail: async (_, args) => {
-        try {
-            let response = await User.deleteOne(args);
-            return response;
-        }
-        catch (e) {
-            return e.message;
-        }
-    },
-    updateUser: async (_, args) => {
+    Mutation =
+    {
+        addUser: async (_, args) => {
+            try {
+                let response = await User.create(args);
+                return response;
+            }
+            catch (e) {
+                return e.message;
+            }
+        },
+        deleteUserById: async (_, args) => {
+            try {
 
-        try {
-            let response = await User.findByIdAndUpdate
-                (
-                    args.id,
-                    { $set: { userName: args.userName } },
-                    {
-                        new: true
-                    }
-                );
+                let response = await User.findByIdAndDelete(args.id);
 
-            return response;
-        }
-        catch (e) {
-            return e.message;
+                return response;
+            }
+            catch (e) {
+                return e.message;
+            }
+        },
+        deleteUserByUserName: async (_, args) => {
+            try {
+                let response = await User.deleteOne(args);
+                return response;
+            }
+            catch (e) {
+                return e.message;
+            }
+        },
+        deleteUserByEmail: async (_, args) => {
+            try {
+                let response = await User.deleteOne(args);
+                return response;
+            }
+            catch (e) {
+                return e.message;
+            }
+        },
+        updateUser: async (_, args) => {
+
+            try {
+                let response = await User.findByIdAndUpdate
+                    (
+                        args.id,
+                        { $set: { userName: args.userName } },
+                        {
+                            new: true
+                        }
+                    );
+
+                return response;
+            }
+            catch (e) {
+                return e.message;
+            }
         }
     }
-}
 
-module.exports = {Query,Mutation}
+module.exports = { Query, Mutation }

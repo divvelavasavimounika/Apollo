@@ -1,0 +1,56 @@
+
+
+mutation deleteUserById
+{
+  deleteUserById(id:"5d22e81156398e3cf46aac73")
+  {
+    userName
+    email
+  }
+}
+mutation deleteUserByUserName
+{
+  deleteUserByUserName(userName:"Siva")
+  {
+    userName
+  }
+}
+query getUsers
+{
+  getUsers
+  {
+    id
+    email
+    userName
+  
+  
+  }
+}
+mutation addUser
+{
+  addUser(userName:"Mounika",email:"dvmounika1996@gmail.com")
+  {
+    userName
+    email
+  }
+}
+ mutation updateUser
+          {
+            updateUser(id:"5d1c94370b3b8b24c4a329c0",userName:"Siva")
+            {
+         
+                userName
+                email
+         
+              }
+          }
+
+query getUser
+{
+  getUser(id:"5d1af4e1af94bd1dd4307e4e")
+  {
+    id
+    userName
+    email
+  }
+}

@@ -1,23 +1,37 @@
 const { Query, Mutation } = require('./resolvers');
 const User = require('./model');
 describe('Fetching', () => {
-    test('Getting List of users', async () => {
+    beforeEach(() => {
+        jest.setTimeout(10000);
+    });
+
+
+    test('Getting List of users', () => {
         getUsers = Query.getUsers;
-        getUsers =
-            {
-                getUsers: () => new Promise((resolve, reject) => {
-                    getUsers.find({}, (err, getUsers) => {
-                        if (err) reject(err);
-                        else resolve(getUsers);
-                    })
-                })
-            };
+        console.log(getUsers)
+        // getUsers =
+        //     {
+        //         getUsers: () => new Promise((resolve, reject) => {
+        //             getUsers.find({}, (err, getUsers) => {
+        //                 if (err) reject(err);
+        //                 else resolve(getUsers);
+        //             })
+        //         })
+        //     };
 
+        let data = getUsers();
+        console.log(data);
+        data: () => new Promise((resolve, reject) => {
+            data.find({}, (err, data) => {
+                if (err) reject(err);
+                else resolve(data);
+            })
 
-
+        })
+      
 
     });
-    test('Fetching user by id', async () => {
+    test('Fetching user by id',  () => {
         getUser = Query.getUser;
         getUser =
             {
@@ -59,23 +73,20 @@ describe('Fetching', () => {
                     })
             }
     });
-    test('Update User By UserName',async()=>
-    {
-        updateUser=Mutation.updateUser;
-        updateUser=
-        {
-            updateUser:(root,
-                {
-                    _id,
-                })=>new Promise((resolve,reject)=>
-                {
-                    updateUser.findByIdAndUpdate(_id,(err,updateUser)=>
+    test('Update User By UserName', async () => {
+        updateUser = Mutation.updateUser;
+        updateUser =
+            {
+                updateUser: (root,
                     {
-                        if (err) reject(err);
+                        _id,
+                    }) => new Promise((resolve, reject) => {
+                        updateUser.findByIdAndUpdate(_id, (err, updateUser) => {
+                            if (err) reject(err);
                             else resolve(updateUser);
+                        })
                     })
-                })
-        }
+            }
     })
 
 
