@@ -1,0 +1,4 @@
+query 
+{
+  validateUser(UserId:"mounika@virtusa.com",Credentials:"Mouni@123",JsonName:"template")
+}
