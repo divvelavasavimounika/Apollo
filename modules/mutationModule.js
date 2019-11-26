@@ -14,7 +14,7 @@ const post = async (collectionName, keys, values) => {
         return data;
     }
     catch (e) {
-        throw e;
+        return "No data found";
     }
 
 }
@@ -28,7 +28,7 @@ const remove = async (collectionName, keys, values) => {
         //console.log('Data',data);
         return data['deletedCount'];
     } catch (e) {
-        throw e;
+        return "No data found";
     }
 }
 
@@ -52,7 +52,7 @@ const update = async (collectionName, keys, values) => {
         }
         return data;
     } catch (e) {
-        throw e;
+        return "No data found";
     }
 }
 module.exports = { post, remove, update }

@@ -9,7 +9,7 @@ const express = require('express');
 const app = express();
 const config = require('./config/database');
 let result = { menuitems: [] };
-let map = new Map();
+
 let input, Queries, inputs, get_Values, get_keys, endpoint, outputs, info, link, Mutations, collectionName;
 let queryFlag = false;
 let mutationFlag = false;
@@ -25,6 +25,7 @@ const Query =
         input = JSON.stringify(input);
         input = input.replace(/["]+/g, '');
         input = input.split(",");
+        let map = new Map();
         for (var i = 0; i < input.length; i++) {
             var array = input[i].toString();
             array = array.split(":");
@@ -67,7 +68,6 @@ const Query =
         if (queryFlag == false) {
             console.log("QueryName Not found");
             return "QueryName Not Found";
-            // process.exit(1);
         }
         else {
             console.log("QueryName found");
@@ -85,9 +85,7 @@ const Query =
                 console.log("Into Database");
                 await db.connect(endpoint, function (err) {
                     if (err) {
-                        process.exit(1)
-                    } else {
-                        //console.log("Connected to Port");
+                        process.exit(1);
                     }
                 });
                 collectionName = values.shift();
@@ -159,14 +157,6 @@ const Query =
             else if (endpoint.includes("http") || endpoint.includes("https")) {
                 values = values.splice("1");
                 connection = endpoint;
-
-                endpoint = endpoint.split(":");
-                console.log("endpoint1", endpoint);
-                endpoint = endpoint.splice("2");
-                console.log("endpoint1", endpoint);
-                endpoint = endpoint[0];
-                console.log("endpoint1", connection);
-                app.listen(endpoint);
                 try {
                     if (inputs != null) {
                         info = await dataSources.GenericAPI.getData(connection, inputs, values);
@@ -243,13 +233,16 @@ const Query =
         genericMutation: async (_, args, { dataSources }) => {
             console.log("arguments are", args);
             var mutationType = args.mutationType;
+            let map = new Map();
             var keys = new Array();
             var values = new Array();
             input = args.input;
             input = JSON.stringify(input);
             input = input.replace(/["]+/g, '');
             input = input.split(",");
-
+            get_keys = 0;
+            get_Values = 0;
+            console.log("get_keys", get_keys, "get_Values", get_Values);
             for (var i = 0; i < input.length; i++) {
                 var array = input[i].toString();
                 array = array.split(":");
@@ -258,6 +251,7 @@ const Query =
 
             get_keys = map.keys();
             get_Values = map.values();
+            console.log("get_keys", get_keys, "get_Values", get_Values);
             for (var elem of get_keys) {
                 keys.push(elem);
             }
@@ -265,6 +259,8 @@ const Query =
             for (var elem of get_Values) {
                 values.push(elem);
             }
+
+            console.log('keys', keys, "values", values);
             var jsondata = JSON.parse(mutationdata);
 
             jsondata.map(element => {
@@ -499,8 +495,8 @@ const Query =
                         try {
                             method.type = "POST";
                             if (inputs != null) {
+                                console.log("values", values)
                                 info = await dataSources.GenericAPI.invokeAPI(method.type, connection, inputs, values);
-                                console.log("Mutations Result:", info);
                                 if (info == null) {
                                     return "No data found";
                                 } else {
@@ -518,12 +514,10 @@ const Query =
                                                 }
                                             }
                                         }
-                                        console.log("Result", result.menuitems);
-                                        result.menuitems = JSON.stringify(result.menuitems);
                                         return JSON.stringify(result.menuitems);
                                     }
                                     else {
-                                        console.log(info)
+
                                         return JSON.stringify(info);
                                     }
 
@@ -548,8 +542,6 @@ const Query =
                                                 }
                                             }
                                         }
-                                        console.log("Result", result.menuitems);
-                                        result.menuitems = JSON.stringify(result.menuitems);
                                         return JSON.stringify(result.menuitems);
                                     }
                                     else {
@@ -582,6 +574,7 @@ const Query =
                             }
                             else {
                                 data = await dataSources.GenericAPI.invokeAPI(method.type, connection, keys, values)
+
                                 console.log("Deleted");
                                 if (data == 0) {
                                     return "Data is not present";
@@ -602,11 +595,14 @@ const Query =
                         try {
                             method.type = "PUT";
                             if (inputs != null) {
+                                console.log("values", values)
                                 data = await dataSources.GenericAPI.invokeAPI(method.type, connection, inputs, values);
+
                                 console.log("Data", data);
                                 if (data == null) {
                                     return "No data found";
                                 } else {
+
                                     const outputKeys = Object.keys(data);
                                     const outputValues = Object.values(data);
                                     console.log("outputKeys", outputKeys, "outputValues", outputValues, "outputs", outputs)
@@ -621,12 +617,9 @@ const Query =
                                                 }
                                             }
                                         }
-                                        console.log("Result", result.menuitems);
-                                        result.menuitems = JSON.stringify(result.menuitems);
                                         return JSON.stringify(result.menuitems);
                                     }
                                     else {
-                                        console.log(data)
                                         return JSON.stringify(data);
                                     }
 
@@ -652,12 +645,10 @@ const Query =
                                                 }
                                             }
                                         }
-                                        console.log("Result", result.menuitems);
-                                        result.menuitems = JSON.stringify(result.menuitems);
                                         return JSON.stringify(result.menuitems);
                                     }
                                     else {
-                                        console.log(data);
+
                                         return JSON.stringify(info);
                                     }
 
@@ -672,7 +663,6 @@ const Query =
 
                 }
             }
-
             mutationFlag = false;
         }
 
