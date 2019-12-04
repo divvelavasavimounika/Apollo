@@ -7,13 +7,30 @@ const getDetails = (collectionName, inputs, values) => {
             query = { [inputs[i]]: values[i] };
         }
         data = db.getCollection(`${collectionName}`).findOne(query);
+
         return data;
     } catch (e) {
         return "No data found";
     }
 
 }
+const validateUserById =async id => {
+    try {
 
-module.exports = { getDetails }
+        var data;
+    
+          data =  await db.getCollection('userTable').findOne({ UserId: id });
+            console.log("Data", data);
+     
+
+
+        return data
+            ;
+    } catch (e) {
+        throw e
+    }
+}
+
+module.exports = { getDetails, validateUserById }
 
 

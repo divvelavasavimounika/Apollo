@@ -1,0 +1,399 @@
+[
+    {
+        "AppTemplates": {
+            "Menu": {
+                "type": "horizontalMenu",
+                "HeaderMenu": {
+                    "menuItems": [
+                        {
+                            "type": "single",
+                            "link": {
+                                "id": "home",
+                                "href": "#Home",
+                                "onClick": "handleOnClick",
+                                "label": "home.label.key",
+                                "message": "home.message.key",
+                                "type": "headernavlink navactive"
+                            }
+                        },
+                        {
+                            "type": "multiple",
+                            "dropdown": {
+                                "dropdownName": "Services",
+                                "dropdownvalues": [
+                                    {
+                                        "href": "https: //www.virtusa.com/service/content-customer-experience/",
+                                        "label": "Content-Customer-Experience.label.key",
+                                        "id": "content-customer-experience",
+                                        "type": "navdropdown-links"
+                                    },
+                                    {
+                                        "href": "https: //www.virtusa.com/innovation/",
+                                        "label": "innovation.label.key",
+                                        "id": "innovation",
+                                        "type": "navdropdown-links"
+                                    },
+                                    {
+                                        "href": "https: //www.virtusa.com/service/business-consulting/",
+                                        "label": "business-consulting.label.key",
+                                        "id": "business-consulting",
+                                        "type": "navdropdown-links"
+                                    },
+                                    {
+                                        "href": "https: //www.virtusa.com/service/application-support-management/",
+                                        "label": "application-support-management.label.key",
+                                        "id": "application-support-management ",
+                                        "type": "navdropdown-links"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "single",
+                            "link": {
+                                "id": "news",
+                                "onClick": "handleOnClick",
+                                "href": "#news",
+                                "label": "news.label.key",
+                                "message": "news.message.key",
+                                "type": "headernavlink"
+                            }
+                        },
+                        {
+                            "type": "single",
+                            "link": {
+                                "id": "contact",
+                                "onClick": "handleOnClick",
+                                "href": "#contact",
+                                "label": "contact.label.key",
+                                "message": "contact.message.key",
+                                "type": "headernavlink"
+                            }
+                        },
+                        {
+                            "type": "single",
+                            "link": {
+                                "id": "about",
+                                "onClick": "handleOnClick",
+                                "href": "#about",
+                                "label": "about.label.key",
+                                "message": "about.message.key",
+                                "type": "headernavlink"
+                            }
+                        }
+                    ]
+                }
+            },
+            "Dashboard": {
+                "dashboardType": "twoColumn",
+                "components": [
+                    {
+                        "Charts": {
+                            "options": {
+                                "maintainAspectRatio": false,
+                                "scales": {
+                                    "yAxes": [
+                                        {
+                                            "ticks": {
+                                                "beginAtZero": true
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            "Bar": {
+                                "labels": [
+                                    "Open",
+                                    "Closed",
+                                    "Deferred",
+                                    "Outages"
+                                ],
+                                "datasets": [
+                                    {
+                                        "label": "bar.label.key",
+                                        "backgroundColor": "SlateBlue",
+                                        "borderColor": "red",
+                                        "data": [
+                                            10,
+                                            20,
+                                            42,
+                                            35
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "Charts": {
+                            "options": {
+                                "maintainAspectRatio": false
+                            },
+                            "Pie": {
+                                "labels": [
+                                    "Quotes",
+                                    "Quote Expired",
+                                    "Quotes - Orders Conversion"
+                                ],
+                                "datasets": [
+                                    {
+                                        "data": [
+                                            300,
+                                            50,
+                                            100
+                                        ],
+                                        "backgroundColor": [
+                                            "LightSeaGreen",
+                                            "IndianRed",
+                                            "HotPink"
+                                        ],
+                                        "hoverBackgroundColor": [
+                                            "LightSeaGreen",
+                                            "IndianRed",
+                                            "HotPink"
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "Charts": {
+                            "options": {
+                                "maintainAspectRatio": true,
+                                "scales": {
+                                    "xAxes": [
+                                        {
+                                            "ticks": {
+                                                "beginAtZero": true
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            "HorizontalBar": {
+                                "labels": [
+                                    "Purchase order",
+                                    " Bill view",
+                                    "CDR downloads",
+                                    "Bill query",
+                                    "Go green"
+                                ],
+                                "datasets": [
+                                    {
+                                        "label": "HorizontalBar.label.key",
+                                        "backgroundColor": "DarkSeaGreen",
+                                        "borderColor": "rgba(255,99,132,1)",
+                                        "borderWidth": 1,
+                                        "hoverBackgroundColor": "DarkSeaGreen",
+                                        "hoverBorderColor": "rgba(255,99,132,1)",
+                                        "data": [
+                                            25,
+                                            30,
+                                            10,
+                                            40,
+                                            5
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "Charts": {
+                            "options": {
+                                "maintainAspectRatio": false
+                            },
+                            "Doughnut": {
+                                "labels": [
+                                    "Committed Orders",
+                                    "Delayed Orders",
+                                    "Completed Orders",
+                                    "Rejected Orders"
+                                ],
+                                "datasets": [
+                                    {
+                                        "backgroundColor": [
+                                            "LightCoral",
+                                            "SteelBlue",
+                                            "LightSkyBlue",
+                                            "PaleVioletRed"
+                                        ],
+                                        "hoverBackgroundColor": [
+                                            "LightCoral",
+                                            "SteelBlue",
+                                            "LightSkyBlue",
+                                            "PaleVioletRed"
+                                        ],
+                                        "data": [
+                                            12,
+                                            20,
+                                            42,
+                                            35
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ]
+            },
+            "ApplicationHeader": {
+                "LeftVerticalComponents": {
+                    "Logo": {
+                        "id": "logo-id",
+                        "name": "logo-name",
+                        "src": "https://mhgbtcuwzn-2-flywheel.netdna-ssl.com/wp-content/uploads/2019/08/virtusa-logo.png",
+                        "alt": "virtusa",
+                        "title": "virtusa"
+                    }
+                },
+                "RightVerticalComponents": {
+                    "Decorator": {
+                        "id": "HeaderDecorator",
+                        "separator": "|",
+                        "noOfComponents": "4",
+                        "decoratorComponents": [
+                            {
+                                "Label": {
+                                    "id": " decoratorLabel-id",
+                                    "text": "Decorator.Home.key",
+                                    "isRequired": false
+                                }
+                            },
+                            {
+                                "Label": {
+                                    "id": "decoratorLabel-id",
+                                    "text": "Decorator.Products.key",
+                                    "isRequired": false
+                                }
+                            },
+                            {
+                                "Label": {
+                                    "id": "decoratorLabel-id",
+                                    "text": "Decorator.Notifications.key",
+                                    "isRequired": false
+                                }
+                            },
+                            {
+                                "Label": {
+                                    "id": "decoratorLabel-id",
+                                    "text": "Decorator.Preferences.key",
+                                    "isRequired": false
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            "BreadCrumb": {
+                "Value": "Organisms",
+                "Link": [
+                    {
+                        "id": "link-Home",
+                        "name": "link-name",
+                        "href": "",
+                        "label": "BreadCrumb.Home.key",
+                        "type": "readmore"
+                    },
+                    {
+                        "id": "link-Automs",
+                        "name": "link-name",
+                        "href": "",
+                        "label": "BreadCrumb.Automs.key",
+                        "type": "readmore"
+                    },
+                    {
+                        "id": "link-Molecules",
+                        "name": "link-name",
+                        "href": "",
+                        "label": "BreadCrumb.Molecules.key",
+                        "type": "readmore"
+                    }
+                ]
+            },
+            "ApplicationFooter": {
+                "displayType": "Horizontal Link",
+                "Logo": [
+                    {
+                        "id": "logo-id",
+                        "name": "logo-name",
+                        "src": "./images/FB_icon.png",
+                        "alt": "virtusa",
+                        "title": "logo1.title.key"
+                    },
+                    {
+                        "id": "logo-id",
+                        "name": "logo-name",
+                        "src": "./images/Twitter_icon.png",
+                        "alt": "virtusa",
+                        "title": "logo2.title.key"
+                    },
+                    {
+                        "id": "logo-id",
+                        "name": "logo-name",
+                        "src": "./images/Youtube_icon.png",
+                        "alt": "virtusa",
+                        "title": "logo3.title.key"
+                    },
+                    {
+                        "id": "logo-id",
+                        "name": "logo-name",
+                        "src": "./images/pint_icon.png",
+                        "alt": "virtusa",
+                        "title": "logo4.title.key"
+                    }
+                ],
+                "Link": [
+                    {
+                        "id": "Home",
+                        "name": "Home",
+                        "href": "",
+                        "label": "Link.Home.key",
+                        "type": "footer-link",
+                        "onClick": "handleOnClick"
+                    },
+                    {
+                        "id": "Products",
+                        "name": "Products",
+                        "href": "",
+                        "label": "Link.Products.key",
+                        "type": "footer-link",
+                        "onClick": "handleOnClick"
+                    },
+                    {
+                        "id": "News",
+                        "name": "News",
+                        "href": "",
+                        "label": "Link.News.key",
+                        "type": "footer-link",
+                        "onClick": "handleOnClick"
+                    },
+                    {
+                        "id": "Contact",
+                        "name": "Contact",
+                        "href": "",
+                        "label": "Link.Contact.key",
+                        "type": "footer-link",
+                        "onClick": "handleOnClick"
+                    },
+                    {
+                        "id": "About",
+                        "name": "About",
+                        "href": "",
+                        "label": "Link.About.key",
+                        "type": "footer-link",
+                        "onClick": "handleOnClick"
+                    }
+                ],
+                "Label": [
+                    {
+                        "labelType": "footerEnding",
+                        "text": "Label.text.key",
+                        "isRequired": false
+                    }
+                ]
+            }
+        }
+    }
+]

@@ -46,10 +46,16 @@ for mongodb
 ----------------------------------
 Queries
 
+//For validation
+query 
+{
+  validateUser(UserId:"mounika@virtusa.com",Credentials:"Mouni@123")
+}
+
 query myquery($myname_Variable:String!)
 {
   genericResolver(input:$myname_Variable)
-}------------------------------------
+}
 Mutations:
 
 mutation myMutation($myname_Variable:String!,$op_type:String!)

@@ -5,7 +5,7 @@
                 "mutationName": "AddInDB",
                 "details": [
                     {
-                        "InputFieldList":"CustomerName,Location,District,State",
+                        "InputFieldList":"CustomerName.add.key,Location.add.key,District.add.key,State.add.key",
                         "OutputFieldList":"",
                         "endpoint": "mongodb://localhost:27017/genericResolver"
                     }
@@ -15,7 +15,7 @@
                 "mutationName": "DeleteInDB",
                 "details": [
                     {
-                        "InputFieldList": "CustomerName",
+                        "InputFieldList": "CustomerName.delete.key",
                         "OutputFieldList": {},
                         "endpoint": "mongodb://localhost:27017/genericResolver"
                     }
@@ -26,7 +26,7 @@
                 "mutationName": "UpdateToDB",
                 "details": [
                     {
-                        "InputFieldList": "CustomerName,Location,District,State",
+                        "InputFieldList": "CustomerName.update.key,Location.update.key,District.update.key,State.update.key",
                         "OutputFieldList": "CustomerName,State,Location",
                         "endpoint": "mongodb://localhost:27017/genericResolver"
                     }
@@ -37,7 +37,7 @@
                 "mutationName": "AddInAPI",
                 "details": [
                     {
-                        "InputFieldList": "first_name,last_name,avatar,email,phone",
+                        "InputFieldList": "first_name.add.api.key,last_name.add.api.key,avatar.add.api.key,email.add.api.key,phone.add.api.key",
                         "OutputFieldList": "",
                         "endpoint":"https://reqres.in/api/users"
                     }
@@ -47,7 +47,7 @@
                 "mutationName": "DeleteInAPI",
                 "details": [
                     {
-                        "InputFieldList": "id",
+                        "InputFieldList": "id.delete.api.key",
                         "OutputFieldList": {},
                         "endpoint": "https://reqres.in/api/users"
                     }
@@ -57,19 +57,9 @@
                 "mutationName": "UpdateToAPI",
                 "details": [
                     {
-                        "InputFieldList": "first_name,last_name,avatar,email",
+                        "InputFieldList": "first_name.update.api.key,last_name.update.api.key,avatar.update.api.key,email.update.api.key",
                         "OutputFieldList":"",
                         "endpoint": "https://reqres.in/api/users"
-                    }
-                ]
-            },
-            {
-                "mutationName": "AddCustomer",
-                "details": [
-                    {
-                        "InputFieldList":"CustomerName,Location,District,State",
-                        "OutputFieldList":"CustomerName",
-                        "endpoint": "mongodb://localhost:27017/genericResolver"
                     }
                 ]
             }

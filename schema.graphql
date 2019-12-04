@@ -1,6 +1,8 @@
 type Query
 {
     genericResolver(input:String!):String   
+    validateUser(UserId:String!,Credentials:String!,JsonName:String!,user_language_pref:String!):String 
+
 }
 
 type Mutation
