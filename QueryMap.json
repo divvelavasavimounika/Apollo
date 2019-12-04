@@ -5,7 +5,7 @@
                 "queryName": "getData",
                 "details": [
                     {
-                        "InputFieldList": "ID.key",
+                        "InputFieldList": "ID",
                         "OutputFieldList": "",
                         "endpoint": "https://reqres.in/api/users"
                     }
@@ -15,7 +15,7 @@
                 "queryName": "getCustomerDetails",
                 "details": [
                     {
-                        "InputFieldList": "CustomerName.key,Location.key",
+                        "InputFieldList": "CustomerName,Location",
                         "OutputFieldList": "",
                         "endpoint": "mongodb://localhost:27017/genericResolver"
                     }

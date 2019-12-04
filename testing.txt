@@ -1,4 +1,9 @@
-https://github.com/divvelavasavimounika/Apollo.git
+
+
+query
+{
+  validateUser(UserId:"mounika@virtusa.com",Credentials:"Mouni@123",JsonName:"AppBuilder",user_language_pref:"en")
+}
 
 for rest api
 ----------------

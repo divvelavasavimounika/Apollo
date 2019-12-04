@@ -20,9 +20,6 @@ const validateUserById =async id => {
         var data;
     
           data =  await db.getCollection('userTable').findOne({ UserId: id });
-            console.log("Data", data);
-     
-
 
         return data
             ;

@@ -2,7 +2,6 @@ let fs = require('fs');
 const bodyParser = require('body-parser');
 let querydata = fs.readFileSync('./QueryMap.json', 'utf8');
 let mutationdata = fs.readFileSync('./MutationMap.json', 'utf-8');
-let propData = fs.readFileSync('./template.properties', 'utf-8');
 const queryModule = require('./modules/queryModule');
 const mutationModule = require('./modules/mutationModule');
 const db = require('./db');
@@ -17,6 +16,9 @@ let validUser = false;
 const method = { type: null };
 const Add = "Add", Delete = "Delete", Update = "Update";
 let language;
+var jsondata = "";
+var validateResponse = "";
+var responseData;
 const Query =
 {
     validateUser: async (_, args) => {
@@ -28,8 +30,8 @@ const Query =
         console.log("arguments", args);
         let id = args.UserId;
         language = args.user_language_pref;
-        let validateResponse = "";
-        let jsondata = "";
+
+
         let passwordById = await queryModule.validateUserById(id);
         console.log("passwordById", passwordById);
         if (passwordById == null) {
@@ -45,9 +47,10 @@ const Query =
 
                     id = args.UserId;
                     value = args.JsonName;
-
+                    var keysArray = new Array;
+                    var valuesArray = new Array;
                     let map = new Map();
-                    fs.readFile(`${value}` + '.json', { encoding: 'utf-8' }, async function (err, res) {
+                    fs.readFile(`${value}` + '.json', { encoding: 'utf-8' }, function (err, res) {
                         if (err)
                             console.log("Error", err)
                         else {
@@ -56,8 +59,7 @@ const Query =
                                 if (err)
                                     console.log(err);
                                 else {
-                                    var keysArray = new Array;
-                                    var valuesArray = new Array;
+
                                     var res = res.split("=").toString();
                                     var res1 = res.split(/\r\n|\n|\r/)
                                     for (var i = 0; i < res1.length; i++) {
@@ -83,39 +85,30 @@ const Query =
 
                                     for (i = 0; i < keysArray.length && valuesArray.length; i++) {
                                         jsondata = jsondata.replace(keysArray[i], valuesArray[i]);
+
                                     }
 
-                                    jsondata = JSON.parse(jsondata);
-                                    // console.log("jsondata", jsondata)
-
-                                    // validateResponse += jsondata;
-                                    // console.log("Validate  condition", validateResponse);
-                                    return jsondata;
 
                                 }
+                                responseData = (function () {
 
-
+                                    return jsondata;
+                                })();
 
                             });
 
-
                         }
-
-
                     });
 
 
                 }
-                else {
-                    validUser = false;
-                }
 
-                
             }
 
         }
-        // return jsondata;
-        // return validateResponse;
+
+        return JSON.parse(responseData);
+
     },
 
 
@@ -144,7 +137,6 @@ const Query =
             values.push(elem);
         }
         if (validUser == true) {
-            console.log("Keys", keys, "values", values);
             var jsondata = JSON.parse(querydata);
             jsondata.map(element => {
                 Queries = element.Queries;
@@ -155,7 +147,7 @@ const Query =
                     if (element.queryName == values[i]) {
                         queryFlag = true;
                         link = element.queryName;
-                        console.log("element", element.queryName, link);
+
                         details = element.details;
                         details.forEach(element => {
                             inputs = element.InputFieldList;
@@ -167,26 +159,26 @@ const Query =
 
                 });
             }
-            console.log("queryFlag", queryFlag);
+
             if (queryFlag == false) {
-                console.log("QueryName Not found");
+
                 return "QueryName Not Found";
             }
             else {
-                console.log("QueryName found");
+
                 inputs = JSON.stringify(inputs);
                 inputs = inputs.split(",").toString();
                 inputs = inputs.replace(/["]+/g, '');
                 inputs = inputs.split(",");
 
-                console.log("Before", inputs);
+
                 outputs = JSON.stringify(outputs);
                 outputs = outputs.split(",").toString();
                 outputs = outputs.replace(/["]+/g, '');
                 outputs = outputs.split(",");
 
                 if (endpoint.includes("mongodb")) {
-                    console.log("Into Database");
+
                     await db.connect(endpoint, function (err) {
                         if (err) {
                             process.exit(1);
@@ -194,45 +186,12 @@ const Query =
                     });
                     collectionName = values.shift();
                     values = values.splice("1");
-                    console.log("values", values);
-
-                    let propkeys = new Array;
-                    let propvalues = new Array;
-                    res = propData.split("=").toString();
-                    let res1 = res.split(/\r\n|\n|\r/)
-                    for (let i = 0; i < res1.length; i++) {
-                        let data = res1[i].toString();
-                        let value = data.split(",").toString();
-                        let str = value
-                        array = str.split(",");
-                        map.set(array[0], array[1]);
-                    }
-                    get_keys = map.keys();
-                    get_Values = map.values();
-                    for (var elem of get_keys) {
-                        propkeys.push(elem);
-                    }
-                    for (var elem of get_Values) {
-                        propvalues.push(elem);
-                    }
-                    for (var i = 0; i < propkeys.length; i++) {
-                        propkeys[i] = propkeys[i].trim()
-                    }
-                    for (i = 0; i < inputs.length; i++) {
-                        for (j = 0; j < propkeys.length && propvalues.length; j++) {
-                            if (inputs[i] == propkeys[j])
-                                inputs[i] = propvalues[j];
-
-                        }
-
-                    }
-                    console.log("After Internationalization", inputs);
+             
                     try {
                         if (inputs != null) {
-                            console.log("Into Inputs block");
-                            console.log("CollectionName", collectionName);
+                          
                             info = await queryModule.getDetails(collectionName, inputs, values);
-                            console.log("Data", info);
+                          
                             if (info == null) {
                                 return "No data found";
                             } else {
@@ -240,7 +199,7 @@ const Query =
                                 if ((outputs.length > 0) && (outputs.includes('') == false)) {
                                     const outputKeys = Object.keys(info);
                                     const outputValues = Object.values(info);
-                                    console.log("outputKeys", outputKeys, "outputValues", outputValues, "outputs", outputs)
+                                   
                                     for (var i = 0; i < outputKeys.length && outputValues.length; i++) {
                                         outputKeys[i] = outputKeys[i].trim();
                                         for (var j = 0; j < outputs.length; j++) {
@@ -251,12 +210,12 @@ const Query =
                                             }
                                         }
                                     }
-                                    console.log("Result", result.menuitems);
+                                  
                                     result.menuitems = JSON.stringify(result.menuitems);
 
                                 }
                                 else {
-                                    console.log("Info", info);
+                                    
                                     return JSON.stringify(info);
                                 }
                             }
@@ -273,7 +232,7 @@ const Query =
 
                                 const outputKeys = Object.keys(info);
                                 const outputValues = Object.values(info);
-                                console.log("outputKeys", outputKeys, "outputValues", outputValues, "outputs", outputs)
+                             
                                 for (var i = 0; i < outputKeys.length && outputValues.length; i++) {
                                     outputKeys[i] = outputKeys[i].trim();
                                     for (var j = 0; j < outputs.length; j++) {
@@ -299,38 +258,6 @@ const Query =
                 else if (endpoint.includes("http") || endpoint.includes("https")) {
                     values = values.splice("1");
                     connection = endpoint;
-                    let propkeys = new Array;
-                    let propvalues = new Array;
-                    res = propData.split("=").toString();
-                    let res1 = res.split(/\r\n|\n|\r/)
-                    for (let i = 0; i < res1.length; i++) {
-                        let data = res1[i].toString();
-                        let value = data.split(",").toString();
-                        let str = value
-                        array = str.split(",");
-                        map.set(array[0], array[1]);
-                    }
-                    get_keys = map.keys();
-                    get_Values = map.values();
-                    for (var elem of get_keys) {
-                        propkeys.push(elem);
-                    }
-                    for (var elem of get_Values) {
-                        propvalues.push(elem);
-                    }
-                    for (var i = 0; i < propkeys.length; i++) {
-                        propkeys[i] = propkeys[i].trim()
-                    }
-                    for (i = 0; i < inputs.length; i++) {
-                        for (j = 0; j < propkeys.length && propvalues.length; j++) {
-                            if (inputs[i] == propkeys[j])
-                                inputs[i] = propvalues[j];
-
-                        }
-
-                    }
-                    console.log("After Internationalization", inputs);
-
                     try {
                         if (inputs != null) {
                             info = await dataSources.GenericAPI.getData(connection, inputs, values);
@@ -340,7 +267,7 @@ const Query =
                                 if ((outputs.length > 0) && (outputs.includes('') == false)) {
                                     const outputKeys = Object.keys(info);
                                     const outputValues = Object.values(info);
-                                    console.log("outputKeys", outputKeys, "outputValues", outputValues, "outputs", outputs)
+
                                     for (var i = 0; i < outputKeys.length && outputValues.length; i++) {
                                         outputKeys[i] = outputKeys[i].trim();
                                         for (var j = 0; j < outputs.length; j++) {
@@ -351,11 +278,11 @@ const Query =
                                             }
                                         }
                                     }
-                                    console.log("Result", result.menuitems);
+
                                     result.menuitems = JSON.stringify(result.menuitems);
                                 }
                                 else {
-                                    console.log("Info", info);
+
                                     return JSON.stringify(info);
                                 }
 
@@ -363,14 +290,14 @@ const Query =
                         }
                         else {
                             info = await dataSources.GenericAPI.getData(connection, keys, values);
-                            console.log(info);
+
                             if (info == null) {
                                 return "No data found";
                             } else {
                                 if ((outputs.length > 0) && (outputs.includes('') == false)) {
                                     const outputKeys = Object.keys(info);
                                     const outputValues = Object.values(info);
-                                    console.log("outputKeys", outputKeys, "outputValues", outputValues, "outputs", outputs)
+
                                     for (var i = 0; i < outputKeys.length && outputValues.length; i++) {
                                         outputKeys[i] = outputKeys[i].trim();
                                         for (var j = 0; j < outputs.length; j++) {
@@ -381,11 +308,11 @@ const Query =
                                             }
                                         }
                                     }
-                                    console.log("Result", result.menuitems);
+
                                     result.menuitems = JSON.stringify(result.menuitems);
                                 }
                                 else {
-                                    console.log("Info", info);
+
                                     return JSON.stringify(info);
                                 }
 
@@ -410,7 +337,7 @@ const Query =
 },
     Mutation = {
         genericMutation: async (_, args, { dataSources }) => {
-            console.log("arguments are", args);
+
             var mutationType = args.mutationType;
             let map = new Map();
             var keys = new Array();
@@ -421,7 +348,7 @@ const Query =
             input = input.split(",");
             get_keys = 0;
             get_Values = 0;
-            console.log("get_keys", get_keys, "get_Values", get_Values);
+
             for (var i = 0; i < input.length; i++) {
                 var array = input[i].toString();
                 array = array.split(":");
@@ -430,7 +357,7 @@ const Query =
 
             get_keys = map.keys();
             get_Values = map.values();
-            console.log("get_keys", get_keys, "get_Values", get_Values);
+
             for (var elem of get_keys) {
                 keys.push(elem);
             }
@@ -439,18 +366,18 @@ const Query =
                 values.push(elem);
             }
             if (validUser == true) {
-                console.log('keys', keys, "values", values);
+
                 var jsondata = JSON.parse(mutationdata);
 
                 jsondata.map(element => {
                     Mutations = element.Mutations;
                 });
-                console.log("mutationType", mutationType)
+
                 Mutations.map(element => {
                     if (`${mutationType}`.includes(element.mutationName)) {
                         mutationFlag = true;
                         link = element.mutationName;
-                        console.log("mutationType:", mutationType, "and mutationName:", link);
+
                         details = element.details;
                         details.forEach(element => {
                             inputs = element.InputFieldList;
@@ -460,7 +387,7 @@ const Query =
                     }
                 });
                 if (mutationFlag == false) {
-                    console.log("Mutation Name Not Found");
+
                     return "Mutation Name Not Found";
                 }
                 else {
@@ -477,58 +404,24 @@ const Query =
                         db.connect(endpoint, function (err) {
                             if (err) {
                                 process.exit(1)
-                            } else {
-                                console.log("Connected to Port");
                             }
                         });
                         collectionName = values.shift();
                         keys.shift();
-                        console.log(keys);
 
-                        let propkeys = new Array;
-                        let propvalues = new Array;
-                        res = propData.split("=").toString();
-                        let res1 = res.split(/\r\n|\n|\r/)
-                        for (let i = 0; i < res1.length; i++) {
-                            let data = res1[i].toString();
-                            let value = data.split(",").toString();
-                            let str = value
-                            array = str.split(",");
-                            map.set(array[0], array[1]);
-                        }
-                        get_keys = map.keys();
-                        get_Values = map.values();
-                        for (var elem of get_keys) {
-                            propkeys.push(elem);
-                        }
-                        for (var elem of get_Values) {
-                            propvalues.push(elem);
-                        }
-                        for (var i = 0; i < propkeys.length; i++) {
-                            propkeys[i] = propkeys[i].trim()
-                        }
-                        for (i = 0; i < inputs.length; i++) {
-                            for (j = 0; j < propkeys.length && propvalues.length; j++) {
-                                if (inputs[i] == propkeys[j])
-                                    inputs[i] = propvalues[j];
 
-                            }
 
-                        }
-                        console.log("After Internationalization", inputs);
 
                         if (mutationType.includes(Add)) {
                             try {
                                 if (inputs != null) {
-                                    console.log("Inputs", inputs, "Values", values);
+
                                     info = await mutationModule.post(collectionName, inputs, values);
                                     if (info == null) {
                                         return "No data found";
                                     } else {
                                         const outputKeys = Object.keys(info[0]);
                                         const outputValues = Object.values(info[0]);
-                                        console.log("outputKeys", outputKeys, "outputValues", outputValues, "outputs", outputs);
-                                        console.log("Outputs length", outputs.length);
 
                                         if ((outputs.length > 0) && (outputs.includes('') == false)) {
                                             for (var i = 0; i < outputKeys.length && outputValues.length; i++) {
@@ -541,26 +434,26 @@ const Query =
                                                     }
                                                 }
                                             }
-                                            console.log("Result", result.menuitems);
+
                                             result.menuitems = JSON.stringify(result.menuitems);
                                             return JSON.stringify(result.menuitems);
                                         }
                                         else {
-                                            console.log(info);
+
                                             return JSON.stringify(info);
                                         }
 
                                     }
                                 }
                                 else {
-                                    console.log("Into else block")
+
                                     info = await mutationModule.post(collectionName, keys, values);
                                     if (info == null) {
                                         return "No data found";
                                     } else {
                                         const outputKeys = Object.keys(info[0]);
                                         const outputValues = Object.values(info[0]);
-                                        console.log("outputKeys", outputKeys, "outputValues", outputValues, "outputs", outputs)
+
                                         if ((outputs.length > 0) && (outputs.includes('') == false)) {
 
                                             for (var i = 0; i < outputKeys.length && outputValues.length; i++) {
@@ -573,12 +466,12 @@ const Query =
                                                     }
                                                 }
                                             }
-                                            console.log("Result", result.menuitems);
+
                                             result.menuitems = JSON.stringify(result.menuitems);
                                             return JSON.stringify(result.menuitems);
                                         }
                                         else {
-                                            console.log(info);
+
                                             return JSON.stringify(info);
                                         }
 
@@ -593,7 +486,7 @@ const Query =
                         else if (mutationType.includes(Delete)) {
                             try {
                                 if (inputs != null) {
-                                    console.log("Inputs", inputs, "Values", values)
+
                                     info = await mutationModule.remove(collectionName, inputs, values);
                                     console.log("Info", info);
                                     if (info == 0) {
@@ -604,7 +497,7 @@ const Query =
                                     }
                                 }
                                 else {
-                                    console.log("Keys", keys, "Values", values)
+
                                     info = await mutationModule.remove(collectionName, keys, values);
                                     console.log("Into else block")
                                     if (info == 0) {
@@ -664,7 +557,7 @@ const Query =
                                     } else {
                                         const outputKeys = Object.keys(info);
                                         const outputValues = Object.values(info);
-                                        console.log("outputKeys", outputKeys, "outputValues", outputValues, "outputs", outputs)
+
                                         if ((outputs.length > 0) && (outputs.includes('') == false)) {
                                             for (var i = 0; i < outputKeys.length && outputValues.length; i++) {
                                                 outputKeys[i] = outputKeys[i].trim();
@@ -676,7 +569,7 @@ const Query =
                                                     }
                                                 }
                                             }
-                                            console.log("Result", result.menuitems);
+
                                             result.menuitems = JSON.stringify(result.menuitems);
                                             return JSON.stringify(result.menuitems);
                                         }
@@ -702,51 +595,21 @@ const Query =
                         app.use(bodyParser.json());
                         app.listen(endpoint);
 
-                        let propkeys = new Array;
-                        let propvalues = new Array;
-                        res = propData.split("=").toString();
-                        let res1 = res.split(/\r\n|\n|\r/)
-                        for (let i = 0; i < res1.length; i++) {
-                            let data = res1[i].toString();
-                            let value = data.split(",").toString();
-                            let str = value
-                            array = str.split(",");
-                            map.set(array[0], array[1]);
-                        }
-                        get_keys = map.keys();
-                        get_Values = map.values();
-                        for (var elem of get_keys) {
-                            propkeys.push(elem);
-                        }
-                        for (var elem of get_Values) {
-                            propvalues.push(elem);
-                        }
-                        for (var i = 0; i < propkeys.length; i++) {
-                            propkeys[i] = propkeys[i].trim()
-                        }
-                        for (i = 0; i < inputs.length; i++) {
-                            for (j = 0; j < propkeys.length && propvalues.length; j++) {
-                                if (inputs[i] == propkeys[j])
-                                    inputs[i] = propvalues[j];
 
-                            }
-
-                        }
-                        console.log("After Internationalization", inputs);
 
                         if (mutationType.includes(Add)) {
-                            console.log(mutationType)
+
                             try {
                                 method.type = "POST";
                                 if (inputs != null) {
-                                    console.log("values", values)
+
                                     info = await dataSources.GenericAPI.invokeAPI(method.type, connection, inputs, values);
                                     if (info == null) {
                                         return "No data found";
                                     } else {
                                         const outputKeys = Object.keys(info);
                                         const outputValues = Object.values(info);
-                                        console.log("outputKeys", outputKeys, "outputValues", outputValues, "outputs", outputs)
+
                                         if ((outputs.length > 0) && (outputs.includes('') == false)) {
                                             for (var i = 0; i < outputKeys.length && outputValues.length; i++) {
                                                 outputKeys[i] = outputKeys[i].trim();
@@ -774,7 +637,7 @@ const Query =
                                     } else {
                                         const outputKeys = Object.keys(info);
                                         const outputValues = Object.values(info);
-                                        console.log("outputKeys", outputKeys, "outputValues", outputValues, "outputs", outputs)
+
                                         if ((outputs.length > 0) && (outputs.includes('') == false)) {
                                             for (var i = 0; i < outputKeys.length && outputValues.length; i++) {
                                                 outputKeys[i] = outputKeys[i].trim();
@@ -807,7 +670,7 @@ const Query =
                                 method.type = "DELETE";
                                 if (inputs != null) {
                                     data = await dataSources.GenericAPI.invokeAPI(method.type, connection, inputs, values)
-                                    console.log("Deleted");
+
                                     if (data == 0) {
                                         return "Data is not present"
                                     }
@@ -819,7 +682,7 @@ const Query =
                                 else {
                                     data = await dataSources.GenericAPI.invokeAPI(method.type, connection, keys, values)
 
-                                    console.log("Deleted");
+
                                     if (data == 0) {
                                         return "Data is not present";
                                     }
@@ -839,17 +702,17 @@ const Query =
                             try {
                                 method.type = "PUT";
                                 if (inputs != null) {
-                                    console.log("values", values)
+
                                     data = await dataSources.GenericAPI.invokeAPI(method.type, connection, inputs, values);
 
-                                    console.log("Data", data);
+
                                     if (data == null) {
                                         return "No data found";
                                     } else {
 
                                         const outputKeys = Object.keys(data);
                                         const outputValues = Object.values(data);
-                                        console.log("outputKeys", outputKeys, "outputValues", outputValues, "outputs", outputs)
+
                                         if ((outputs.length > 0) && (outputs.includes('') == false)) {
                                             for (var i = 0; i < outputKeys.length && outputValues.length; i++) {
                                                 outputKeys[i] = outputKeys[i].trim();
@@ -871,13 +734,13 @@ const Query =
                                 }
                                 else {
                                     data = await dataSources.GenericAPI.invokeAPI(method.type, connection, keys, values);
-                                    console.log("Data", data);
+
                                     if (data == null) {
                                         return "No data found";
                                     } else {
                                         const outputKeys = Object.keys(data);
                                         const outputValues = Object.values(data);
-                                        console.log("outputKeys", outputKeys, "outputValues", outputValues, "outputs", outputs)
+
                                         if ((outputs.length > 0) && (outputs.includes('') == false)) {
                                             for (var i = 0; i < outputKeys.length && outputValues.length; i++) {
                                                 outputKeys[i] = outputKeys[i].trim();

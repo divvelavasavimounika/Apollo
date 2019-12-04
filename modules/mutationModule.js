@@ -9,7 +9,7 @@ const post = async (collectionName, keys, values) => {
         data = await db.getCollection(`${collectionName}`).insertOne(info);
         if (data != null) {
             data = db.getCollection(`${collectionName}`).find({}).sort({ _id: -1 }).limit(1).toArray();
-            //console.log("data", data);
+        
         }
         return data;
     }
@@ -25,7 +25,7 @@ const remove = async (collectionName, keys, values) => {
             query = { [keys[i]]: values[i] };
         }
         data = await db.getCollection(`${collectionName}`).deleteOne(query);
-        //console.log('Data',data);
+      
         return data['deletedCount'];
     } catch (e) {
         return "No data found";
