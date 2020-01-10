@@ -1,0 +1,155 @@
+/* You can add global styles to this file, and also import other style files */
+#loginId{
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-left: 110px;
+    margin-top: -11px;;
+}
+.jqTransformInputWrapper {
+background: transparent url(../src/assets/input_text_left.gif) no-repeat left top;
+height: 31px;
+padding: 0px;
+float: left;
+width: auto !important;
+}
+.form.jqtransformdone label {
+display: block;
+float: left;
+}
+.login-component form input.custom-btn {
+float: left;
+border: none;
+display: block;
+cursor: pointer;
+height: auto;
+padding: 5px;
+background: url(../src/assets/custom-btn-bg.gif) repeat-x;
+color: #FFF;
+font-family: Verdana, Geneva, sans-serif;
+font-weight: bold;
+margin-left: 114px;
+margin-top: 25px;
+width: auto;
+position: relative;
+border-radius: 3px;
+width: 85px;
+line-height: 17px;
+}
+.label1
+{
+float: left;
+}
+.form-container .form-field label {
+padding-top: 5px;
+text-align: right;
+width: 110px;
+padding-right: 5px;
+font-family: Tahoma, Geneva, sans-serif;
+padding-bottom: 3px;
+}
+.form-container .form-field {
+clear: both;
+display: block;
+float: left;
+margin-bottom: 10px;
+}
+.login-component form input {
+border: 1px solid #DCDCDC;
+border-radius: 3px 3px 3px 3px;
+height: 30px;
+margin-bottom: 25px;
+width: 210px;
+position: relative;
+line-height: 30px;
+font-family: verdana;
+}
+.login-component form {
+background: url(../src/assets/login-bg.png) repeat-x 0 0;
+height: 193px;
+border-radius: 0 0 3px 3px;
+padding: 20px;
+border: 1px solid #CDCDCD;
+position: relative;
+}
+
+.login-component {
+width: 385px;
+margin: 40px auto;
+height: 400px;
+}
+
+.login-component h3 {
+font-size: 16px;
+background: none repeat scroll 0 0 #007CB9;
+padding: 10px 0 8px 10px;
+color: #FFFFFF;
+font-family: verdana;
+border-radius: 3px 3px 0 0;
+font-weight: bold;
+margin: 0;
+}
+#main-content {
+overflow: hidden;
+clear: both;
+}
+
+header .portal-name {
+float: left;
+font-family: verdana;
+font-size: 21px;
+font-weight: bold;
+margin-left: 70px;
+margin-top: 45px;
+color: #193481;
+}
+header .top-section {
+width: 940px;
+margin: 0 auto;
+background: url(../src/assets/Header_bg.jpg) no-repeat 184px 0px;
+padding: 5px 10px 35px;
+overflow: hidden;
+/* height: 71px; */
+}
+header {
+background: url(../src/assets/bg.jpg);
+height: 111px;
+}
+header .associate {
+text-align: right;
+}
+
+.col-md-12 .container
+{
+width: 100%;
+margin-right: auto;
+margin-left: auto;
+padding-left: 350px;
+}
+.row .col-md-12 .form
+{
+border-radius: 5rem;
+letter-spacing: .1rem;
+}
+.form-control
+{
+width: fit-content;
+max-width: 100%;
+}
+#ul-items li{
+padding-top: 15px;
+display: inline;
+color: #545760;
+font-size: 11px;
+padding-left: 10px;
+padding-right: 10px;
+font-family: Verdana, Geneva, sans-serif;
+
+}
+.footer {
+border-top: 1px solid #CCC;
+position: fixed;
+bottom: 0px;
+text-align: center;
+width: 100%;
+padding: 10px 10px 10px 10px;
+}
