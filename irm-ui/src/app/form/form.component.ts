@@ -11,7 +11,11 @@ import { LoginService } from '../service/login.service';
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent implements OnInit {
-  user: User;
+  public user: User = {
+    userid: null,
+    password: null
+  };
+  // user: User;
   er: Error;
   message: string = null;
   errStatus: boolean = false;
@@ -40,13 +44,16 @@ export class FormComponent implements OnInit {
           }
         }
         , error => {
-          this.router.navigateByUrl('/home');
-          // this.serverStatus = true;
-          // console.log("error Status",error.status)
-          // if (error.status == 500 || error.status == 0) {
-          //   this.message = 'Server is down';
-          //   console.log("this.er inside if", this.message);
-          // }
+
+          this.serverStatus = true;
+          console.log("error Status", error.status)
+          if (error.status == 500 || error.status == 0) {
+            this.message = 'Server is down';
+            console.log("this.er inside if", this.message);
+          }else if (error.status == 404 || error.status == 0) {
+            this.message = 'Requested resource not available';
+            console.log("this.er inside if", this.message);
+          }
         });
 
   }

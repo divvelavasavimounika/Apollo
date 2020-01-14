@@ -3,12 +3,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.0.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<groupId>com.hdfc.insurance</groupId>
+		<artifactId>hdfc_irm</artifactId>
+		<version>0.0.1</version>
+		<!-- <relativePath /> lookup parent from repository -->
 	</parent>
-	<groupId>com.hdfc.insurance</groupId>
+	
 	<artifactId>irm-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>irm-web</name>
@@ -30,6 +30,12 @@
 			<artifactId>irm-engine</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<!-- <dependency>
+			<groupId>com.hdfc.insurance</groupId>
+			<artifactId>irm-ui</artifactId>
+			<version>${project.version}</version>
+			<scope>runtime</scope>
+		</dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -50,6 +56,26 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/src/main/resources/static/</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/../irm-ui/dist</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>  
 		</plugins>
 	</build>
 
