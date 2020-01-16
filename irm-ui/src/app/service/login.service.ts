@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
-  private baseUrl = "http://hddravithadak:8086/irmweb/authenticate";
+  private baseUrl = "authenticate";
   constructor(private http: HttpClient) { }
   loginUser(user: Object): Observable<Object> {
     sessionStorage.setItem('userid', user["userid"]);

@@ -15,8 +15,8 @@
                       <div class="form-group" [class.has-error]="useridControl.invalid && useridControl.touched"
                         [class.has-success]="useridControl.valid " style="margin-top:-13px ;">
                         <label style="font-size:small;">UserID:</label>
-                        <input required #useridControl="ngModel" id="userid " type="text" class="form-control"
-                          name="userid" [(ngModel)]="userid">
+                        <input required #useridControl="ngModel" id="userid" type="text" class="form-control"
+                          name="userid" [(ngModel)]="user.userid" >
                         <span class="help-block" *ngIf="useridControl.invalid  && useridControl.touched">UserID is
                           required</span>
                       </div>
@@ -24,12 +24,12 @@
                         [class.has-success]="passwordControl.valid">
                         <label style="font-size:small;">Password:</label>
                         <input required #passwordControl="ngModel" type="password" class="form-control" name="password"
-                          id="password" [(ngModel)]="password">
+                          id="password" [(ngModel)]="user.password">
                         <span class="help-block" *ngIf="passwordControl.invalid && passwordControl.touched">Password is
                           required</span>
                       </div>
                       <button type="submit" id="loginId" class="btn btn-primary"
-                        [disabled]="loginForm.invalid">Login</button>
+                      [disabled]="!loginForm.valid">Login</button>
                     </div>
                   </form>
                 </div>

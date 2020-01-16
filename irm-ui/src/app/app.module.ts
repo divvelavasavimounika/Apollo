@@ -11,11 +11,15 @@ import { FormComponent } from './form/form.component';
 import { HomeComponent } from './home/home.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AuthGaurdService } from '../app/service/authGuard.service';
+
 const appRoutes: Routes = [
   { path: '', component: FormComponent },
   { path: 'login', component: AppComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGaurdService] },
-  {path:'logout',component:LogoutComponent,canActivate: [AuthGaurdService]}]
+  { path: 'logout', component: LogoutComponent, canActivate: [AuthGaurdService] },
+
+]
+
 @NgModule({
   declarations: [
     AppComponent,
