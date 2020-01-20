@@ -25,34 +25,35 @@ public class DecisionService {
 
 	@Autowired
 	IrmRuleEngine irmRuleEngine;
-
+	@Autowired
+	NameMatcher nameMatcher;
 	// @Autowired
 	// BranchPayoutLimitRepository payoutLimitRepository;
-
-	// considering full match if account validation false
-	private String nameMatchStatus = NameMatchType.FULL_MATCH.toString();
 
 	public DecisionResponse calculateDecision(DecisionRequest request) throws PayoutLimitNotSetException {
 		logger.info("Requests recieved with ntID:" + request.getEmployeeNTId());
 		LoggerUtils.debug(logger, request.toString());
 		DecisionResponse response = null;
 
-		if (request.isAccountValidationFlag()) {
-			// penny drop api call
-			// audit penny drop request and response
-			// calculate name match and set
-		}
+		// get cust details from db against policy id/custid
 
-		// get lower, upper bound of the branch, calculate nameMatch status and set
+		// penny drop api call
+		// audit penny drop request and response
+
+		// calculate name match and set
+		String nameMatchStatus = nameMatcher.performNameMatch();
 		DecisionRequestEntity entity = new DecisionRequestEntity();
 		entity.setNameMatchStatus(nameMatchStatus);
+		
 		populateBranchLimits(entity, request.getPayoutBranchID());
 		entity.setRequestId(IrmUtils.uuId());
 		BeanUtils.copyProperties(request, entity);
+
 		String decision = irmRuleEngine.parseAndGetResult(entity);
 
 		response = buildResponse(decision);
 		response.setRequestId(entity.getRequestId());
+
 		// audit request in data base
 
 		logger.info("Requests processed of ntID:" + request.getEmployeeNTId() + ": decision:" + decision);

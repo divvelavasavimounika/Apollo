@@ -1,5 +1,6 @@
 package com.hdfc.irm.app.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,18 +13,20 @@ import com.hdfc.irm.engine.model.DecisionResponse;
 
 @RestController
 public class DecisionController {
+	private static Logger logger = Logger.getLogger(DecisionController.class);
 
 	@Autowired
 	DecisionService service;
 
 	@PostMapping("/decision")
-	public DecisionResponse calculateDecission(@RequestBody DecisionRequest request) throws PayoutLimitNotSetException{
+	public DecisionResponse calculateDecission(@RequestBody DecisionRequest request) throws PayoutLimitNotSetException {
 
+		logger.info("Request recieved from :" + request.getEmployeeNTId() + ": policy id:" + request.getPolicyID());
 		// validate here
 
-		// delegate to service
 		DecisionResponse response = service.calculateDecision(request);
-
+		logger.info("Request processed of employeeNTID :" + request.getEmployeeNTId() + ": policy id:"
+				+ request.getPolicyID() + ":Decision:" + response.getDecision());
 		return response;
 	}
 }

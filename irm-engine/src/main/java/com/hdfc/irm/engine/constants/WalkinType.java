@@ -1,5 +1,6 @@
 package com.hdfc.irm.engine.constants;
 
-public enum WalkinType {
-	CUSTOMER, THIRD_PARTY;
+public interface WalkinType {
+	String CUSTOMER = "CUSTOMER";
+	String THIRD_PARTY = "THIRD_PARTY";
 }

@@ -12,59 +12,64 @@ import org.mvel2.templates.TemplateRuntime;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hdfc.irm.engine.constants.Decision;
+import com.hdfc.irm.engine.constants.NBAccountType;
+import com.hdfc.irm.engine.constants.NameMatchType;
+import com.hdfc.irm.engine.constants.OTPStatus;
+import com.hdfc.irm.engine.constants.WalkinType;
 
 @Service
 public class IrmRuleEngine {
 	private static Logger logger = Logger.getLogger(IrmRuleEngine.class);
 
-	private static final String template = "@if{walkinType=='CUSTOMER' && nbAccountType== 'SAME' && otpStatus=='NOT_REQUIRED'  && nameMatchStatus=='FULL_MATCH' && paymentAmount <=lowerBoundAmount}STP"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'SAME' && otpStatus=='NOT_REQUIRED' && nameMatchStatus=='PARTIAL_MATCH' && paymentAmount <=lowerBoundAmount}EXPERT_INITIAL"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'SAME' && otpStatus=='NOT_REQUIRED' && nameMatchStatus=='FULL_MATCH' && paymentAmount > upperBoundAmount}EXPERT_INITIAL"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'SAME' && otpStatus=='NOT_REQUIRED' && nameMatchStatus=='PARTIAL_MATCH' && paymentAmount > upperBoundAmount}EXPERT_EXPERT"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'SAME' && otpStatus=='NOT_REQUIRED' && nameMatchStatus=='NO_MATCH' && paymentAmount <=lowerBoundAmount}RMCU"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'SAME' && otpStatus=='NOT_REQUIRED' && nameMatchStatus=='NO_MATCH' && paymentAmount  > upperBoundAmount}RMCU"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'DIFFERENT' && otpStatus=='DID_NOT_MATCH' && nameMatchStatus=='FULL_MATCH' && paymentAmount <=lowerBoundAmount}UPDATE_CONTACT_DETAILS"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'DIFFERENT' && otpStatus=='MATCH' && nameMatchStatus=='FULL_MATCH' && paymentAmount <=lowerBoundAmount}EXPERT_INITIAL"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'DIFFERENT' && otpStatus=='DID_NOT_MATCH' && nameMatchStatus=='PARTIAL_MATCH' && paymentAmount <=lowerBoundAmount}UPDATE_CONTACT_DETAILS"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'DIFFERENT' && otpStatus=='MATCH' && nameMatchStatus=='PARTIAL_MATCH' && paymentAmount <=lowerBoundAmount}EXPERT_EXPERT"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'DIFFERENT' && otpStatus=='DID_NOT_MATCH' && nameMatchStatus=='FULL_MATCH' && paymentAmount  > upperBoundAmount}UPDATE_CONTACT_DETAILS"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'DIFFERENT' && otpStatus=='MATCH' && nameMatchStatus=='FULL_MATCH' && paymentAmount  > upperBoundAmount}EXPERT_EXPERT"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'DIFFERENT' && otpStatus=='DID_NOT_MATCH' && nameMatchStatus=='PARTIAL_MATCH' && paymentAmount  > upperBoundAmount}UPDATE_CONTACT_DETAILS"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'DIFFERENT' && otpStatus=='MATCH' && nameMatchStatus=='PARTIAL_MATCH' && paymentAmount  > upperBoundAmount}EXPERT_EXPERT"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'DIFFERENT' && otpStatus=='DID_NOT_MATCH' && nameMatchStatus=='NO_MATCH' && paymentAmount <=lowerBoundAmount}UPDATE_CONTACT_DETAILS"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'DIFFERENT' && otpStatus=='MATCH' && nameMatchStatus=='NO_MATCH' && paymentAmount <=lowerBoundAmount}RMCU"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'DIFFERENT' && otpStatus=='DID_NOT_MATCH' && nameMatchStatus=='NO_MATCH' && paymentAmount  > upperBoundAmount}UPDATE_CONTACT_DETAILS"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'DIFFERENT' && otpStatus=='MATCH' && nameMatchStatus=='NO_MATCH' && paymentAmount  > upperBoundAmount}RMCU"
-			+ "@else{walkinType=='THIRD_PARTY' && nbAccountType== 'SAME' && otpStatus=='MATCH' && nameMatchStatus=='FULL_MATCH' && paymentAmount <=lowerBoundAmount}STP"
-			+ "@else{walkinType=='THIRD_PARTY' && nbAccountType== 'SAME' && otpStatus=='DID_NOT_MATCH' && nameMatchStatus=='FULL_MATCH' && paymentAmount <=lowerBoundAmount}CUSTOMER_WALKIN_REQUIRED"
+	private static final String template = "@if{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.NOT_REQUIRED+"'  && nameMatchStatus=='"+NameMatchType.FULL_MATCH+"' && paymentAmount <=lowerBoundAmount}"+Decision.STP
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.NOT_REQUIRED+"' && nameMatchStatus=='"+NameMatchType.PARTIAL_MATCH+"' && paymentAmount <=lowerBoundAmount}"+Decision.EXPERT_INITIAL
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.NOT_REQUIRED+"' && nameMatchStatus=='"+NameMatchType.FULL_MATCH+"' && paymentAmount > upperBoundAmount}"+Decision.EXPERT_INITIAL
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.NOT_REQUIRED+"' && nameMatchStatus=='"+NameMatchType.PARTIAL_MATCH+"' && paymentAmount > upperBoundAmount}"+Decision.EXPERT_EXPERT
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.NOT_REQUIRED+"' && nameMatchStatus=='"+NameMatchType.NO_MATCH+"' && paymentAmount <=lowerBoundAmount}"+Decision.RMCU
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.NOT_REQUIRED+"' && nameMatchStatus=='"+NameMatchType.NO_MATCH+"' && paymentAmount  > upperBoundAmount}"+Decision.RMCU
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.DIFFERENT+"' && otpStatus=='"+OTPStatus.DID_NOT_MATCH+"' && nameMatchStatus=='"+NameMatchType.FULL_MATCH+"' && paymentAmount <=lowerBoundAmount}"+Decision.UPDATE_CONTACT_DETAILS
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.DIFFERENT+"' && otpStatus=='"+OTPStatus.MATCH+"' && nameMatchStatus=='"+NameMatchType.FULL_MATCH+"' && paymentAmount <=lowerBoundAmount}"+Decision.EXPERT_INITIAL
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.DIFFERENT+"' && otpStatus=='"+OTPStatus.DID_NOT_MATCH+"' && nameMatchStatus=='"+NameMatchType.PARTIAL_MATCH+"' && paymentAmount <=lowerBoundAmount}"+Decision.UPDATE_CONTACT_DETAILS
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.DIFFERENT+"' && otpStatus=='"+OTPStatus.MATCH+"' && nameMatchStatus=='"+NameMatchType.PARTIAL_MATCH+"' && paymentAmount <=lowerBoundAmount}"+Decision.EXPERT_EXPERT
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.DIFFERENT+"' && otpStatus=='"+OTPStatus.DID_NOT_MATCH+"' && nameMatchStatus=='"+NameMatchType.FULL_MATCH+"' && paymentAmount  > upperBoundAmount}"+Decision.UPDATE_CONTACT_DETAILS
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.DIFFERENT+"' && otpStatus=='"+OTPStatus.MATCH+"' && nameMatchStatus=='"+NameMatchType.FULL_MATCH+"' && paymentAmount  > upperBoundAmount}"+Decision.EXPERT_EXPERT
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.DIFFERENT+"' && otpStatus=='"+OTPStatus.DID_NOT_MATCH+"' && nameMatchStatus=='"+NameMatchType.PARTIAL_MATCH+"' && paymentAmount  > upperBoundAmount}"+Decision.UPDATE_CONTACT_DETAILS
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.DIFFERENT+"' && otpStatus=='"+OTPStatus.MATCH+"' && nameMatchStatus=='"+NameMatchType.PARTIAL_MATCH+"' && paymentAmount  > upperBoundAmount}"+Decision.EXPERT_EXPERT
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.DIFFERENT+"' && otpStatus=='"+OTPStatus.DID_NOT_MATCH+"' && nameMatchStatus=='"+NameMatchType.NO_MATCH+"' && paymentAmount <=lowerBoundAmount}"+Decision.UPDATE_CONTACT_DETAILS
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.DIFFERENT+"' && otpStatus=='"+OTPStatus.MATCH+"' && nameMatchStatus=='"+NameMatchType.NO_MATCH+"' && paymentAmount <=lowerBoundAmount}"+Decision.RMCU
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.DIFFERENT+"' && otpStatus=='"+OTPStatus.DID_NOT_MATCH+"' && nameMatchStatus=='"+NameMatchType.NO_MATCH+"' && paymentAmount  > upperBoundAmount}"+Decision.UPDATE_CONTACT_DETAILS
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.DIFFERENT+"' && otpStatus=='"+OTPStatus.MATCH+"' && nameMatchStatus=='"+NameMatchType.NO_MATCH+"' && paymentAmount  > upperBoundAmount}"+Decision.RMCU
+			+ "@else{walkinType=='"+WalkinType.THIRD_PARTY+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.MATCH+"' && nameMatchStatus=='"+NameMatchType.FULL_MATCH+"' && paymentAmount <=lowerBoundAmount}"+Decision.STP
+			+ "@else{walkinType=='"+WalkinType.THIRD_PARTY+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.DID_NOT_MATCH+"' && nameMatchStatus=='"+NameMatchType.FULL_MATCH+"' && paymentAmount <=lowerBoundAmount}"+Decision.CUSTOMER_WALKIN_REQUIRED
 			// special case
-			+ "@else{walkinType=='THIRD_PARTY' && nbAccountType== 'DIFFERENT' && otpStatus=='NOT_REQUIRED' && nameMatchStatus=='NOT_REQUIRED'}CUSTOMER_WALKIN_REQUIRED"
-			+ "@else{walkinType=='THIRD_PARTY' && nbAccountType== 'SAME' && otpStatus=='MATCH' && nameMatchStatus=='PARTIAL_MATCH' && paymentAmount <=lowerBoundAmount}EXPERT_INITIAL"
-			+ "@else{walkinType=='THIRD_PARTY' && nbAccountType== 'SAME' && otpStatus=='DID_NOT_MATCH' && nameMatchStatus=='PARTIAL_MATCH' && paymentAmount <=lowerBoundAmount}CUSTOMER_WALKIN_REQUIRED"
-			+ "@else{walkinType=='THIRD_PARTY' && nbAccountType== 'SAME' && otpStatus=='MATCH' && nameMatchStatus=='FULL_MATCH' && paymentAmount > upperBoundAmount}EXPERT_INITIAL"
-			+ "@else{walkinType=='THIRD_PARTY' && nbAccountType== 'SAME' && otpStatus=='DID_NOT_MATCH' && nameMatchStatus=='FULL_MATCH' && paymentAmount > upperBoundAmount}CUSTOMER_WALKIN_REQUIRED"
-			+ "@else{walkinType=='THIRD_PARTY' && nbAccountType== 'SAME' && otpStatus=='MATCH' && nameMatchStatus=='PARTIAL_MATCH' && paymentAmount > upperBoundAmount}EXPERT_EXPERT"
-			+ "@else{walkinType=='THIRD_PARTY' && nbAccountType== 'SAME' && otpStatus=='DID_NOT_MATCH' && nameMatchStatus=='PARTIAL_MATCH' && paymentAmount > upperBoundAmount}CUSTOMER_WALKIN_REQUIRED"
-			+ "@else{walkinType=='THIRD_PARTY' && nbAccountType== 'SAME' && otpStatus=='MATCH' && nameMatchStatus=='NO_MATCH' && paymentAmount <=lowerBoundAmount}RMCU"
-			+ "@else{walkinType=='THIRD_PARTY' && nbAccountType== 'SAME' && otpStatus=='DID_NOT_MATCH' && nameMatchStatus=='NO_MATCH' && paymentAmount <=lowerBoundAmount}CUSTOMER_WALKIN_REQUIRED"
-			+ "@else{walkinType=='THIRD_PARTY' && nbAccountType== 'SAME' && otpStatus=='MATCH' && nameMatchStatus=='NO_MATCH' && paymentAmount > upperBoundAmount}RMCU"
-			+ "@else{walkinType=='THIRD_PARTY' && nbAccountType== 'SAME' && otpStatus=='DID_NOT_MATCH' && nameMatchStatus=='NO_MATCH' && paymentAmount > upperBoundAmount}CUSTOMER_WALKIN_REQUIRED"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'SAME' && otpStatus=='NOT_REQUIRED' && nameMatchStatus=='FULL_MATCH' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount  }EXPERT_INITIAL"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'SAME' && otpStatus=='NOT_REQUIRED' && nameMatchStatus=='PARTIAL_MATCH' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}EXPERT_INITIAL"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'SAME' && otpStatus=='NOT_REQUIRED' && nameMatchStatus=='NO_MATCH' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}RMCU"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'DIFFERENT' && otpStatus=='DID_NOT_MATCH' && nameMatchStatus=='FULL_MATCH' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}UPDATE_CONTACT_DETAILS"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'DIFFERENT' && otpStatus=='MATCH' && nameMatchStatus=='FULL_MATCH' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}EXPERT_INITIAL"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'DIFFERENT' && otpStatus=='DID_NOT_MATCH' && nameMatchStatus=='PARTIAL_MATCH' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}UPDATE_CONTACT_DETAILS"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'DIFFERENT' && otpStatus=='MATCH' && nameMatchStatus=='PARTIAL_MATCH' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}EXPERT_EXPERT"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'DIFFERENT' && otpStatus=='DID_NOT_MATCH' && nameMatchStatus=='NO_MATCH' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}UPDATE_CONTACT_DETAILS"
-			+ "@else{walkinType=='CUSTOMER' && nbAccountType== 'DIFFERENT' && otpStatus=='MATCH' && nameMatchStatus=='NO_MATCH' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}RMCU"
-			+ "@else{walkinType=='THIRD_PARTY' && nbAccountType== 'SAME' && otpStatus=='MATCH' && nameMatchStatus=='FULL_MATCH' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}EXPERT_INITIAL"
-			+ "@else{walkinType=='THIRD_PARTY' && nbAccountType== 'SAME' && otpStatus=='DID_NOT_MATCH' && nameMatchStatus=='FULL_MATCH' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmountt}CUSTOMER_WALKIN_REQUIRED"
-			+ "@else{walkinType=='THIRD_PARTY' && nbAccountType== 'SAME' && otpStatus=='MATCH' && nameMatchStatus=='PARTIAL_MATCH' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}EXPERT_INITIAL"
-			+ "@else{walkinType=='THIRD_PARTY' && nbAccountType== 'SAME' && otpStatus=='DID_NOT_MATCH' && nameMatchStatus=='PARTIAL_MATCH' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}CUSTOMER_WALKIN_REQUIRED"
-			+ "@else{walkinType=='THIRD_PARTY' && nbAccountType== 'SAME' && otpStatus=='MATCH' && nameMatchStatus=='NO_MATCH' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmountt}RMCU"
-			+ "@else{walkinType=='THIRD_PARTY' && nbAccountType== 'SAME' && otpStatus=='DID_NOT_MATCH' && nameMatchStatus=='NO_MATCH' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}CUSTOMER_WALKIN_REQUIRED'"
-			+ "@else{}NO_DECISION@end{}";
+			+ "@else{walkinType=='"+WalkinType.THIRD_PARTY+"' && nbAccountType== '"+NBAccountType.DIFFERENT+"' && otpStatus=='"+OTPStatus.NOT_REQUIRED+"' && nameMatchStatus=='NOT_REQUIRED'}"+Decision.CUSTOMER_WALKIN_REQUIRED
+			+ "@else{walkinType=='"+WalkinType.THIRD_PARTY+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.MATCH+"' && nameMatchStatus=='"+NameMatchType.PARTIAL_MATCH+"' && paymentAmount <=lowerBoundAmount}"+Decision.EXPERT_INITIAL
+			+ "@else{walkinType=='"+WalkinType.THIRD_PARTY+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.DID_NOT_MATCH+"' && nameMatchStatus=='"+NameMatchType.PARTIAL_MATCH+"' && paymentAmount <=lowerBoundAmount}"+Decision.CUSTOMER_WALKIN_REQUIRED
+			+ "@else{walkinType=='"+WalkinType.THIRD_PARTY+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.MATCH+"' && nameMatchStatus=='"+NameMatchType.FULL_MATCH+"' && paymentAmount > upperBoundAmount}"+Decision.EXPERT_INITIAL
+			+ "@else{walkinType=='"+WalkinType.THIRD_PARTY+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.DID_NOT_MATCH+"' && nameMatchStatus=='"+NameMatchType.FULL_MATCH+"' && paymentAmount > upperBoundAmount}"+Decision.CUSTOMER_WALKIN_REQUIRED
+			+ "@else{walkinType=='"+WalkinType.THIRD_PARTY+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.MATCH+"' && nameMatchStatus=='"+NameMatchType.PARTIAL_MATCH+"' && paymentAmount > upperBoundAmount}"+Decision.EXPERT_EXPERT
+			+ "@else{walkinType=='"+WalkinType.THIRD_PARTY+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.DID_NOT_MATCH+"' && nameMatchStatus=='"+NameMatchType.PARTIAL_MATCH+"' && paymentAmount > upperBoundAmount}"+Decision.CUSTOMER_WALKIN_REQUIRED
+			+ "@else{walkinType=='"+WalkinType.THIRD_PARTY+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.MATCH+"' && nameMatchStatus=='"+NameMatchType.NO_MATCH+"' && paymentAmount <=lowerBoundAmount}"+Decision.RMCU
+			+ "@else{walkinType=='"+WalkinType.THIRD_PARTY+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.DID_NOT_MATCH+"' && nameMatchStatus=='"+NameMatchType.NO_MATCH+"' && paymentAmount <=lowerBoundAmount}"+Decision.CUSTOMER_WALKIN_REQUIRED
+			+ "@else{walkinType=='"+WalkinType.THIRD_PARTY+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.MATCH+"' && nameMatchStatus=='"+NameMatchType.NO_MATCH+"' && paymentAmount > upperBoundAmount}"+Decision.RMCU
+			+ "@else{walkinType=='"+WalkinType.THIRD_PARTY+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.DID_NOT_MATCH+"' && nameMatchStatus=='"+NameMatchType.NO_MATCH+"' && paymentAmount > upperBoundAmount}"+Decision.CUSTOMER_WALKIN_REQUIRED
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.NOT_REQUIRED+"' && nameMatchStatus=='"+NameMatchType.FULL_MATCH+"' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount  }"+Decision.EXPERT_INITIAL
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.NOT_REQUIRED+"' && nameMatchStatus=='"+NameMatchType.PARTIAL_MATCH+"' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}"+Decision.EXPERT_INITIAL
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.NOT_REQUIRED+"' && nameMatchStatus=='"+NameMatchType.NO_MATCH+"' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}"+Decision.RMCU
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.DIFFERENT+"' && otpStatus=='"+OTPStatus.DID_NOT_MATCH+"' && nameMatchStatus=='"+NameMatchType.FULL_MATCH+"' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}"+Decision.UPDATE_CONTACT_DETAILS
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.DIFFERENT+"' && otpStatus=='"+OTPStatus.MATCH+"' && nameMatchStatus=='"+NameMatchType.FULL_MATCH+"' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}"+Decision.EXPERT_INITIAL
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.DIFFERENT+"' && otpStatus=='"+OTPStatus.DID_NOT_MATCH+"' && nameMatchStatus=='"+NameMatchType.PARTIAL_MATCH+"' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}"+Decision.UPDATE_CONTACT_DETAILS
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.DIFFERENT+"' && otpStatus=='"+OTPStatus.MATCH+"' && nameMatchStatus=='"+NameMatchType.PARTIAL_MATCH+"' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}"+Decision.EXPERT_EXPERT
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.DIFFERENT+"' && otpStatus=='"+OTPStatus.DID_NOT_MATCH+"' && nameMatchStatus=='"+NameMatchType.NO_MATCH+"' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}"+Decision.UPDATE_CONTACT_DETAILS
+			+ "@else{walkinType=='"+WalkinType.CUSTOMER+"' && nbAccountType== '"+NBAccountType.DIFFERENT+"' && otpStatus=='"+OTPStatus.MATCH+"' && nameMatchStatus=='"+NameMatchType.NO_MATCH+"' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}"+Decision.RMCU
+			+ "@else{walkinType=='"+WalkinType.THIRD_PARTY+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.MATCH+"' && nameMatchStatus=='"+NameMatchType.FULL_MATCH+"' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}"+Decision.EXPERT_INITIAL
+			+ "@else{walkinType=='"+WalkinType.THIRD_PARTY+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.DID_NOT_MATCH+"' && nameMatchStatus=='"+NameMatchType.FULL_MATCH+"' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}"+Decision.CUSTOMER_WALKIN_REQUIRED
+			+ "@else{walkinType=='"+WalkinType.THIRD_PARTY+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.MATCH+"' && nameMatchStatus=='"+NameMatchType.PARTIAL_MATCH+"' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}"+Decision.EXPERT_INITIAL
+			+ "@else{walkinType=='"+WalkinType.THIRD_PARTY+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.DID_NOT_MATCH+"' && nameMatchStatus=='"+NameMatchType.PARTIAL_MATCH+"' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}"+Decision.CUSTOMER_WALKIN_REQUIRED
+			+ "@else{walkinType=='"+WalkinType.THIRD_PARTY+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.MATCH+"' && nameMatchStatus=='"+NameMatchType.NO_MATCH+"' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}"+Decision.RMCU
+			+ "@else{walkinType=='"+WalkinType.THIRD_PARTY+"' && nbAccountType== '"+NBAccountType.SAME+"' && otpStatus=='"+OTPStatus.DID_NOT_MATCH+"' && nameMatchStatus=='"+NameMatchType.NO_MATCH+"' && paymentAmount >  lowerBoundAmount && paymentAmount <=  upperBoundAmount}"+Decision.CUSTOMER_WALKIN_REQUIRED
+			+ "@else{}"+Decision.NO_DECISION+"@end{}";
 
 	private ParserContext pctx = new ParserContext();
 	private CompiledTemplate compiled = null;
@@ -84,7 +89,6 @@ public class IrmRuleEngine {
 
 	@SuppressWarnings("unchecked")
 	private Map<String, Object> convertObjectToMap(Object object) {
-		// Map<String, Object> map = new HashMap<>();
 		ObjectMapper oMapper = new ObjectMapper();
 		return oMapper.convertValue(object, Map.class);
 	}
