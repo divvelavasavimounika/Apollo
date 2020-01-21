@@ -8,6 +8,7 @@ import com.hdfc.irm.engine.constants.NameMatchType;
 public class NameMatcher {
 
 	public String performNameMatch() {
-		return NameMatchType.FULL_MATCH;
+//		return NameMatchType.FULL_MATCH;
+		return NameMatchType.PARTIAL_MATCH;
 	}
 }
