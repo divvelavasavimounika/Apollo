@@ -1,4 +1,4 @@
-package com.hdfc.irm.app.service;
+package com.hdfc.irm.engine.service;
 
 import org.springframework.stereotype.Service;
 
@@ -9,6 +9,6 @@ public class NameMatcher {
 
 	public String performNameMatch() {
 //		return NameMatchType.FULL_MATCH;
-		return NameMatchType.PARTIAL_MATCH;
+		return NameMatchType.NO_MATCH;
 	}
 }

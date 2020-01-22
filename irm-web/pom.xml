@@ -8,7 +8,7 @@
 		<version>0.0.1</version>
 		<!-- <relativePath /> lookup parent from repository -->
 	</parent>
-	
+
 	<artifactId>irm-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>irm-web</name>
@@ -30,13 +30,12 @@
 			<artifactId>irm-engine</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<!-- <dependency>
-			<groupId>com.hdfc.insurance</groupId>
-			<artifactId>irm-ui</artifactId>
-			<version>${project.version}</version>
-			<scope>runtime</scope>
-		</dependency> -->
-
+		<!-- <dependency> <groupId>com.hdfc.insurance</groupId> <artifactId>irm-ui</artifactId> 
+			<version>${project.version}</version> <scope>runtime</scope> </dependency> -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -74,8 +73,23 @@
 							</resources>
 						</configuration>
 					</execution>
+					<execution>
+						<id>copy-resources-config</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/config</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/config</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
 				</executions>
-			</plugin>  
+			</plugin>
 		</plugins>
 	</build>
 
