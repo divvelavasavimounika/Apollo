@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>IRM Api Test</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+	function validate(){
+		if(		$("#policyId").val()==""||
+				$("#customerId").val()==""||
+				$("#customerNameId").val()==""||
+				$("#paymentId").val()==""||
+				$("#branchId").val()==""
+				){
+			alert("All fields are mandatory");
+			return false;
+		}else{return true;}	
+	}
+	$(document).ready(function() {
+		$("#submitId").click(function(e) {
+			e.preventDefault();
+			if(!validate()){
+				return false;
+			}
+			var x = $("form").serializeArray();
+			let formData = {};
+			$.each(x, function(i, field) {
+				formData[field.name] = field.value;
+			});
+			$.ajax({
+				url : "decision",
+				type : "POST",
+				contentType : "application/json; charset=utf-8",
+				data : JSON.stringify(formData),
+				dataType:"json",
+				success : function(data, textStatus, jqXHR) {
+					console.log(data);
+					$("#resultId").html("Calculated decision is:" + data.decision);
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					console.log(errorThrown);
+					$("#resultId").html("Error:" + textStatus);
+				}
+			});
+		});
+	});
+</script>
+<style>
+#resultId {
+    font-family: verdana;
+    font-size: 21px;
+    font-weight: bold;
+}
+header {
+	background: url(images/bg.jpg);
+	height: 111px;
+}
+
+header .top-section {
+	width: 940px;
+	margin: 0 auto;
+	background: url(images/Header_bg.jpg) no-repeat 184px 0px;
+	padding: 5px 10px 35px;
+	overflow: hidden;
+	/* height: 71px; */
+}
+
+header .portal-name {
+	float: left;
+	font-family: verdana;
+	font-size: 21px;
+	font-weight: bold;
+	margin-left: 70px;
+	margin-top: 45px;
+	color: #193481;
+}
+
+header .associate {
+	text-align: right;
+}
+
+img {
+	vertical-align: middle;
+}
+
+footer {
+	border-top: 1px solid #CCC;
+	position: fixed;
+	bottom: 0px;
+	text-align: center;
+	width: 100%;
+	background-color: white;
+	padding: 10px 10px 10px 10px;
+}
+
+#ul-items li {
+	padding-top: 15px;
+	display: inline;
+	color: #545760;
+	font-size: 11px;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-family: Verdana, Geneva, sans-serif;
+}
+</style>
+</head>
+<body>
+	<header>
+		<div class="top-section">
+			<span style="float: left; width: 210px;">&nbsp;</span>
+			<h1 class="portal-name">Group Insurance</h1>
+			<div class="associate-section">
+				<div class="associate">
+					<img alt="Logo" src="images/hdfc-logo.jpg">
+				</div>
+			</div>
+		</div>
+	</header>
+	<div class="container">
+		<form id="formID" method="POST"
+			style="border: 1px solid #CCC; padding-top: 100px; padding-bottom: 30px">
+			<div class="row">
+				<div class="col-12 portal-name">
+					<h2 style="margin-top: -50px; text-align: center; color: #193481">IRM
+						API</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-2"></div>
+				<div class="col-4">
+					<div class="form-group row">
+						<label class="col-form-label">Policy ID</label> <input type="text" id="policyId"
+							name="policyID" class="form-control" required>
+					</div>
+				</div>
+				<div class="col-4">
+					<div class="form-group row" style="margin-left: 10px">
+						<label class="col-form-label">Customer ID</label> <input required  id="customerId"
+							name="customerID" type="text" class="form-control" >
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-2"></div>
+				<div class="col-4">
+					<div class="form-group row">
+						<label class="col-form-label">Policy Holder Name</label> <input id="customerNameId"
+							required name="policyHolderName" type="text" class="form-control">
+					</div>
+				</div>
+				<div class="col-4">
+					<div class="form-group row" style="margin-left: 10px">
+						<label class="col-form-label">Payment Amount</label> <input id="paymentId"
+							required name="paymentAmount" min="1" type="number" step="0.01"
+							class="form-control">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-2"></div>
+				<div class="col-4">
+					<div class="form-group row">
+						<label class="col-form-label">Walkin Type</label> <select required
+							name="walkinType" class="form-control" id="sel1">
+							<option>CUSTOMER</option>
+							<option>THIRD_PARTY</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-4">
+					<div class="form-group row" style="margin-left: 10px">
+						<label class="col-form-label">Account Type</label> <select
+							required name="nbAccountType" class="form-control" id="sel2">
+							<option>SAME</option>
+							<option>DIFFERENT</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-2"></div>
+				<div class="col-4">
+					<div class="form-group row">
+						<label class="col-form-label">OTP Status</label> <select required
+							name="otpStatus" class="form-control" id="sel3">
+							<option>MATCH</option>
+							<option>DID_NOT_MATCH</option>
+							<option>NOT_REQUIRED</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-4">
+					<div class="form-group row" style="margin-left: 10px">
+						<label class="col-form-label">Payment Branch ID</label> <input id="branchId"
+							name="payoutBranchID" type="text" class="form-control" required>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-2"></div>
+				<div class="col-8" style="padding-right: 0px;">
+					<button type="submit" class="btn btn-primary " id="submitId"
+						style="margin-left: 10px; float: right;" >Calculate Decision</button>
+						<button type="reset" class="btn btn-primary"
+						style="margin-left: 10px; float: right;" >Clear</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-2"></div>
+				<div class="col-8" style="padding-right: 0px;">
+					<span id="resultId"></span>
+				</div>
+			</div>
+		</form>
+	</div>
+	<footer>
+		<div class="footer">
+			<div class="col-md-12">
+				<ul id="ul-items">
+					<li>Copyright © HDFC Life.2020 Privacy</li>
+					<span>|</span>
+					<li>Copyright</li>
+					<span>|</span>
+					<li>Site Map</li>
+					<span>|</span>
+					<li>Contact Us</li>
+					<span>|</span>
+					<li>Legal, Safety &amp; Trademark information</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>
