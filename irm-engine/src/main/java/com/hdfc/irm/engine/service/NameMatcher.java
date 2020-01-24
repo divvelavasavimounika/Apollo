@@ -8,7 +8,18 @@ import com.hdfc.irm.engine.constants.NameMatchType;
 public class NameMatcher {
 
 	public String performNameMatch() {
-//		return NameMatchType.FULL_MATCH;
-		return NameMatchType.NO_MATCH;
+		// return NameMatchType.FULL_MATCH;
+		return getNameMatchStatus();
 	}
+
+	private String nameMatchStatus = NameMatchType.FULL_MATCH;
+
+	public String getNameMatchStatus() {
+		return nameMatchStatus;
+	}
+
+	public void setNameMatchStatus(String nameMatchStatus) {
+		this.nameMatchStatus = nameMatchStatus;
+	}
+
 }

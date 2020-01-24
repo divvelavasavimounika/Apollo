@@ -41,9 +41,10 @@ public class DecisionService {
 
 		// calculate name match and set
 		String nameMatchStatus = nameMatcher.performNameMatch();
+		logger.info("Calculated Name match status:" + nameMatchStatus);
 		DecisionRequestEntity entity = new DecisionRequestEntity();
 		entity.setNameMatchStatus(nameMatchStatus);
-		
+
 		populateBranchLimits(entity, request.getPayoutBranchID());
 		entity.setRequestId(IrmUtils.uuId());
 		BeanUtils.copyProperties(request, entity);
