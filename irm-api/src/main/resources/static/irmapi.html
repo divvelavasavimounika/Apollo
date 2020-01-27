@@ -83,6 +83,7 @@
 				formData[field.name] = field.value;
 			});
 			formData['employeeUserName']='TestUser';
+			localIp=(localIp==null||localIp==undefined)?"tempEmployeeID":localIp;
 			formData['employeeNTId']=localIp;
 			$.ajax({
 				url : "decision",
