@@ -16,9 +16,6 @@ public class AuthenticateRequest {
 	private String channel_id;
 	private String os;
 
-	public String getUserid() {
-		return userid;
-	}
 
 	@Override
 	public String toString() {

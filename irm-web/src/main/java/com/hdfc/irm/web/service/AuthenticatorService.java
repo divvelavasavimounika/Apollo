@@ -1,16 +1,20 @@
 package com.hdfc.irm.web.service;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.hdfc.irm.engine.service.RestUtilService;
+import com.hdfc.irm.engine.utils.ApplicationProperties;
 import com.hdfc.irm.engine.utils.LoggerUtils;
+import com.hdfc.irm.entities.LoginRequestEntity;
+import com.hdfc.irm.repository.LoginRepository;
 import com.hdfc.irm.web.exceptions.IRMAuthenticateException;
 import com.hdfc.irm.web.model.AuthenticateRequest;
 import com.hdfc.irm.web.model.AuthenticateResponse;
-import com.hdfc.irm.web.util.ApplicationProperties;
+
 
 @Service
 public class AuthenticatorService {
@@ -25,6 +29,8 @@ public class AuthenticatorService {
 
 	@Autowired
 	RestUtilService restUtilService;
+	@Autowired
+	LoginRepository loginRepo;
 
 	public AuthenticateResponse authenticate(AuthenticateRequest request) throws IRMAuthenticateException {
 		AuthenticateResponse response;
@@ -32,7 +38,10 @@ public class AuthenticatorService {
 			addConfigurations(request);
 			logger.info("Login request received from:" + request.getUserid());
 			LoggerUtils.debug(logger, "Request::" + request);
-
+			LoginRequestEntity entity=new LoginRequestEntity();
+			BeanUtils.copyProperties(request, entity);
+			logger.info("Saving Login into Database"+entity);
+			loginRepo.save(entity);
 			response = (AuthenticateResponse) restUtilService.callRestService(request, AuthenticateResponse.class, uri);
 			logger.info(
 					"Authenticate response status" + (response == null ? "Response is empty" : response.getStatus()));
