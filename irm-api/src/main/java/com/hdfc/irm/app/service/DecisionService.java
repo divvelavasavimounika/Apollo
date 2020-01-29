@@ -1,13 +1,11 @@
 package com.hdfc.irm.app.service;
 
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hdfc.irm.engine.entities.DecisionRequestEntity;
-import com.hdfc.irm.engine.exception.PayoutLimitNotSetException;
 import com.hdfc.irm.engine.model.DecisionRequest;
 import com.hdfc.irm.engine.model.DecisionResponse;
 import com.hdfc.irm.engine.repository.AuditDecisionRepository;
@@ -16,8 +14,6 @@ import com.hdfc.irm.engine.service.NameMatcher;
 import com.hdfc.irm.engine.utils.ApplicationProperties;
 import com.hdfc.irm.engine.utils.IrmUtils;
 import com.hdfc.irm.engine.utils.LoggerUtils;
-
-
 
 @Service
 public class DecisionService {
@@ -30,11 +26,11 @@ public class DecisionService {
 	NameMatcher nameMatcher;
 	@Autowired
 	AuditDecisionRepository auditDecisionRepository;
-	
+
 	@Autowired
 	ApplicationProperties properties;
 
-	public DecisionResponse calculateDecision(DecisionRequest request) throws PayoutLimitNotSetException {
+	public DecisionResponse calculateDecision(DecisionRequest request) {
 		logger.info("Requests recieved with ntID:" + request.getEmployeeNTId());
 		LoggerUtils.debug(logger, request.toString());
 		DecisionResponse response = null;
@@ -48,7 +44,6 @@ public class DecisionService {
 		DecisionRequestEntity entity = new DecisionRequestEntity();
 		entity.setNameMatchStatus(nameMatchStatus);
 
-		
 		populateBranchLimits(entity);
 		entity.setRequestId(IrmUtils.uuId());
 		BeanUtils.copyProperties(request, entity);
@@ -70,12 +65,6 @@ public class DecisionService {
 		entity.setLowerBoundAmount(properties.getLowerBoundAmount());
 		entity.setUpperBoundAmount(properties.getUpperBoundAmount());
 	}
-		
-
-
-	
-	
-		
 
 	private void callPennyDropApi() {
 		// penny drop api call

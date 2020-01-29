@@ -1,11 +1,16 @@
 package com.hdfc.irm.entities;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,19 +24,26 @@ public class LoginRequestEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(name="USER_ID")
 	private String userid;
-	@Column(name="Password")
+	@Column(name="PASSWORD")
 	private String password;
-	@Column(name="Source")
+	@Column(name="SOURCE")
 	private String source;
-	@Column(name="Device_ID")
+	@Column(name="DEVICE_ID")
 	private String device_id;
-	@Column(name="Build_Version_Code")
+	@Column(name="BUILD_VERSION_CODE")
 	private String build_version_code;
-	@Column(name="Channel_ID")
+	@Column(name="CHANNEL_ID")
 	private String channel_id;
 	@Column(name="OS")
 	private String os;
+	@Column(name="TIME_STAMP")
+	@CreationTimestamp
+	private LocalDateTime time;
 
 
 }
