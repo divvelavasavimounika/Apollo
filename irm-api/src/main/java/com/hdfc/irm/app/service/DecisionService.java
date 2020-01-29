@@ -12,6 +12,7 @@ import com.hdfc.irm.engine.entities.DecisionRequestEntity;
 import com.hdfc.irm.engine.exception.PayoutLimitNotSetException;
 import com.hdfc.irm.engine.model.DecisionRequest;
 import com.hdfc.irm.engine.model.DecisionResponse;
+import com.hdfc.irm.engine.repository.AuditDecisionRepository;
 import com.hdfc.irm.engine.service.IrmRuleEngine;
 import com.hdfc.irm.engine.service.NameMatcher;
 import com.hdfc.irm.engine.utils.IrmUtils;
@@ -26,8 +27,8 @@ public class DecisionService {
 	IrmRuleEngine irmRuleEngine;
 	@Autowired
 	NameMatcher nameMatcher;
-	// @Autowired
-	// BranchPayoutLimitRepository payoutLimitRepository;
+	@Autowired
+	AuditDecisionRepository auditDecisionRepository;
 
 	public DecisionResponse calculateDecision(DecisionRequest request) throws PayoutLimitNotSetException {
 		logger.info("Requests recieved with ntID:" + request.getEmployeeNTId());
@@ -36,9 +37,7 @@ public class DecisionService {
 
 		// get cust details from db against policy id/custid
 
-		// penny drop api call
-		// audit penny drop request and response
-
+		callPennyDropApi();
 		// calculate name match and set
 		String nameMatchStatus = nameMatcher.performNameMatch();
 		logger.info("Calculated Name match status:" + nameMatchStatus);
@@ -53,11 +52,18 @@ public class DecisionService {
 
 		response = buildResponse(decision);
 		response.setRequestId(entity.getRequestId());
-
+		entity.setDecision(decision);
 		// audit request in data base
+		logger.info("Saving decision request");
+		auditDecisionRepository.save(entity);
 
 		logger.info("Requests processed of ntID:" + request.getEmployeeNTId() + ": decision:" + decision);
 		return response;
+	}
+
+	private void callPennyDropApi() {
+		// penny drop api call
+		// audit penny drop request and response
 	}
 
 	private DecisionResponse buildResponse(String decision) {

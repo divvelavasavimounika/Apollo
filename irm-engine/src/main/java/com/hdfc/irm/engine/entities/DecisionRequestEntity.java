@@ -1,141 +1,56 @@
 package com.hdfc.irm.engine.entities;
 
-public class DecisionRequestEntity {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Table(name = "AUDIT_DECISION")
+@Getter
+@Setter
+public class DecisionRequestEntity implements Serializable {
+
+	private static final long serialVersionUID = -8426076057721123981L;
+
+	@Id
 	private String requestId;
+	@Column(name = "EMP_NTID")
 	private String employeeNTId;
+	@Column(name = "EMP_USERNAME")
 	private String employeeUserName;
+	@Column(name = "CUSTOMER_ID")
 	private String customerID;
+	@Column(name = "CUSTOMER_POLICY_ID")
 	private String policyID;
+	@Column(name = "POLICY_HOLDER_NAME")
 	private String policyHolderName;
+	@Column(name = "WALKIN_TYPE")
 	private String walkinType;
+	@Column(name = "NB_ACCOUNT_TYPE")
 	private String nbAccountType;
+	@Column(name = "OTP_STATUS")
 	private String otpStatus;
+	@Column(name = "PAYOUT_BRANCH_ID")
 	private String payoutBranchID;
 
+	@Column(name = "PAYMENT_AMOUNT")
 	private double paymentAmount;
+	@Column(name = "LOWER_BOUND_AMOUNT")
 	private double lowerBoundAmount;
+	@Column(name = "UPPER_BOUND_AMOUNT")
 	private double upperBoundAmount;
+	@Column(name = "NAME_MATCH_STATUS")
 	private String nameMatchStatus;
+	@Column(name = "DECISION")
+	private String decision;
+
+	@Transient
 	private boolean accountValidationFlag;
-
-	public String getRequestId() {
-		return requestId;
-	}
-
-	public void setRequestId(String requestId) {
-		this.requestId = requestId;
-	}
-
-	public boolean isAccountValidationFlag() {
-		return accountValidationFlag;
-	}
-
-	public void setAccountValidationFlag(boolean accountValidationFlag) {
-		this.accountValidationFlag = accountValidationFlag;
-	}
-
-	public String getEmployeeNTId() {
-		return employeeNTId;
-	}
-
-	public void setEmployeeNTId(String employeeNTId) {
-		this.employeeNTId = employeeNTId;
-	}
-
-	public String getEmployeeUserName() {
-		return employeeUserName;
-	}
-
-	public void setEmployeeUserName(String employeeUserName) {
-		this.employeeUserName = employeeUserName;
-	}
-
-	public String getCustomerID() {
-		return customerID;
-	}
-
-	public void setCustomerID(String customerID) {
-		this.customerID = customerID;
-	}
-
-	public String getPolicyID() {
-		return policyID;
-	}
-
-	public void setPolicyID(String policyID) {
-		this.policyID = policyID;
-	}
-
-	public String getPolicyHolderName() {
-		return policyHolderName;
-	}
-
-	public void setPolicyHolderName(String policyHolderName) {
-		this.policyHolderName = policyHolderName;
-	}
-
-	public String getWalkinType() {
-		return walkinType;
-	}
-
-	public void setWalkinType(String walkinType) {
-		this.walkinType = walkinType;
-	}
-
-	public String getNbAccountType() {
-		return nbAccountType;
-	}
-
-	public void setNbAccountType(String nbAccountType) {
-		this.nbAccountType = nbAccountType;
-	}
-
-	public String getOtpStatus() {
-		return otpStatus;
-	}
-
-	public void setOtpStatus(String otpStatus) {
-		this.otpStatus = otpStatus;
-	}
-
-	public String getPayoutBranchID() {
-		return payoutBranchID;
-	}
-
-	public void setPayoutBranchID(String payoutBranchID) {
-		this.payoutBranchID = payoutBranchID;
-	}
-
-	public double getPaymentAmount() {
-		return paymentAmount;
-	}
-
-	public void setPaymentAmount(double paymentAmount) {
-		this.paymentAmount = paymentAmount;
-	}
-
-	public double getLowerBoundAmount() {
-		return lowerBoundAmount;
-	}
-
-	public void setLowerBoundAmount(double lowerBoundAmount) {
-		this.lowerBoundAmount = lowerBoundAmount;
-	}
-
-	public double getUpperBoundAmount() {
-		return upperBoundAmount;
-	}
-
-	public void setUpperBoundAmount(double upperBoundAmount) {
-		this.upperBoundAmount = upperBoundAmount;
-	}
-
-	public String getNameMatchStatus() {
-		return nameMatchStatus;
-	}
-
-	public void setNameMatchStatus(String nameMatchStatus) {
-		this.nameMatchStatus = nameMatchStatus;
-	}
-
 }

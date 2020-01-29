@@ -8,6 +8,11 @@ import com.hdfc.irm.engine.constants.OTPStatus;
 import com.hdfc.irm.engine.constants.WalkinType;
 import com.hdfc.irm.engine.validation.AllowedValues;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public class DecisionRequest {
 	@NotBlank(message = "employeeNTId should not be blank")
 	private String employeeNTId;
@@ -36,94 +41,6 @@ public class DecisionRequest {
 	private double paymentAmount;
 	private String payoutBranchID;
 	private boolean accountValidationFlag;
-
-	public String getEmployeeNTId() {
-		return employeeNTId;
-	}
-
-	public void setEmployeeNTId(String employeeNTId) {
-		this.employeeNTId = employeeNTId;
-	}
-
-	public String getEmployeeUserName() {
-		return employeeUserName;
-	}
-
-	public void setEmployeeUserName(String employeeUserName) {
-		this.employeeUserName = employeeUserName;
-	}
-
-	public String getCustomerID() {
-		return customerID;
-	}
-
-	public void setCustomerID(String customerID) {
-		this.customerID = customerID;
-	}
-
-	public String getPolicyID() {
-		return policyID;
-	}
-
-	public void setPolicyID(String policyID) {
-		this.policyID = policyID;
-	}
-
-	public String getPolicyHolderName() {
-		return policyHolderName;
-	}
-
-	public void setPolicyHolderName(String policyHolderName) {
-		this.policyHolderName = policyHolderName;
-	}
-
-	public String getWalkinType() {
-		return walkinType;
-	}
-
-	public void setWalkinType(String walkinType) {
-		this.walkinType = walkinType;
-	}
-
-	public String getNbAccountType() {
-		return nbAccountType;
-	}
-
-	public void setNbAccountType(String nbAccountType) {
-		this.nbAccountType = nbAccountType;
-	}
-
-	public String getOtpStatus() {
-		return otpStatus;
-	}
-
-	public void setOtpStatus(String otpStatus) {
-		this.otpStatus = otpStatus;
-	}
-
-	public double getPaymentAmount() {
-		return paymentAmount;
-	}
-
-	public void setPaymentAmount(double paymentAmount) {
-		this.paymentAmount = paymentAmount;
-	}
-
-	public String getPayoutBranchID() {
-		return payoutBranchID;
-	}
-
-	public void setPayoutBranchID(String payoutBranchID) {
-		this.payoutBranchID = payoutBranchID;
-	}
-
-	public boolean isAccountValidationFlag() {
-		return accountValidationFlag;
-	}
-
-	public void setAccountValidationFlag(boolean accountValidationFlag) {
-		this.accountValidationFlag = accountValidationFlag;
-	}
 
 	@Override
 	public String toString() {

@@ -17,8 +17,8 @@
 
 	<modules>
 		<module>irm-engine</module>
-		<module>irm-ui</module>
-		<module>irm-web</module>
+<!-- 		<module>irm-ui</module>
+		<module>irm-web</module> -->
 		<module>irm-api</module>
 	</modules>
 
