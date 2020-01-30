@@ -41,7 +41,7 @@ public class RestUtilService {
 		return response;
 	}
 
-	private void enableSSL() {
+	public void enableSSL() {
 		TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
 			public java.security.cert.X509Certificate[] getAcceptedIssuers() {
 				return null;

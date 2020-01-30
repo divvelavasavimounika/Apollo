@@ -40,7 +40,7 @@ public class AuthenticatorService {
 			LoggerUtils.debug(logger, "Request::" + request);
 			LoginRequestEntity entity=new LoginRequestEntity();
 			BeanUtils.copyProperties(request, entity);
-			logger.info("Saving Login into Database"+entity);
+			logger.info("Saving Login into Database:"+entity);
 			loginRepo.save(entity);
 			response = (AuthenticateResponse) restUtilService.callRestService(request, AuthenticateResponse.class, uri);
 			logger.info(

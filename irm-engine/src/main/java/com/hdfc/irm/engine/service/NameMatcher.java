@@ -7,7 +7,7 @@ import com.hdfc.irm.engine.constants.NameMatchType;
 @Service
 public class NameMatcher {
 
-	public String performNameMatch() {
+	public String performNameMatch(String sourceName,String DestName) {
 		// return NameMatchType.FULL_MATCH;
 		return getNameMatchStatus();
 	}

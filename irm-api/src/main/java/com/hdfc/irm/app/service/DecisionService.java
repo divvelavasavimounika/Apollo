@@ -36,10 +36,11 @@ public class DecisionService {
 		DecisionResponse response = null;
 
 		// get cust details from db against policy id/custid
-
+		String nameFromDB = "";
 		callPennyDropApi();
+		String nameFromPNYApi = "";
 		// calculate name match and set
-		String nameMatchStatus = nameMatcher.performNameMatch();
+		String nameMatchStatus = nameMatcher.performNameMatch(nameFromDB, nameFromPNYApi);
 		logger.info("Calculated Name match status:" + nameMatchStatus);
 		DecisionRequestEntity entity = new DecisionRequestEntity();
 		entity.setNameMatchStatus(nameMatchStatus);
