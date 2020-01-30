@@ -76,7 +76,7 @@ public class IrmRuleEngine {
 
 	@PostConstruct
 	public void init() {
-		compiled = TemplateCompiler.compileTemplate(template);
+		compiled = TemplateCompiler.compileTemplate(template,pctx);
 		logger.trace("template:::" + template);
 	}
 
