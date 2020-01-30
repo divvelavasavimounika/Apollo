@@ -1,4 +1,4 @@
-package com.hdfc.irm.web.util;
+package com.hdfc.irm.engine.utils;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -15,6 +15,28 @@ public class ApplicationProperties {
 	private String authRequestChannelId;
 	@Value("${auth.request.os:}")
 	private String authRequestOs;
+	
+	@Value("${payout.lowerBoundAmount:0}")
+	private double lowerBoundAmount;
+	
+	@Value("${payout.upperBoundAmount:0}")
+	private double upperBoundAmount;
+	
+	public double getLowerBoundAmount() {
+		return lowerBoundAmount;
+	}
+
+	public void setLowerBoundAmount(double lowerBoundAmount) {
+		this.lowerBoundAmount = lowerBoundAmount;
+	}
+
+	public double getUpperBoundAmount() {
+		return upperBoundAmount;
+	}
+
+	public void setUpperBoundAmount(double upperBoundAmount) {
+		this.upperBoundAmount = upperBoundAmount;
+	}
 
 	public String getAuthRequestSource() {
 		return authRequestSource;

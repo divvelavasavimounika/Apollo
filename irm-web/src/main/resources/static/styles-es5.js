@@ -400,11 +400,11 @@
   /***/
   function _(module, exports, __webpack_require__) {
     __webpack_require__(
-    /*! C:\HDFCLife_APITest\hdfc_irm\irm-ui\src\styles.css */
+    /*! C:\HDFC\hdfc_irm\irm-ui\src\styles.css */
     "./src/styles.css");
 
     module.exports = __webpack_require__(
-    /*! C:\HDFCLife_APITest\hdfc_irm\irm-ui\node_modules\bootstrap\dist\css\bootstrap.min.css */
+    /*! C:\HDFC\hdfc_irm\irm-ui\node_modules\bootstrap\dist\css\bootstrap.min.css */
     "./node_modules/bootstrap/dist/css/bootstrap.min.css");
     /***/
   }

@@ -11,18 +11,12 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.hdfc.irm.engine.exception.ApiError;
-import com.hdfc.irm.engine.exception.PayoutLimitNotSetException;
 import com.hdfc.irm.engine.utils.LoggerUtils;
 
 @ControllerAdvice(basePackages = "com.hdfc.irm")
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 	private static Logger logger = Logger.getLogger(RestExceptionHandler.class);
-
-	@ExceptionHandler(PayoutLimitNotSetException.class)
-	protected ResponseEntity<Object> handleConnectException(PayoutLimitNotSetException ex, WebRequest request) {
-		return buildResponseEntity(new ApiError(HttpStatus.PRECONDITION_REQUIRED, ex.getMessage()));
-	}
 
 	private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
 		return new ResponseEntity<Object>(apiError, apiError.getStatus());
