@@ -23,6 +23,15 @@ public class IrmRuleEngineTests {
 	@Test
 	public void testParseAndGetResult_STP() {
 		DecisionRequestEntity entity = new DecisionRequestEntity();
+		entity.setRequestId("testReqID");
+		entity.setEmployeeNTId("TestNTID");
+		entity.setEmployeeUserName("EmpUserName");
+		entity.setCustomerID("CustomerId");
+		entity.setPolicyID("PolicyId");
+		entity.setPolicyHolderName("Plocy HolderName");
+		entity.setPayoutBranchID("Branch");
+		entity.setDecision("");
+		entity.setAccountValidationFlag(false);
 
 		entity.setWalkinType(WalkinType.CUSTOMER);
 		entity.setNbAccountType(NBAccountType.SAME);

@@ -3,11 +3,13 @@ package com.hdfc.irm.engine.exception;
 import org.springframework.http.HttpStatus;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
 @Setter
 @Getter
+@NoArgsConstructor
 public class ApiError {
 
 	private HttpStatus status;

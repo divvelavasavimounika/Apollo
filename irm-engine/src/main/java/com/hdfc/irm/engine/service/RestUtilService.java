@@ -26,7 +26,7 @@ public class RestUtilService {
 
 		RestTemplate restTemplate = new RestTemplate();
 		logger.info("url::" + url);
-		if (url != null && url.startsWith("https")) {
+		if (url.startsWith("https")) {
 			logger.info("calling EnableSSSL ");
 			enableSSL();
 		}
@@ -59,7 +59,6 @@ public class RestUtilService {
 			sc.init(null, trustAllCerts, new java.security.SecureRandom());
 			HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 		} catch (Exception e) {
-			logger.warn(e.getMessage());
 			logger.warn(LoggerUtils.getStackStrace(e));
 		}
 
