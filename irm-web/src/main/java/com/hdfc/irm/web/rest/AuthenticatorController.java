@@ -10,7 +10,6 @@ import com.hdfc.irm.web.exceptions.IRMAuthenticateException;
 import com.hdfc.irm.web.model.AuthenticateRequest;
 import com.hdfc.irm.web.model.AuthenticateResponse;
 import com.hdfc.irm.web.service.AuthenticatorService;
-
 @RestController
 public class AuthenticatorController {
 
