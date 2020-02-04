@@ -23,7 +23,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	@ExceptionHandler(Exception.class)
-	protected ResponseEntity<Object> handleConnectException(Exception ex, WebRequest request) {
+	protected ResponseEntity<Object> handleConnectException(Throwable ex, WebRequest request) {
 		logger.error(LoggerUtils.getStackStrace(ex));
 		return buildResponseEntity(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage()));
 	}

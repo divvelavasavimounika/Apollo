@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 public class LoggerUtils {
 
-	public static String getStackStrace(Exception e) {
+	public static String getStackStrace(Throwable e) {
 		String stackTrace = "";
 		try {
 			StringWriter sw = new StringWriter();

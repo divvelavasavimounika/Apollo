@@ -67,7 +67,7 @@ public class DecisionService {
 		entity.setUpperBoundAmount(properties.getUpperBoundAmount());
 	}
 
-	private void callPennyDropApi() {
+	public void callPennyDropApi() {
 		// penny drop api call
 		// audit penny drop request and response
 	}
