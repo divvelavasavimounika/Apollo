@@ -27,7 +27,7 @@ public class LoginRequestEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 
 	@Column(name = "USER_ID")
 	private String userid;
