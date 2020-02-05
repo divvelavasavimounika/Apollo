@@ -376,8 +376,13 @@ if (content.locals) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 __webpack_require__(/*! C:\JUNIT\hdfc_irm\irm-ui\src\styles.css */"./src/styles.css");
 module.exports = __webpack_require__(/*! C:\JUNIT\hdfc_irm\irm-ui\node_modules\bootstrap\dist\css\bootstrap.min.css */"./node_modules/bootstrap/dist/css/bootstrap.min.css");
+=======
+__webpack_require__(/*! C:\Users\rajendrandr\Feb4\hdfc_irm\irm-ui\src\styles.css */"./src/styles.css");
+module.exports = __webpack_require__(/*! C:\Users\rajendrandr\Feb4\hdfc_irm\irm-ui\node_modules\bootstrap\dist\css\bootstrap.min.css */"./node_modules/bootstrap/dist/css/bootstrap.min.css");
+>>>>>>> 3874412ae2a5b8d51583f843ab61824693559f86
 
 
 /***/ })

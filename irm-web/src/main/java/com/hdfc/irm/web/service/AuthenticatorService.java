@@ -23,8 +23,8 @@ public class AuthenticatorService {
 
 	private static Logger logger = Logger.getLogger(AuthenticatorService.class);
 
-	@Value("${hdfc.life.authenticate.url}")
 	@Setter
+	@Value("${hdfc.life.authenticate.url}")
 	private String uri;
 
 	@Autowired
@@ -41,9 +41,9 @@ public class AuthenticatorService {
 			addConfigurations(request);
 			logger.info("Login request received from:" + request.getUserid());
 			LoggerUtils.debug(logger, "Request::" + request);
-			LoginRequestEntity entity=new LoginRequestEntity();
+			LoginRequestEntity entity = new LoginRequestEntity();
 			BeanUtils.copyProperties(request, entity);
-			logger.info("Saving Login into Database:"+entity);
+			logger.info("Saving Login into Database:" + entity);
 			loginRepo.save(entity);
 			response = (AuthenticateResponse) restUtilService.callRestService(request, AuthenticateResponse.class, uri);
 			logger.info(

@@ -6,7 +6,9 @@ import static org.mockito.Mockito.when;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -42,7 +44,17 @@ public class AuthenticatorControllerTests {
 	AuthenticatorController authenticationController;
 	
 	@Mock
+	@Autowired
 	AuthenticatorService service;
+
+	@InjectMocks
+	@Autowired
+	AuthenticatorController controller;
+
+	@Before
+	public void setUp() throws Exception {
+		MockitoAnnotations.initMocks(this);
+	}
 
 	@Before
 	public void setup() {
@@ -64,7 +76,7 @@ public class AuthenticatorControllerTests {
 		HttpEntity<AuthenticateRequest> entitty = new HttpEntity<AuthenticateRequest>(request, headers);
 		ResponseEntity<DecisionResponse> result = this.restTemplate.postForEntity(baseUrl, entitty,
 				DecisionResponse.class);
-
 		assertThat(result.getStatusCodeValue()).isEqualTo(HttpStatus.OK.value());
 	}
+
 }

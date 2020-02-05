@@ -1,9 +1,7 @@
 package com.hdfc.irm.web.model;
 
 import lombok.Getter;
-import lombok.Setter;
 
-@Setter
 @Getter
 public class AuthenticateResponse {
 	private String status;
@@ -14,8 +12,8 @@ public class AuthenticateResponse {
 
 	@Override
 	public String toString() {
-		return "AuthenticateResponse [status=" + status + ", message=" + message + ", lastloggedintime="
-				+ lastloggedintime + ", emailValidationFlag=" + emailValidationFlag + ", usertype=" + usertype + "]";
+		return "AuthenticateResponse [status=" + getStatus() + ", message=" + getMessage()+ ", lastloggedintime="
+				+ getLastloggedintime()+ ", emailValidationFlag=" + getEmailValidationFlag()+ ", usertype=" + getUsertype()+ "]";
 	}
 
 }

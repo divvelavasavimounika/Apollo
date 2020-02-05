@@ -20315,7 +20315,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
   /***/
   function _(module, exports, __webpack_require__) {
     __webpack_require__(
+<<<<<<< HEAD
     /*! C:\JUNIT\hdfc_irm\irm-ui\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\es5-polyfills.js */
+=======
+    /*! C:\Users\rajendrandr\Feb4\hdfc_irm\irm-ui\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\es5-polyfills.js */
+>>>>>>> 3874412ae2a5b8d51583f843ab61824693559f86
     "./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es5-polyfills.js");
 
     __webpack_require__(
@@ -20323,6 +20327,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     "./node_modules/zone.js/dist/zone-legacy.js");
 
     __webpack_require__(
+<<<<<<< HEAD
     /*! C:\JUNIT\hdfc_irm\irm-ui\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\jit-polyfills.js */
     "./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js");
 
@@ -20332,6 +20337,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     module.exports = __webpack_require__(
     /*! C:\JUNIT\hdfc_irm\irm-ui\src\polyfills.ts */
+=======
+    /*! C:\Users\rajendrandr\Feb4\hdfc_irm\irm-ui\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\jit-polyfills.js */
+    "./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js");
+
+    __webpack_require__(
+    /*! C:\Users\rajendrandr\Feb4\hdfc_irm\irm-ui\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\es5-jit-polyfills.js */
+    "./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es5-jit-polyfills.js");
+
+    module.exports = __webpack_require__(
+    /*! C:\Users\rajendrandr\Feb4\hdfc_irm\irm-ui\src\polyfills.ts */
+>>>>>>> 3874412ae2a5b8d51583f843ab61824693559f86
     "./src/polyfills.ts");
     /***/
   }

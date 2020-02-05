@@ -916,7 +916,11 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_2__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 module.exports = __webpack_require__(/*! C:\JUNIT\hdfc_irm\irm-ui\src\main.ts */"./src/main.ts");
+=======
+module.exports = __webpack_require__(/*! C:\Users\rajendrandr\Feb4\hdfc_irm\irm-ui\src\main.ts */"./src/main.ts");
+>>>>>>> 3874412ae2a5b8d51583f843ab61824693559f86
 
 
 /***/ })

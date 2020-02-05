@@ -1,11 +1,14 @@
 package com.hdfc.irm.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -35,8 +38,7 @@ public class AuthenticatorControllerExceptionTests {
 	private AuthenticateRequest request;
 	@Autowired
 	private Environment environment;
-
-	@Mock
+	@Autowired
 	AuthenticatorService service;
 
 	@Before
@@ -47,10 +49,9 @@ public class AuthenticatorControllerExceptionTests {
 	}
 
 	@Test
-	public void authenticateTest() throws IRMAuthenticateException {
-		AuthenticateResponse response = new AuthenticateResponse();
+	public void authenticateTest_IRMAuthenticateException() throws IRMAuthenticateException {
+
 		service.setUri("http://localhost:1234/invalid");
-		
 		final String baseUrl = "http://localhost:" + port + "/" + environment.getProperty("server.servlet.context-path")
 				+ "/authenticate/";
 		HttpHeaders headers = new HttpHeaders();
@@ -59,7 +60,6 @@ public class AuthenticatorControllerExceptionTests {
 		HttpEntity<AuthenticateRequest> entitty = new HttpEntity<AuthenticateRequest>(request, headers);
 		ResponseEntity<DecisionResponse> result = this.restTemplate.postForEntity(baseUrl, entitty,
 				DecisionResponse.class);
-
 		assertThat(result.getStatusCodeValue()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
 	}
 }
