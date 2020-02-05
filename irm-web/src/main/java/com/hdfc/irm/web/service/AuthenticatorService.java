@@ -15,6 +15,8 @@ import com.hdfc.irm.web.exceptions.IRMAuthenticateException;
 import com.hdfc.irm.web.model.AuthenticateRequest;
 import com.hdfc.irm.web.model.AuthenticateResponse;
 
+import lombok.Setter;
+
 
 @Service
 public class AuthenticatorService {
@@ -22,6 +24,7 @@ public class AuthenticatorService {
 	private static Logger logger = Logger.getLogger(AuthenticatorService.class);
 
 	@Value("${hdfc.life.authenticate.url}")
+	@Setter
 	private String uri;
 
 	@Autowired
@@ -48,7 +51,7 @@ public class AuthenticatorService {
 			LoggerUtils.debug(logger, "Response::" + response);
 
 		} catch (Exception ce) {
-			logger.error(LoggerUtils.getStackStrace(ce), ce);
+			//logger.error(LoggerUtils.getStackStrace(ce), ce);
 			throw new IRMAuthenticateException("Unable to connect to LDAP");
 		}
 		return response;

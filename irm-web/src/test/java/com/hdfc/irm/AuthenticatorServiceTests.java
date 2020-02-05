@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.exceptions.base.MockitoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -51,6 +52,22 @@ public class AuthenticatorServiceTests {
 		when(loginRepo.save(any(LoginRequestEntity.class))).thenReturn(new LoginRequestEntity());
 		when(restUtilService.callRestService(any(Object.class), any(Class.class), any(String.class)))
 				.thenReturn(authResp);
+		AuthenticateResponse response = authenticatorService.authenticate(request);
+		assertThat(response).isNotNull();
+
+	}
+	
+	@Test(expected=IRMAuthenticateException.class) 
+	public void authenticate_Test_Exception() throws IRMAuthenticateException {
+		AuthenticateRequest request = new AuthenticateRequest();
+		request.setUserid("10793");
+		request.setPassword("HDFC@123");
+		AuthenticateResponse authResp = new AuthenticateResponse();
+		authResp.setUsertype("E");
+
+		
+		when(restUtilService.callRestService(any(Object.class), any(Class.class), any(String.class)))
+				.thenThrow(new RuntimeException("Unable to connect to LDAP"));
 		AuthenticateResponse response = authenticatorService.authenticate(request);
 		assertThat(response).isNotNull();
 

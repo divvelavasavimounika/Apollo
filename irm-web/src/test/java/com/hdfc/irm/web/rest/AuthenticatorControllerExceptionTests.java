@@ -1,7 +1,6 @@
 package com.hdfc.irm.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,19 +27,15 @@ import com.hdfc.irm.web.service.AuthenticatorService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = IrmWebApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT)
-public class AuthenticatorControllerTests {
+public class AuthenticatorControllerExceptionTests {
 	@LocalServerPort
 	private int port;
-	
 	@Autowired
 	private TestRestTemplate restTemplate;
 	private AuthenticateRequest request;
 	@Autowired
 	private Environment environment;
 
-	@Autowired
-	AuthenticatorController authenticationController;
-	
 	@Mock
 	AuthenticatorService service;
 
@@ -54,8 +49,8 @@ public class AuthenticatorControllerTests {
 	@Test
 	public void authenticateTest() throws IRMAuthenticateException {
 		AuthenticateResponse response = new AuthenticateResponse();
-		when(service.authenticate(request)).thenReturn(response);
-
+		service.setUri("http://localhost:1234/invalid");
+		
 		final String baseUrl = "http://localhost:" + port + "/" + environment.getProperty("server.servlet.context-path")
 				+ "/authenticate/";
 		HttpHeaders headers = new HttpHeaders();
@@ -65,6 +60,6 @@ public class AuthenticatorControllerTests {
 		ResponseEntity<DecisionResponse> result = this.restTemplate.postForEntity(baseUrl, entitty,
 				DecisionResponse.class);
 
-		assertThat(result.getStatusCodeValue()).isEqualTo(HttpStatus.OK.value());
+		assertThat(result.getStatusCodeValue()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
 	}
 }
