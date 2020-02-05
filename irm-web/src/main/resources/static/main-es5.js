@@ -1735,11 +1735,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   /***/
   function _(module, exports, __webpack_require__) {
     module.exports = __webpack_require__(
-<<<<<<< HEAD
     /*! C:\JUNIT\hdfc_irm\irm-ui\src\main.ts */
-=======
-    /*! C:\Users\rajendrandr\Feb4\hdfc_irm\irm-ui\src\main.ts */
->>>>>>> 3874412ae2a5b8d51583f843ab61824693559f86
     "./src/main.ts");
     /***/
   }

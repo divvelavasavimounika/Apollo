@@ -6370,13 +6370,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
 __webpack_require__(/*! C:\JUNIT\hdfc_irm\irm-ui\src\polyfills.ts */"./src/polyfills.ts");
 module.exports = __webpack_require__(/*! C:\JUNIT\hdfc_irm\irm-ui\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\jit-polyfills.js */"./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js");
-=======
-__webpack_require__(/*! C:\Users\rajendrandr\Feb4\hdfc_irm\irm-ui\src\polyfills.ts */"./src/polyfills.ts");
-module.exports = __webpack_require__(/*! C:\Users\rajendrandr\Feb4\hdfc_irm\irm-ui\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\jit-polyfills.js */"./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js");
->>>>>>> 3874412ae2a5b8d51583f843ab61824693559f86
 
 
 /***/ })

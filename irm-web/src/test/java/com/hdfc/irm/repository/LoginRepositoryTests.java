@@ -14,7 +14,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.hdfc.irm.entities.LoginRequestEntity;
-import com.hdfc.irm.repository.LoginRepository;
+
+
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
