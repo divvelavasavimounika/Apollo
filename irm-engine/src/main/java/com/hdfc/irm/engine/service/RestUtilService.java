@@ -23,7 +23,6 @@ public class RestUtilService {
 
 	public Object callRestService(Object request, Class<? extends Object> clazz, String url) {
 		Object response;
-
 		RestTemplate restTemplate = new RestTemplate();
 		logger.info("url::" + url);
 		if (url.startsWith("https")) {

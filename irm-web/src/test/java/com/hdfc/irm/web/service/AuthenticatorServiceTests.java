@@ -1,4 +1,4 @@
-package com.hdfc.irm;
+package com.hdfc.irm.web.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -46,7 +46,7 @@ public class AuthenticatorServiceTests {
 		request.setUserid("10793");
 		request.setPassword("HDFC@123");
 		AuthenticateResponse authResp = new AuthenticateResponse();
-		authResp.setUsertype("E");
+//		authResp.setUsertype("E");
 
 		when(loginRepo.save(any(LoginRequestEntity.class))).thenReturn(new LoginRequestEntity());
 		when(restUtilService.callRestService(any(Object.class), any(Class.class), any(String.class)))

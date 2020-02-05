@@ -27,7 +27,7 @@ public class LoginRequestEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 
 	@Column(name = "USER_ID")
 	private String userid;
@@ -49,9 +49,9 @@ public class LoginRequestEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "LoginRequestEntity [id=" + id + ", userid=" + userid + ", password=" + IrmUtils.encodeString(password)
-				+ ", source=" + source + ", device_id=" + device_id + ", build_version_code=" + build_version_code
-				+ ", channel_id=" + channel_id + ", os=" + os + ", time=" + time + "]";
+		return "LoginRequestEntity [id=" + getId() + ", userid=" + getUserid() + ", password=" + IrmUtils.encodeString(getPassword())
+				+ ", source=" + getSource() + ", device_id=" + getDevice_id() + ", build_version_code=" + getBuild_version_code()
+				+ ", channel_id=" + getChannel_id() + ", os=" + getOs() + ", time=" + getTime() + "]";
 	}
 
 }

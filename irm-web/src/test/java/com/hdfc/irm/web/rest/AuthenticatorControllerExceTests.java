@@ -30,7 +30,7 @@ import com.hdfc.irm.web.service.AuthenticatorService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = IrmWebApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT)
-public class AuthenticatorControllerTests {
+public class AuthenticatorControllerExceTests {
 	@LocalServerPort
 	private int port;
 	@Autowired
@@ -38,19 +38,8 @@ public class AuthenticatorControllerTests {
 	private AuthenticateRequest request;
 	@Autowired
 	private Environment environment;
-
-	@Mock
 	@Autowired
 	AuthenticatorService service;
-
-	@InjectMocks
-	@Autowired
-	AuthenticatorController controller;
-
-	@Before
-	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
-	}
 
 	@Before
 	public void setup() {
@@ -60,10 +49,9 @@ public class AuthenticatorControllerTests {
 	}
 
 	@Test
-	public void authenticateTest() throws IRMAuthenticateException {
-		AuthenticateResponse response = new AuthenticateResponse();
-		when(service.authenticate(request)).thenReturn(response);
+	public void authenticateTest_IRMAuthenticateException() throws IRMAuthenticateException {
 
+		service.setUri("http://localhost:1234/invalid");
 		final String baseUrl = "http://localhost:" + port + "/" + environment.getProperty("server.servlet.context-path")
 				+ "/authenticate/";
 		HttpHeaders headers = new HttpHeaders();
@@ -72,7 +60,6 @@ public class AuthenticatorControllerTests {
 		HttpEntity<AuthenticateRequest> entitty = new HttpEntity<AuthenticateRequest>(request, headers);
 		ResponseEntity<DecisionResponse> result = this.restTemplate.postForEntity(baseUrl, entitty,
 				DecisionResponse.class);
-		assertThat(result.getStatusCodeValue()).isEqualTo(HttpStatus.OK.value());
+		assertThat(result.getStatusCodeValue()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
 	}
-
 }
