@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>Application properties in XML format</comment>
+     <entry key="hdfc.life.authenticate.url">https://msit.hdfclife.com/MobilityWrapperWS_SIT/Authenticate</entry>
+    <entry key="server.port">8086</entry>
+    <entry key="server.servlet.contextPath">/irmweb</entry>
+
+    
+    
+    <entry key="auth.request.source">msd</entry>
+    <entry key="auth.request.deviceid">test141</entry>
+    <entry key="auth.request.buildversion">5.9</entry>
+    <entry key="auth.request.channelid">HDFC Bank</entry>
+    <entry key="auth.request.os">iOS</entry>
+    
+    
+    <entry key="spring.datasource.url">jdbc:h2:file:./data/h2.db</entry>
+    <entry key="spring.h2.console.enabled">true</entry>
+    <entry key="spring.h2.console.path">/h2</entry>
+    <entry key="spring.datasource.username">sa</entry>
+    <entry key="spring.datasource.password"></entry>
+    <entry key="spring.datasource.driverClassName">org.h2.Driver</entry>
+    <entry key="spring.jpa.database-platform">org.hibernate.dialect.H2Dialect</entry>
+
+    
+</properties>

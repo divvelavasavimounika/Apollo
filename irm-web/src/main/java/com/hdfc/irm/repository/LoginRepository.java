@@ -7,6 +7,6 @@ import com.hdfc.irm.entities.LoginRequestEntity;
 
 
 @Repository
-public interface LoginRepository extends JpaRepository<LoginRequestEntity, String> {
+public interface LoginRepository extends JpaRepository<LoginRequestEntity, Long> {
 
 }
