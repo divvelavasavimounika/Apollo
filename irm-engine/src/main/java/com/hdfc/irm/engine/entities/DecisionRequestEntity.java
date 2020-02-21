@@ -20,6 +20,7 @@ public class DecisionRequestEntity implements Serializable {
 	private static final long serialVersionUID = -8426076057721123981L;
 
 	@Id
+	@Column(name = "DECISION_REQUEST_ID")
 	private String requestId;
 	@Column(name = "EMP_NTID")
 	private String employeeNTId;

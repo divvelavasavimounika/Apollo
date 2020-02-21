@@ -1,0 +1,389 @@
+{
+    "merchant": {
+        "webhookEndpointURL": "",
+        "responseType": "",
+        "responseEndpointURL": "",
+        "description": "",
+        "identifier": "PNY",
+        "cardRegPGMID": "",
+        "TxnPGMID": "PNY",
+        "webhookType": "",
+        "aspMasterId": ""
+    },
+    "consumer": {
+        "name": "",
+        "mobileNumber": "9890055472",
+        "emailID": "dinesh.joshi@techprocess.co.in",
+        "identifier": "",
+        "paynimoCustRegId": "",
+        "accouontNo": "",
+        "hashURL": "",
+        "invitationCode": "",
+        "custSecurityQuestID": "",
+        "custSecurityAns": "",
+        "custSecretKey": "",
+        "custRegStatus": "",
+        "custType": "",
+        "roleId": "",
+        "consumerAlias": [
+            {
+                "custAlias": "",
+                "custAliasId": "",
+                "custAliasType": "",
+                "custAliasSource": ""
+            }
+        ]
+    },
+    "order": {
+        "cart": {
+            "item": [
+                {
+                    "description": "",
+                    "providerIdentifier": "",
+                    "surchargeOrDiscountAmount": "",
+                    "amount": "",
+                    "sku": "",
+                    "reference": "",
+                    "identifier": "",
+                    "comAmt": null
+                }
+            ],
+            "reference": "",
+            "identifier": "",
+            "description": "",
+            "Amount": null
+        }
+    },
+    "transaction": {
+        "deviceIdentifier": "",
+        "channelType": "WEB",
+        "channelName": "RIB",
+        "utm_source": "",
+        "utm_medium": "",
+        "utm_term": "",
+        "utm_content": "",
+        "utm_campaign": "",
+        "smsSending": "",
+        "amount": "1.00",
+        "forced3DSCall": "",
+        "type": "006",
+        "description": "NA",
+        "currency": "",
+        "isRegistration": "",
+        "identifier": "",
+        "dateTime": "",
+        "token": "NA",
+        "subType": "001",
+        "requestType": "FD",
+        "action": "",
+        "reference": "NA",
+        "txnErrorDesc": "Merchant Account details are not available",
+        "payment": {
+            "method": {
+                "token": "",
+                "type": ""
+            },
+            "sender": {
+                "paynimoSenderAliasToken": "",
+                "paynimoSenderName": "",
+                "paynimoSenderInstrumentToken": "",
+                "paynimoSenderInstrumentNumber": "",
+                "paynimoSendTxnID": "",
+                "paynimoSendTxnStatus": "",
+                "instrument": {
+                    "expiry": {
+                        "year": "",
+                        "month": "",
+                        "dateTime": ""
+                    },
+                    "provider": "",
+                    "iFSC": "",
+                    "holder": {
+                        "name": "",
+                        "address": {
+                            "country": "",
+                            "street": "",
+                            "state": "",
+                            "city": "",
+                            "zipCode": "",
+                            "county": ""
+                        },
+                        "mobileNumber": null
+                    },
+                    "bic": "",
+                    "type": "",
+                    "action": "",
+                    "micr": "",
+                    "verificationCode": "",
+                    "iban": "",
+                    "processor": "",
+                    "issuance": {
+                        "year": "",
+                        "month": "",
+                        "dateTime": ""
+                    },
+                    "toVault": "",
+                    "alias": "",
+                    "identifier": "",
+                    "token": "",
+                    "authentication": {
+                        "token": "",
+                        "type": "",
+                        "subType": ""
+                    },
+                    "subType": "",
+                    "issuer": "",
+                    "acquirer": ""
+                }
+            },
+            "receiver": {
+                "paynimoReceiverAliasToken": "",
+                "paynimoBeneficiaryName": "",
+                "paynimoBeneficiaryInstrumentToken": "",
+                "paynimoBeneficiaryInstrumentNumber": "",
+                "paynimoSenderSourceOfFunds": "",
+                "paynimoReceiveTxnID": "",
+                "paynimoReceiveTxnStatus": "",
+                "name": "Praveen",
+                "paynimoBeneficiaryEmail": null,
+                "instrument": {
+                    "expiry": {
+                        "year": "",
+                        "month": "",
+                        "dateTime": ""
+                    },
+                    "provider": "",
+                    "iFSC": "ICIC0000036",
+                    "holder": {
+                        "name": "Santosh",
+                        "address": {
+                            "country": "",
+                            "street": "",
+                            "state": "",
+                            "city": "",
+                            "zipCode": "",
+                            "county": ""
+                        },
+                        "mobileNumber": null
+                    },
+                    "bic": "",
+                    "type": "",
+                    "action": "",
+                    "micr": "",
+                    "verificationCode": "",
+                    "iban": "",
+                    "processor": "",
+                    "issuance": {
+                        "year": "",
+                        "month": "",
+                        "dateTime": ""
+                    },
+                    "toVault": "",
+                    "alias": "",
+                    "identifier": "003601540237",
+                    "token": "",
+                    "authentication": {
+                        "token": "",
+                        "type": "",
+                        "subType": ""
+                    },
+                    "subType": "",
+                    "issuer": "A",
+                    "acquirer": ""
+                }
+            },
+            "instrument": {
+                "expiry": {
+                    "year": "",
+                    "month": "",
+                    "dateTime": ""
+                },
+                "provider": "",
+                "iFSC": "",
+                "holder": {
+                    "name": "",
+                    "address": {
+                        "country": "",
+                        "street": "",
+                        "state": "",
+                        "city": "",
+                        "zipCode": "",
+                        "county": ""
+                    },
+                    "mobileNumber": null
+                },
+                "bic": "",
+                "type": "",
+                "action": "",
+                "micr": "",
+                "verificationCode": "",
+                "iban": "",
+                "processor": "",
+                "issuance": {
+                    "year": "",
+                    "month": "",
+                    "dateTime": ""
+                },
+                "toVault": "",
+                "alias": "",
+                "identifier": "",
+                "token": "",
+                "authentication": {
+                    "token": "",
+                    "type": "",
+                    "subType": ""
+                },
+                "subType": "",
+                "issuer": "",
+                "acquirer": ""
+            },
+            "instruction": {
+                "occurrence": "",
+                "amount": "",
+                "frequency": "",
+                "type": "",
+                "description": "",
+                "action": "",
+                "limit": "",
+                "endDateTime": "",
+                "identifier": "",
+                "reference": "",
+                "startDateTime": "",
+                "validity": ""
+            }
+        },
+        "securityToken": null,
+        "merchantRefNo": null,
+        "txnErrorCode": "PNYERR000"
+    },
+    "payment": {
+        "method": {
+            "token": "",
+            "type": ""
+        },
+        "sender": {
+            "paynimoSenderAliasToken": "",
+            "paynimoSenderName": "",
+            "paynimoSenderInstrumentToken": "",
+            "paynimoSenderInstrumentNumber": "",
+            "paynimoSendTxnID": "",
+            "paynimoSendTxnStatus": "",
+            "instrument": {
+                "expiry": {
+                    "year": "",
+                    "month": "",
+                    "dateTime": ""
+                },
+                "provider": "",
+                "iFSC": "",
+                "holder": {
+                    "name": "",
+                    "address": {
+                        "country": "",
+                        "street": "",
+                        "state": "",
+                        "city": "",
+                        "zipCode": "",
+                        "county": ""
+                    },
+                    "mobileNumber": null
+                },
+                "bic": "",
+                "type": "",
+                "action": "",
+                "micr": "",
+                "verificationCode": "",
+                "iban": "",
+                "processor": "",
+                "issuance": {
+                    "year": "",
+                    "month": "",
+                    "dateTime": ""
+                },
+                "toVault": "",
+                "alias": "",
+                "identifier": "",
+                "token": "",
+                "authentication": {
+                    "token": "",
+                    "type": "",
+                    "subType": ""
+                },
+                "subType": "",
+                "issuer": "",
+                "acquirer": ""
+            }
+        },
+        "receiver": {
+            "paynimoReceiverAliasToken": "",
+            "paynimoBeneficiaryName": "",
+            "paynimoBeneficiaryInstrumentToken": "",
+            "paynimoBeneficiaryInstrumentNumber": "",
+            "paynimoSenderSourceOfFunds": "",
+            "paynimoReceiveTxnID": "",
+            "paynimoReceiveTxnStatus": "",
+            "name": null,
+            "paynimoBeneficiaryEmail": null,
+            "instrument": null
+        },
+        "instrument": {
+            "expiry": {
+                "year": "",
+                "month": "",
+                "dateTime": ""
+            },
+            "provider": "",
+            "iFSC": "",
+            "holder": {
+                "name": "",
+                "address": {
+                    "country": "",
+                    "street": "",
+                    "state": "",
+                    "city": "",
+                    "zipCode": "",
+                    "county": ""
+                },
+                "mobileNumber": null
+            },
+            "bic": "",
+            "type": "",
+            "action": "",
+            "micr": "",
+            "verificationCode": "",
+            "iban": "",
+            "processor": "",
+            "issuance": {
+                "year": "",
+                "month": "",
+                "dateTime": ""
+            },
+            "toVault": "",
+            "alias": "",
+            "identifier": "",
+            "token": "",
+            "authentication": {
+                "token": "",
+                "type": "",
+                "subType": ""
+            },
+            "subType": "",
+            "issuer": "",
+            "acquirer": ""
+        },
+        "instruction": {
+            "occurrence": "",
+            "amount": "",
+            "frequency": "",
+            "type": "",
+            "description": "",
+            "action": "",
+            "limit": "",
+            "endDateTime": "",
+            "identifier": "",
+            "reference": "",
+            "startDateTime": "",
+            "validity": ""
+        }
+    }
+}

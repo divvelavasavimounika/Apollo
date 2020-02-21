@@ -5,6 +5,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hdfc.irm.app.exception.PennyDropApiException;
+import com.hdfc.irm.engine.constants.NameMatchType;
 import com.hdfc.irm.engine.entities.DecisionRequestEntity;
 import com.hdfc.irm.engine.model.DecisionRequest;
 import com.hdfc.irm.engine.model.DecisionResponse;
@@ -26,21 +28,17 @@ public class DecisionService {
 	NameMatcher nameMatcher;
 	@Autowired
 	AuditDecisionRepository auditDecisionRepository;
-
 	@Autowired
 	ApplicationProperties properties;
+	@Autowired
+	PennyDropService pennyService;
 
 	public DecisionResponse calculateDecision(DecisionRequest request) {
 		logger.info("Requests recieved with ntID:" + request.getEmployeeNTId());
 		LoggerUtils.debug(logger, request.toString());
 		DecisionResponse response = null;
 
-		// get cust details from db against policy id/custid
-		String nameFromDB = "";
-		callPennyDropApi();
-		String nameFromPNYApi = "";
-		// calculate name match and set
-		String nameMatchStatus = nameMatcher.performNameMatch(nameFromDB, nameFromPNYApi);
+		String nameMatchStatus = calculateNameMatchStatus(request);
 		logger.info("Calculated Name match status:" + nameMatchStatus);
 		DecisionRequestEntity entity = new DecisionRequestEntity();
 		entity.setNameMatchStatus(nameMatchStatus);
@@ -67,9 +65,23 @@ public class DecisionService {
 		entity.setUpperBoundAmount(properties.getUpperBoundAmount());
 	}
 
-	public void callPennyDropApi() {
-		// penny drop api call
-		// audit penny drop request and response
+	public String calculateNameMatchStatus(DecisionRequest request) {
+		return nameMatcher.performNameMatch(null, null);
+	}
+
+	public String _calculateNameMatchStatus(DecisionRequestEntity request) {
+		// get cust details from db against policy id/custid -1
+		String nameMatchStatus = NameMatchType.FULL_MATCH;
+		String nameFromDB = "";
+		String nameFromPNYApi = "";
+		try {
+			nameFromPNYApi = pennyService.callPennyDropApi(null, null, request.getRequestId());
+			// calculate name match -2
+			nameMatchStatus = nameMatcher.performNameMatch(nameFromDB, nameFromPNYApi);
+		} catch (PennyDropApiException e) {
+			logger.warn("Penny drop api call failed due to : " + e.getMessage());
+		}
+		return nameMatchStatus;
 	}
 
 	private DecisionResponse buildResponse(String decision) {

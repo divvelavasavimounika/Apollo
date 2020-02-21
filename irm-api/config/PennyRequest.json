@@ -1,0 +1,376 @@
+{
+  "merchant": {
+    "webhookEndpointURL": "",
+    "responseType": "",
+    "responseEndpointURL": "",
+    "description": "",
+    "identifier": "@@IDENTIFIER@@",
+    "cardRegPGMID": "",
+    "TxnPGMID": "@@TXNPGMID@@",
+    "webhookType": "",
+    "aspMasterId": ""
+  },
+  "order": {
+    "cart": {
+      "item": [
+        {
+          "description": "",
+          "providerIdentifier": "",
+          "surchargeOrDiscountAmount": "",
+          "amount": "",
+          "sku": "",
+          "reference": "",
+          "identifier": ""
+        }
+      ],
+      "reference": "",
+      "identifier": "",
+      "description": ""
+    }
+  },
+  "payment": {
+    "method": {
+      "token": "",
+      "type": ""
+    },
+    "sender": {
+      "paynimoSenderAliasToken": "",
+      "paynimoSenderName": "",
+      "paynimoSenderInstrumentToken": "",
+      "paynimoSenderInstrumentNumber": "",
+      "paynimoSendTxnID": "",
+      "paynimoSendTxnStatus": "",
+      "instrument": {
+        "expiry": {
+          "year": "",
+          "month": "",
+          "dateTime": ""
+        },
+        "provider": "",
+        "iFSC": "",
+        "holder": {
+          "name": "",
+          "address": {
+            "country": "",
+            "street": "",
+            "state": "",
+            "city": "",
+            "zipCode": "",
+            "county": ""
+          }
+        },
+        "bic": "",
+        "type": "",
+        "action": "",
+        "micr": "",
+        "verificationCode": "",
+        "iban": "",
+        "processor": "",
+        "issuance": {
+          "year": "",
+          "month": "",
+          "dateTime": ""
+        },
+        "toVault": "",
+        "alias": "",
+        "identifier": "",
+        "token": "",
+        "authentication": {
+          "token": "",
+          "type": "",
+          "subType": ""
+        },
+        "subType": "",
+        "issuer": "",
+        "acquirer": ""
+      }
+    },
+    "receiver": {
+      "paynimoReceiverAliasToken": "",
+      "paynimoBeneficiaryName": "",
+      "paynimoBeneficiaryInstrumentToken": "",
+      "paynimoBeneficiaryInstrumentNumber": "",
+      "paynimoSenderSourceOfFunds": "",
+      "paynimoReceiveTxnID": "",
+      "paynimoReceiveTxnStatus": ""
+    },
+    "instrument": {
+      "expiry": {
+        "year": "",
+        "month": "",
+        "dateTime": ""
+      },
+      "provider": "",
+      "iFSC": "",
+      "holder": {
+        "name": "",
+        "address": {
+          "country": "",
+          "street": "",
+          "state": "",
+          "city": "",
+          "zipCode": "",
+          "county": ""
+        }
+      },
+      "bic": "",
+      "type": "",
+      "action": "",
+      "micr": "",
+      "verificationCode": "",
+      "iban": "",
+      "processor": "",
+      "issuance": {
+        "year": "",
+        "month": "",
+        "dateTime": ""
+      },
+      "toVault": "",
+      "alias": "",
+      "identifier": "",
+      "token": "",
+      "authentication": {
+        "token": "",
+        "type": "",
+        "subType": ""
+      },
+      "subType": "",
+      "issuer": "",
+      "acquirer": ""
+    },
+    "instruction": {
+      "occurrence": "",
+      "amount": "",
+      "frequency": "",
+      "type": "",
+      "description": "",
+      "action": "",
+      "limit": "",
+      "endDateTime": "",
+      "identifier": "",
+      "reference": "",
+      "startDateTime": "",
+      "validity": ""
+    }
+  },
+  "transaction": {
+    "deviceIdentifier": "",
+    "channelType": "WEB",
+    "channelName": "RIB",
+    "utm_source": "",
+    "utm_medium": "",
+    "utm_term": "",
+    "utm_content": "",
+    "utm_campaign": "",
+    "smsSending": "",
+    "amount": "1.00",
+    "forced3DSCall": "",
+    "type": "006",
+    "description": "test transaction",
+    "currency": "",
+    "isRegistration": "",
+    "identifier": "",
+    "dateTime": "",
+    "token": "",
+    "txnErrorDesc": "",
+    "txnErrorCode": "",
+    "subType": "001",
+    "requestType": "FD",
+    "action": "",
+    "reference": @@REFNO@@,
+    "payment": {
+      "method": {
+        "token": "",
+        "type": ""
+      },
+      "sender": {
+        "paynimoSenderAliasToken": "",
+        "paynimoSenderName": "",
+        "paynimoSenderInstrumentToken": "",
+        "paynimoSenderInstrumentNumber": "",
+        "paynimoSendTxnID": "",
+        "paynimoSendTxnStatus": "",
+        "instrument": {
+          "expiry": {
+            "year": "",
+            "month": "",
+            "dateTime": ""
+          },
+          "provider": "",
+          "iFSC": "",
+          "holder": {
+            "name": "",
+            "address": {
+              "country": "",
+              "street": "",
+              "state": "",
+              "city": "",
+              "zipCode": "",
+              "county": ""
+            }
+          },
+          "bic": "",
+          "type": "",
+          "action": "",
+          "micr": "",
+          "verificationCode": "",
+          "iban": "",
+          "processor": "",
+          "issuance": {
+            "year": "",
+            "month": "",
+            "dateTime": ""
+          },
+          "toVault": "",
+          "alias": "",
+          "identifier": "",
+          "token": "",
+          "authentication": {
+            "token": "",
+            "type": "",
+            "subType": ""
+          },
+          "subType": "",
+          "issuer": "",
+          "acquirer": ""
+        }
+      },
+      "receiver": {
+        "paynimoReceiverAliasToken": "",
+        "paynimoBeneficiaryName": "",
+        "paynimoBeneficiaryInstrumentToken": "",
+        "paynimoBeneficiaryInstrumentNumber": "",
+        "paynimoSenderSourceOfFunds": "",
+        "paynimoReceiveTxnID": "",
+        "paynimoReceiveTxnStatus": "",
+        "name": "Praveen",
+        "instrument": {
+          "expiry": {
+            "year": "",
+            "month": "",
+            "dateTime": ""
+          },
+          "provider": "",
+          "iFSC": "@@IFSC@@",
+          "holder": {
+            "name": "Santosh",
+            "address": {
+              "country": "",
+              "street": "",
+              "state": "",
+              "city": "",
+              "zipCode": "",
+              "county": ""
+            }
+          },
+          "bic": "",
+          "type": "",
+          "action": "",
+          "micr": "",
+          "verificationCode": "",
+          "iban": "",
+          "processor": "",
+          "issuance": {
+            "year": "",
+            "month": "",
+            "dateTime": ""
+          },
+          "toVault": "",
+          "alias": "",
+          "identifier": "@@RECEIVERID@@",
+          "token": "",
+          "authentication": {
+            "token": "",
+            "type": "",
+            "subType": ""
+          },
+          "subType": "",
+          "issuer": "A",
+          "acquirer": ""
+        }
+      },
+      "instrument": {
+        "expiry": {
+          "year": "",
+          "month": "",
+          "dateTime": ""
+        },
+        "provider": "",
+        "iFSC": "",
+        "holder": {
+          "name": "",
+          "address": {
+            "country": "",
+            "street": "",
+            "state": "",
+            "city": "",
+            "zipCode": "",
+            "county": ""
+          }
+        },
+        "bic": "",
+        "type": "",
+        "action": "",
+        "micr": "",
+        "verificationCode": "",
+        "iban": "",
+        "processor": "",
+        "issuance": {
+          "year": "",
+          "month": "",
+          "dateTime": ""
+        },
+        "toVault": "",
+        "alias": "",
+        "identifier": "",
+        "token": "",
+        "authentication": {
+          "token": "",
+          "type": "",
+          "subType": ""
+        },
+        "subType": "",
+        "issuer": "",
+        "acquirer": ""
+      },
+      "instruction": {
+        "occurrence": "",
+        "amount": "",
+        "frequency": "",
+        "type": "",
+        "description": "",
+        "action": "",
+        "limit": "",
+        "endDateTime": "",
+        "identifier": "",
+        "reference": "",
+        "startDateTime": "",
+        "validity": ""
+      }
+    }
+  },
+  "consumer": {
+    "name": "",
+    "mobileNumber": @@MOBILENUMBER@@,
+    "emailID": "@@EMAIL@@",
+    "identifier": "",
+    "paynimoCustRegId": "",
+    "accouontNo": "",
+    "hashURL": "",
+    "invitationCode": "",
+    "custSecurityQuestID": "",
+    "custSecurityAns": "",
+    "custSecretKey": "",
+    "custRegStatus": "",
+    "custType": "",
+    "roleId": "",
+    "consumerAlias": [
+      {
+        "custAlias": "",
+        "custAliasId": "",
+        "custAliasType": "",
+        "custAliasSource": ""
+      }
+    ]
+  }
+}

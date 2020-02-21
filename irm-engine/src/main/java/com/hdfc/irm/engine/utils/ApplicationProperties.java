@@ -21,8 +21,18 @@ public class ApplicationProperties {
 
 	@Value("${payout.lowerBoundAmount:0}")
 	private double lowerBoundAmount;
-
 	@Value("${payout.upperBoundAmount:0}")
 	private double upperBoundAmount;
+
+	@Value("${penny.api.url:}")
+	private String pennyApiUrl;
+	@Value("${penny.merchant.identifier:}")
+	private String pennyMerchantId;
+	@Value("${penny.merchant.txnpgmid:}")
+	private String pennyMerchantTxnId;
+	@Value("${penny.consumer.mobile:}")
+	private String pennyConsumerMobile;
+	@Value("${penny.consumer.email:}")
+	private String pennyConsumerEmail;
 
 }

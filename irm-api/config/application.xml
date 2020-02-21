@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <comment>Application properties in XML format</comment>
+	<comment>Application properties in XML format</comment>
 
-    <entry key="server.port">8085</entry>
-    <entry key="server.servlet.contextPath">/irmapi</entry>
+	<entry key="server.port">8085</entry>
+	<entry key="server.servlet.contextPath">/irmapi</entry>
 
-    <entry key="payout.lowerBoundAmount">500000</entry>
-    <entry key="payout.upperBoundAmount">700000</entry>
-    
-    <entry key="spring.datasource.url">jdbc:h2:file:./data/h2.db</entry>
-    <entry key="spring.h2.console.enabled">true</entry>
-    <entry key="spring.h2.console.path">/h2</entry>
-    <entry key="spring.datasource.username">sa</entry>
-    <entry key="spring.datasource.password"></entry>
-    <entry key="spring.datasource.driverClassName">org.h2.Driver</entry>
-    <entry key="spring.jpa.database-platform">org.hibernate.dialect.H2Dialect</entry>
+	<entry key="payout.lowerBoundAmount">500000</entry>
+	<entry key="payout.upperBoundAmount">700000</entry>
 
-    
+	<entry key="spring.datasource.url">jdbc:h2:file:./data/h2.db</entry>
+	<entry key="spring.h2.console.enabled">true</entry>
+	<entry key="spring.h2.console.path">/h2</entry>
+	<entry key="spring.datasource.username">sa</entry>
+	<entry key="spring.datasource.password"></entry>
+	<entry key="spring.datasource.driverClassName">org.h2.Driver</entry>
+	<entry key="spring.jpa.database-platform">org.hibernate.dialect.H2Dialect</entry>
+
+	<entry key="penny.merchant.identifier">PNY</entry>
+	<entry key="penny.merchant.txnpgmid">PNY</entry>
+	<entry key="penny.consumer.mobile">1234567890</entry>
+	<entry key="penny.consumer.email">abc@test.com</entry>
+	<entry key="penny.api.url">https://www.paynimo.com/api/sendreceivemoney.jsp</entry>
+
 </properties>
