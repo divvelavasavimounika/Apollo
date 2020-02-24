@@ -23,4 +23,11 @@
 	<entry key="penny.consumer.email">abc@test.com</entry>
 	<entry key="penny.api.url">https://www.paynimo.com/api/sendreceivemoney.jsp</entry>
 
+
+	<entry key="spring.datasource.ext.url">jdbc:mysql://hddmdivvela:3306/test</entry>
+	<entry key="spring.datasource.ext.username">root</entry>
+	<entry key="spring.datasource.ext.password">root</entry>
+	<entry key="spring.datasource.ext.driver-class-name">com.mysql.cj.jdbc.Driver</entry>
+	<entry key="customer.details.query">select * from CUSTOMER_DETAILS</entry>
+
 </properties>

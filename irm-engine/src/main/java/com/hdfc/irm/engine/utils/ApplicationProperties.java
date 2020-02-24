@@ -35,4 +35,7 @@ public class ApplicationProperties {
 	@Value("${penny.consumer.email:}")
 	private String pennyConsumerEmail;
 
+	@Value("${customer.details.query:}")
+	private String customerDetatilsQuery;
+
 }
