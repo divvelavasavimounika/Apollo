@@ -1,6 +1,7 @@
 package com.hdfc.irm.app.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,13 +26,19 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	protected ResponseEntity<Object> handleConnectException(Throwable ex, WebRequest request) {
 		logger.error(LoggerUtils.getStackStrace(ex));
-		return buildResponseEntity(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage()));
+		return buildResponseEntity(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Please contact administrator"));
+	}
+
+	@ExceptionHandler(EmptyResultDataAccessException.class)
+	protected ResponseEntity<Object> handleEmptyResult(Throwable ex, WebRequest request) {
+		logger.error(ex.getMessage());
+		return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, "Policy Id not available in data base"));
 	}
 
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
-
+		logger.error(ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage());
 		ApiError error = new ApiError(status, ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage());
 		return buildResponseEntity(error);
 

@@ -18,9 +18,9 @@
 	<entry key="spring.jpa.database-platform">org.hibernate.dialect.H2Dialect</entry>
 
 	<entry key="penny.merchant.identifier">PNY</entry>
-	<entry key="penny.merchant.txnpgmid">PNY</entry>
-	<entry key="penny.consumer.mobile">1234567890</entry>
-	<entry key="penny.consumer.email">abc@test.com</entry>
+	<entry key="penny.merchant.txnpgmid">T513367</entry>
+	<entry key="penny.consumer.mobile">9890055472</entry>
+	<entry key="penny.consumer.email">dinesh.joshi@techprocess.co.in</entry>
 	<entry key="penny.api.url">https://www.paynimo.com/api/sendreceivemoney.jsp</entry>
 
 
@@ -28,6 +28,6 @@
 	<entry key="spring.datasource.ext.username">root</entry>
 	<entry key="spring.datasource.ext.password">root</entry>
 	<entry key="spring.datasource.ext.driver-class-name">com.mysql.cj.jdbc.Driver</entry>
-	<entry key="customer.details.query">select * from CUSTOMER_DETAILS</entry>
+	<entry key="customer.details.query">select * from CUSTOMER_DETAILS where POLICY_NUMBER=?</entry>
 
 </properties>

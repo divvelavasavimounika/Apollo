@@ -20,8 +20,10 @@ public class CustomerRepository {
 	private ApplicationProperties properties;
 
 	public CustomerDetails findByCustomerPolicyId(String policyId) {
-		return jdbcTemplate.queryForObject(properties.getCustomerDetatilsQuery(), new Object[] { policyId },
+		CustomerDetails customerDetails=new CustomerDetails("TestName","ICIC0000036","003601540237","1234");
+		return customerDetails;
+		/*return jdbcTemplate.queryForObject(properties.getCustomerDetatilsQuery(), new Object[] { policyId },
 				(rs, rownum) -> new CustomerDetails(rs.getString("CUSTOMER_NAME"), rs.getString("IFSC_CODE"),
-						rs.getString("BANK_ACCOUNT_NUMBER"), rs.getString("POLICY_NUMBER")));
+						rs.getString("BANK_ACCOUNT_NUMBER"), rs.getString("POLICY_NUMBER")));*/
 	}
 }

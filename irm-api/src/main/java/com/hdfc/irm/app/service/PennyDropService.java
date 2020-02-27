@@ -75,12 +75,15 @@ public class PennyDropService {
 			String request = pennyDropRequestString;
 			request = StringUtils.replace(request, "@@IFSC@@", ifsc);
 			request = StringUtils.replace(request, "@@RECEIVERID@@", accountNumber);
+			request = StringUtils.replace(request, "@@REFNO@@", "" + requestEntity.getTxnReference());
+			LoggerUtils.debug(logger, "penny drop request::" + request);
 			String response = (String) restService.callRestService(request, String.class, properties.getPennyApiUrl());
+			LoggerUtils.debug(logger, "penny drop response::" + response);
 			retriveCustomerName(requestEntity, response);
 
 			if (!requestEntity.getTxnErrorCode().equals("PNYERR000")) {
-				throw new PennyDropApiException(
-						"Penny drop api returned " + requestEntity.getTxnErrorCode() + ": expected PNYERR000");
+				throw new PennyDropApiException("Penny drop api returned " + requestEntity.getTxnErrorCode() + ":"
+						+ requestEntity.getTxnErrorCode());
 			} else {
 				customerName = requestEntity.getCustomerName();
 			}

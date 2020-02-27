@@ -86,6 +86,7 @@ public class DecisionService {
 			nameMatchStatus = nameMatcher.performNameMatch(customerDetails.getCustomerName(), nameFromPNYApi);
 		} catch (PennyDropApiException e) {
 			logger.warn("Penny drop api call failed due to : " + e.getMessage());
+			logger.info("Since penny drop api got failed considering nameMatchStatus as :"+nameMatchStatus);
 		}
 		return nameMatchStatus;
 	}
