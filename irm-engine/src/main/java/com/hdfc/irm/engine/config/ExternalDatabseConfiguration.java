@@ -1,4 +1,4 @@
-package com.hdfc.irm.engine.constants;
+package com.hdfc.irm.engine.config;
 
 import javax.sql.DataSource;
 
