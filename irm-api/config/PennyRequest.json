@@ -177,7 +177,7 @@
     "subType": "001",
     "requestType": "FD",
     "action": "",
-    "reference": @@REFNO@@,
+    "reference": "@@REFNO@@",
     "payment": {
       "method": {
         "token": "",
@@ -351,7 +351,7 @@
   },
   "consumer": {
     "name": "",
-    "mobileNumber": @@MOBILENUMBER@@,
+    "mobileNumber": "@@MOBILENUMBER@@",
     "emailID": "@@EMAIL@@",
     "identifier": "",
     "paynimoCustRegId": "",
